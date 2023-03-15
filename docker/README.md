@@ -1,5 +1,5 @@
-1. https://github.com/phamnhunhattruong24072001/comic.git
-
+1. git clone https://github.com/phamnhunhattruong24072001/comic.git
+   checkout branch "master" => git pull
 2. cd docker
    - run            "docker compose build --no-cache"
    - run            "docker compose up -d"

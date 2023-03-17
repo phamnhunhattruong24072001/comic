@@ -26,6 +26,5 @@
     </div>
 
     @include('admin.layouts.script')
-	
   </body>
 </html>

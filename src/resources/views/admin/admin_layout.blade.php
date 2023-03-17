@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin Client</title>
-</head>
-<body>
-    @yield('content')
-</body>
+  
+  @include('admin.layouts.head')
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        
+         @include('admin.layouts.sidebar')
+
+        <!-- top navigation -->
+         @include('admin.layouts.navigation')
+        <!-- /top navigation -->
+
+        <!-- /content -->
+        <div class="right_col" role="main">
+            @yield('content')
+        </div>
+        <!-- /end content -->
+
+        <!-- footer content -->
+        @include('admin.layouts.footer')
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    @include('admin.layouts.script')
+	
+  </body>
 </html>

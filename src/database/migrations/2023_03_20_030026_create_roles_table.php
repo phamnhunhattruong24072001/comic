@@ -12,14 +12,9 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('categories', function(Blueprint $table) {
+		Schema::create('roles', function(Blueprint $table) {
             $table->increments('id');
-			$table->string('name');
-			$table->text('short_description');
-			$table->text('long_description');
-			$table->integer('parent_id');
-            $table->timestamps();
-			$table->softDeletes();
+            $table->string('name');       
 		});
 	}
 
@@ -30,6 +25,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('categories');
+		Schema::drop('roles');
 	}
 };

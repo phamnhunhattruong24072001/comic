@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+table.info-table {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  width: 80%;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.info-table__table-cell, .info-table__header-cell {
+  border: 1px solid #E8E8E8;
+  padding: 5px;
+}
+
+.info-table__table-cell--is-centered {
+  text-align: center;
+}
+
+.fa {
+  font-size: 22px;
+}
+
+.fa-check-circle {
+  color: #49AE59;
+}
+
+.fa-times-circle {
+  color: #E33134;
+}

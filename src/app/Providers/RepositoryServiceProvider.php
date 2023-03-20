@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\CategoryRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -14,8 +13,12 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(\App\Repositories\Contracts\UserRepository::class, \App\Repositories\Eloquents\UserRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\Contracts\PermissionRepository::class, \App\Repositories\Eloquents\PermissionRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\Contracts\RoleRepository::class, \App\Repositories\Eloquents\RoleRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\Contracts\UserRoleRepository::class, \App\Repositories\Eloquents\UserRoleRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\Contracts\PermissionRoleRepository::class, \App\Repositories\Eloquents\PermissionRoleRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\Contracts\CategoryRepository::class, \App\Repositories\Eloquents\CategoryRepositoryEloquent::class);
-        $this->app->bind(\App\Repositories\Contracts\AdminRepository::class, \App\Repositories\Eloquents\AdminRepositoryEloquent::class);
     }
 
     /**

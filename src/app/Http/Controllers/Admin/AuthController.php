@@ -26,6 +26,11 @@ class AuthController extends Controller
        return redirect()->back()->with('error', 'Email or Password is not true');
     }
 
+    public function profile()
+    {
+        return view('admin.auth.profile');
+    }
+
     public function logout()
     {
         Auth::guard('admin')->logout();

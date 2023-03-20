@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class AdminTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,11 +15,12 @@ class AdminTableSeeder extends Seeder
     {
         $data = [
             'name' => 'Truong Admin',
-            'username' => 'admintruong',
+            'username' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin123456'),
+            'password' => bcrypt('123456'),
             'is_visible' => 1,
+            'role' => 'admin',
         ];
-        \DB::table('admins')->insert($data);
+        \DB::table('users')->insert($data);
     }
 }

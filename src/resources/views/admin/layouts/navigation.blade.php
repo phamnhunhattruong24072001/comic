@@ -19,7 +19,6 @@
               <a class="dropdown-item"  href="{{ route('admin.logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
             </div>
           </li>
-
           <li role="presentation" class="nav-item dropdown open">
             <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-envelope-o"></i>
@@ -84,6 +83,17 @@
               </li>
             </ul>
           </li>
+            <li class="content-language nav-item mr-2">
+                @if(app('systemLanguage') == config('const.system.language.vi'))
+                    <a href="{{ route('system.language', config('const.system.language.en')) }}">
+                        <img src="{{ asset('system/image/co-vi.png') }}" alt="" width="30" height="25">
+                    </a>
+                @else
+                    <a href="{{ route('system.language', config('const.system.language.vi')) }}">
+                        <img src="{{ asset('system/image/co-en.jpg') }}" alt="" width="30" height="25">
+                    </a>
+                @endif
+            </li>
         </ul>
       </nav>
     </div>

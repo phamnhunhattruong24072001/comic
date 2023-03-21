@@ -10,4 +10,10 @@ return [
             'user' => 'user',
         ],
     ],
+    'system' => [
+        'language' => [
+            'vi' => 'vi',
+            'en' => 'en',
+        ],
+    ],
 ];

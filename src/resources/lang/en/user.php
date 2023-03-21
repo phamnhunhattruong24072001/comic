@@ -1,11 +1,19 @@
 <?php
 
 return [
-    'list_title' => 'Quản lý admin',
-    'name' => 'Tên',
-    'username' => 'Tên đăng nhập',
+    'list_title' => 'Manager Admin',
+    'create_title' => 'Create Admin',
+    'name' => 'Name',
+    'username' => 'Username',
     'email' => 'Email',
-    'birth_day' => 'Ngày sinh',
-    'status' => 'Trạng thái',
-    'auth' => 'Phân quyền',
+    'birth_day' => 'Birth Day',
+    'address' => 'Address',
+    'avatar' => 'Avatar',
+    'status' => 'Status',
+    'auth' => 'Permission',
+    'gender' => 'Gender',
+    'genders' => [
+        'male' => 'Male',
+        'female' => 'Female'
+    ]
 ];

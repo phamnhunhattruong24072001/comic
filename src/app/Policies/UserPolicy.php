@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return checkPermission($user::LIST);
+        return checkPermission($user::VIEW);
     }
 
     /**

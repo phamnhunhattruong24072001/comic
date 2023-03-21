@@ -14,7 +14,7 @@ Route::group(['middleware' => ['auth:admin', 'localization']], function() {
     Route::get('/profile',[AuthController::class, 'profile'])->name('admin.profile');
 
     Route::group(array('prefix' => '/users'), function () {
-        Route::get('/',[UserController::class, 'index'])->name('admin.users')->middleware('can:'.App\Models\User::LIST);
+        Route::get('/',[UserController::class, 'index'])->name('admin.users')->middleware('can:'.App\Models\User::VIEW);
         Route::get('/permission/{id}',[UserController::class, 'permission'])->name('admin.permission');
         Route::post('/permission/{id}',[UserController::class, 'createPermission'])->name('admin.create.permission');
 

@@ -23,7 +23,7 @@ class UserPermissionSeeder extends Seeder
            [
             'name' => 'Danh sách',
             'type' => 'user',
-            'key_code' => User::LIST,
+            'key_code' => User::VIEW,
           ],
           [
             'name' => 'Thêm mới',

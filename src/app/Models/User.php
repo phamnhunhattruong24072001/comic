@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    const LIST = 'user_list';
+    const VIEW = 'user_list';
     const CREATE = 'user_create';
     const UPDATE = 'user_update';
     const DELETE = 'user_delete';

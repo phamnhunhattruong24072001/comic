@@ -43,4 +43,11 @@ class UserService
         $result = $this->userRepository->select($columns)->findOrFail($id);
         return $result;
     }
+
+    public function createPermission($param, $id)
+    {
+       $user = $this->getUserById($id);
+       $user->permissions()->sync($param['id_permissions']);
+       return $user;
+    }
 }

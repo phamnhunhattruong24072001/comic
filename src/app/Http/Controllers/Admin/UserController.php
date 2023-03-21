@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Admin\UserService;
 use App\Services\Admin\PermissionService;
 use App\Services\Admin\UserRoleService;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -30,6 +31,16 @@ class UserController extends Controller
        return view('admin.users.list', compact('users'));
     }
 
+    public function create()
+    {
+      return view('admin.users.create');
+    }
+
+    public function store(UserRequest $request)
+    {
+      
+    }
+
     public function permission($id)
     {
        $user = $this->userService->getUserById($id);
@@ -37,5 +48,12 @@ class UserController extends Controller
        $permissions = $this->permissionService->getAll();
        $permissionsRoleChecked = $this->userRoleService->getPermissionRoleByUserId($id);
        return view('admin.users.permission', compact('user', 'permissionUserChecked', 'permissions', 'permissionsRoleChecked'));
+    }
+
+    public function createPermission(Request $request, $id)
+    {
+      $param = $request->all();
+      $this->userService->createPermission($param, $id);
+      return redirect()->route('admin.users');
     }
 }

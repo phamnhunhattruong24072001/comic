@@ -15,9 +15,11 @@ return new class extends Migration
 		Schema::create('categories', function(Blueprint $table) {
             $table->increments('id');
 			$table->string('name');
+			$table->string('tags')->nullable();
 			$table->text('short_description');
 			$table->text('long_description');
-			$table->integer('parent_id');
+			$table->integer('parent_id')->default(0);
+			$table->boolean('is_visible')->default(0);
             $table->timestamps();
 			$table->softDeletes();
 		});

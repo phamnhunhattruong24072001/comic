@@ -12,18 +12,19 @@ class AuthController extends Controller
     public function showLogin()
     {
         if (Auth::guard('admin')->check()) {
-           return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard');
         }
         return view('admin.auth.login');
     }
 
     public function handleLogin(AuthRequest $request)
     {
-       $dataLogin = array_merge($request->only(['email', 'password']), ['is_visible' => config('const.admin.status.active')]);
-       if (Auth::guard('admin')->attempt($dataLogin)) {
+        $dataLogin = array_merge($request->only(['email', 'password']),
+            ['is_visible' => config('const.admin.status.active')]);
+        if (Auth::guard('admin')->attempt($dataLogin)) {
             return redirect()->route('admin.dashboard');
-       }
-       return redirect()->back()->with('error', 'Email or Password is not true');
+        }
+        return redirect()->back()->with('error', 'Email or Password is not true');
     }
 
     public function profile()

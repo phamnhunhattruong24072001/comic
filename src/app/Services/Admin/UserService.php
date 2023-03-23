@@ -13,7 +13,7 @@ class UserService
        $this->userRepository = $userRepository;
     }
 
-    public function getListUserPaginate(array $param)
+    public function getListUserPaginate($param)
     {
         $columns = [
             'users.name',
@@ -25,7 +25,6 @@ class UserService
             'users.is_visible',
          ];
         $result = $this->userRepository->scopeQuery( function($query) use ($param){
-            $query->where('users.is_visible', 1);
             return $query;
         });
         $result->orderBy('id', 'DESC');
@@ -35,13 +34,15 @@ class UserService
     public function getUserById($id)
     {
         $columns = [
-            'users.id',
             'users.name',
+            'users.username',
+            'users.email',
+            'users.day_of_birth',
+            'users.avatar',
             'users.role',
             'users.is_visible',
         ];
-        $result = $this->userRepository->select($columns)->findOrFail($id);
-        return $result;
+        return $this->userRepository->find($id, $columns);
     }
 
     public function createPermission($param, $id)
@@ -49,5 +50,21 @@ class UserService
        $user = $this->getUserById($id);
        $user->permissions()->sync($param['id_permissions']);
        return $user;
+    }
+
+    public function store($data)
+    {
+        $data['password'] = bcrypt('123456');
+        return $this->userRepository->create($data);
+    }
+
+    public function update($data ,$id)
+    {
+        return $this->userRepository->update($data, $id);
+    }
+
+    public function delete($id)
+    {
+        return $this->userRepository->delete($id);
     }
 }

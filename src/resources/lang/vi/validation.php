@@ -145,6 +145,11 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'required' => 'Trường này không được để trống',
+        'min' => 'Trường này tối thiểu :count',
+        'max' => 'Trường này tối đa :count',
+        'unique' => 'Trường này đã tồn tại',
+        'email' => 'Email không hợp lệ',
     ],
 
     /*

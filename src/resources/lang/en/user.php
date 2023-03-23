@@ -3,6 +3,7 @@
 return [
     'list_title' => 'Manager Admin',
     'create_title' => 'Create Admin',
+    'update_title' => 'Update Admin',
     'name' => 'Name',
     'username' => 'Username',
     'email' => 'Email',

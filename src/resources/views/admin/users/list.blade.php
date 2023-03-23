@@ -56,7 +56,9 @@
                                           <td>{{ $user->day_of_birth }}</td>
                                           <td>{{ $user->is_visible }}</td>
                                           <td>
-                                                <a href="" class="btn-sm btn-primary" title="{{ __('user.auth') }}"><i class="fa fa-users" aria-hidden="true"></i></a>
+                                                <a href="" class="btn-sm btn-primary" title="{{ __('admin.users.auth') }}"><i class="fa fa-users" aria-hidden="true"></i></a>
+                                                <a href="" class="btn-sm btn-warning" title="{{ __('admin.users.edit', $user->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href="" class="btn-sm btn-danger" title="{{ __('admin.users.delete', $user->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                           </td>
                                     </tr>
                                     @endforeach

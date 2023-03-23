@@ -14,11 +14,14 @@ Route::group(['middleware' => ['auth:admin', 'localization']], function() {
     Route::get('/profile',[AuthController::class, 'profile'])->name('admin.profile');
 
     Route::group(array('prefix' => '/users'), function () {
-        Route::get('/',[UserController::class, 'index'])->name('admin.users')->middleware('can:'.App\Models\User::LIST);
-        Route::get('/permission/{id}',[UserController::class, 'permission'])->name('admin.permission');
-        Route::post('/permission/{id}',[UserController::class, 'createPermission'])->name('admin.create.permission');
-
-        Route::get('/create',[UserController::class, 'create'])->name('admin.users.create');
-        Route::get('/store',[UserController::class, 'store'])->name('admin.users.store');
+        Route::get('/',[UserController::class, 'index'])->name('admin.users')->middleware('can:'.App\Models\User::VIEW);
+        Route::get('/create',[UserController::class, 'create'])->name('admin.users.create')->middleware('can:'.App\Models\User::CREATE);
+        Route::post('/store',[UserController::class, 'store'])->name('admin.users.store');
+        Route::get('/edit/{id}',[UserController::class, 'edit'])->name('admin.users.edit')->middleware('can:'.App\Models\User::UPDATE);
+        Route::post('/update/{id}',[UserController::class, 'update'])->name('admin.users.update');
+        Route::post('/delete/{id}',[UserController::class, 'delete'])->name('admin.users.delete')->middleware('can:'.App\Models\User::DELETE);;
+        // Permission
+        Route::get('/permission/{id}',[UserController::class, 'permission'])->name('admin.users.permission');
+        Route::post('/permission/{id}',[UserController::class, 'createPermission'])->name('admin.users.create_permission');
     });
 });

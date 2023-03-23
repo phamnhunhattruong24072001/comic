@@ -145,6 +145,11 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'required' => 'This field required',
+        'min' => 'This field min :count',
+        'max' => 'This field max :count',
+        'unique' => 'This field already exist',
+        'email' => 'Invalid email',
     ],
 
     /*

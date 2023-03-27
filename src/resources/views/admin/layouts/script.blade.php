@@ -35,6 +35,8 @@
 <!-- bootstrap-daterangepicker -->
 <script src="{{asset('backend/vendors/moment/min/moment.min.js')}}"></script>
 <script src="{{asset('backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+<!-- Switchery -->
+<script src="{{asset('backend/vendors/switchery/dist/switchery.min.js')}}"></script>
 
 <!-- Datatables -->
 <script src="{{asset('backend/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
@@ -55,4 +57,5 @@
 
 <!-- Custom Theme Scripts -->
 <script src="{{asset('backend/build/js/custom.min.js')}}"></script>
+@stack('script')
 

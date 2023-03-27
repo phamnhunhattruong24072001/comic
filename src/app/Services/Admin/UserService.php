@@ -15,16 +15,9 @@ class UserService
 
     public function getListUserPaginate($param)
     {
-        $columns = [
-            'users.name',
-            'users.username',
-            'users.email',
-            'users.day_of_birth',
-            'users.avatar',
-            'users.role',
-            'users.is_visible',
-         ];
+        $columns = ['*'];
         $result = $this->userRepository->scopeQuery( function($query) use ($param){
+            $query->where('role', '!=' , config('const.admin.role.admin'));
             return $query;
         });
         $result->orderBy('id', 'DESC');
@@ -33,15 +26,7 @@ class UserService
 
     public function getUserById($id)
     {
-        $columns = [
-            'users.name',
-            'users.username',
-            'users.email',
-            'users.day_of_birth',
-            'users.avatar',
-            'users.role',
-            'users.is_visible',
-        ];
+        $columns = ['*'];
         return $this->userRepository->find($id, $columns);
     }
 
@@ -52,19 +37,46 @@ class UserService
        return $user;
     }
 
-    public function store($data)
+    public function storeUser($data)
     {
         $data['password'] = bcrypt('123456');
         return $this->userRepository->create($data);
     }
 
-    public function update($data ,$id)
+    public function updateUser($data ,$id)
     {
         return $this->userRepository->update($data, $id);
     }
 
-    public function delete($id)
+    public function deleteUser(array $ids)
     {
-        return $this->userRepository->delete($id);
+        return $this->userRepository->deleteMultiple($ids);
+    }
+
+    public function getListUserTrash($param)
+    {
+        $columns = ['*'];
+        $result = $this->userRepository->scopeQuery( function($query) use ($param){
+            $query->where('role', '!=' , config('const.admin.role.admin'));
+            $query->onlyTrashed();
+            return $query;
+        });
+        $result->orderBy('id', 'DESC');
+        return $result->paginate($param['limit'], $columns);
+    }
+
+    public function forceDeleteUser(array $ids)
+    {
+        return $this->userRepository->forceDeteteMultiple($ids);
+    }
+
+    public function restoreUser(array $ids)
+    {
+        return $this->userRepository->restoreMultiple($ids);
+    }
+
+    public function updateStatus($param ,$id)
+    {
+        return $this->userRepository->update($param, $id);
     }
 }

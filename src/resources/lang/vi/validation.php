@@ -150,6 +150,11 @@ return [
         'max' => 'Trường này tối đa :count',
         'unique' => 'Trường này đã tồn tại',
         'email' => 'Email không hợp lệ',
+        'images' => [
+            'image' => 'Trường này phải là hình ảnh',
+            'mimes' => 'Định dạng hình ảnh không đúng (jpeg,png,jpg,gif)',
+            'max' => 'Kích thước hình ảnh không lớn hơn :count KB'
+        ],
     ],
 
     /*

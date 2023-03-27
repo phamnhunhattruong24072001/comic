@@ -8,6 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The following language lines contain the default error messages used by
+
     | the validator class. Some of these rules have multiple versions such
     | as the size rules. Feel free to tweak each of these messages here.
     |
@@ -150,6 +151,11 @@ return [
         'max' => 'This field max :count',
         'unique' => 'This field already exist',
         'email' => 'Invalid email',
+        'images' => [
+            'image' => 'This field must be an image',
+            'mimes' => 'Incorrect image format (jpeg,png,jpg,gif)',
+            'max' => 'Size must be less than :count KB'
+        ],
     ],
 
     /*

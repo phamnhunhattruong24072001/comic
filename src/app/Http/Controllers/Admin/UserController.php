@@ -14,7 +14,6 @@ class UserController extends Controller
 {
     protected $userService;
     protected $permissionService;
-
     protected $userRoleService;
 
     public function __construct(
@@ -45,14 +44,19 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $data = $request->all();
-        $this->userService->store($data);
-        return redirect()->route('admin.users');
+        if ($request->hasFile('avatar')) {
+            $path = config('const.path.user');
+            $fileName = uploadFile($path ,$request->file('avatar'));
+            $data['avatar'] = $fileName;
+        }
+        $this->userService->storeUser($data);
+        return redirect()->route('admin.users.list');
     }
 
     public function permission($id)
     {
         $user = $this->userService->getUserById($id);
-        $permissionUserChecked = $user->permissions();
+        $permissionUserChecked = $user->permissions;
         $permissions = $this->permissionService->getAll();
         $permissionsRoleChecked = $this->userRoleService->getPermissionRoleByUserId($id);
         return view('admin.users.permission',
@@ -63,7 +67,7 @@ class UserController extends Controller
     {
         $param = $request->all();
         $this->userService->createPermission($param, $id);
-        return redirect()->route('admin.users');
+        return redirect()->route('admin.users.list');
     }
 
     public function edit($id)
@@ -72,16 +76,55 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $data = $request->all();
-        $this->userService->update($data, $id);
-        return redirect()->route('admin.users');
+        if ($request->hasFile('avatar')) {
+            $path = config('const.path.user');
+            $fileName = uploadFile($path ,$request->file('avatar'));
+            $data['avatar'] = $fileName;
+        }
+        $this->userService->updateUser($data, $id);
+        return redirect()->route('admin.users.list');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $this->userService->delete($id);
+        $ids = $request->get('id');
+        $this->userService->deleteUser($ids);
+        return back();
+    }
+
+    public function trash()
+    {
+        $param = [
+            'limit' => 10,
+        ];
+        $users = $this->userService->getListUserTrash($param);
+        return view('admin.users.trash', compact('users'));
+    }
+
+    public function forceDelete(Request $request)
+    {
+        $ids = $request->get('id');
+        $this->userService->forceDeleteUser($ids);
+        return back();
+    }
+
+    public function restore(Request $request)
+    {
+        $ids = $request->get('id');
+        $this->userService->restoreUser($ids);
         return redirect()->back();
+    }
+
+    public function status(Request $request)
+    {
+        $id = $request->get('id');
+        $is_visible = $request->get('is_visible') == config('const.activate.on') ? config('const.activate.off') : config('const.activate.on');
+        $param = [
+            'is_visible' => $is_visible
+        ];
+        $this->userService->updateStatus($param, $id);
     }
 }

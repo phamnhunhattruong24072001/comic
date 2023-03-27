@@ -3,7 +3,7 @@ return [
     'admin' => [
         'status' => [
             'active' => 1,
-            'deactive' => 0,
+            'deactivate' => 0,
         ],
         'role' => [
             'admin' => 'admin',
@@ -23,5 +23,11 @@ return [
     'gender' => [
         'male' => 1,
         'female' => 2,
+    ],
+    'image' => [
+        'imageNull' => 'global/image-null.png',
+    ],
+    'path' => [
+        'user' => 'public/users/',
     ]
 ];

@@ -13,7 +13,7 @@ interface UserRepository extends RepositoryInterface
 {
    public function deleteMultiple(array $ids);
 
-   public function forceDeteteMultiple(array $ids);
+   public function forceDeleteMultiple(array $ids);
 
    public function restoreMultiple(array $ids);
 }

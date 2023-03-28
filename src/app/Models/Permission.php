@@ -20,7 +20,11 @@ class Permission extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'type',
+        'key_code',
+    ];
 
     public function permissionChildrent()
     {

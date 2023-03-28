@@ -22,7 +22,7 @@
                                <div class="child-content-permission">
                                     <div class="checkbox checkbox-permission">
                                         <label>
-                                            <input type="checkbox" class="flat" checked="checked">
+                                            <input type="checkbox" class="flat checked-group" value="{{ $permission->id }}">
                                         </label>
                                         <span>Tất cả</span>
                                     </div>
@@ -31,7 +31,7 @@
                                     <div class="child-content-permission">
                                         <div class="checkbox checkbox-permission">
                                             <label>
-                                                <input type="checkbox" class="flat" name="id_permissions[]" value="{{ $child->id }}" {{ isset($permissionUserChecked) ? $permissionUserChecked->contains('id', $child->id) ? 'checked' : '' : '' }}>
+                                                <input type="checkbox" class="flat checked-item-{{ $permission->id }}" name="id_permissions[]" value="{{ $child->id }}" {{ isset($permissionUserChecked) ? $permissionUserChecked->contains('id', $child->id) ? 'checked' : '' : '' }}>
                                             </label>
                                             <span>{{ $child->name }}</span>
                                         </div>
@@ -47,3 +47,14 @@
         </div>
     </form>
 @endsection
+
+@push('script')
+     <script>
+         $('.checked-group').on('change', function (){
+             alert('2')
+             let is_check = $(this).prop('checked');
+             let id = $(this).val();
+             $('.check-item-'+id).prop('checked', is_check);
+         });
+     </script>
+@endpush

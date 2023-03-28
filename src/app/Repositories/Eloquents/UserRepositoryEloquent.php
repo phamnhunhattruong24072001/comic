@@ -39,7 +39,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->model->whereIn('id', $ids)->delete();
     }
 
-    public function forceDeteteMultiple(array $ids)
+    public function forceDeleteMultiple(array $ids)
     {
         $this->model->whereIn('id', $ids)->forceDelete();
     }

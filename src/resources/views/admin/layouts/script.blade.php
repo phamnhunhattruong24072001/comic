@@ -57,5 +57,92 @@
 
 <!-- Custom Theme Scripts -->
 <script src="{{asset('backend/build/js/custom.min.js')}}"></script>
+<script src="{{asset('backend/build/js/meCustom.js')}}"></script>
+
+<script>
+    $('#check-all').on('change', function (){
+        let is_check = $(this).prop('checked');
+        let item = $('.check-item');
+        item.prop('checked', is_check);
+    });
+
+    $('.check-item').on('change', function (){
+        let is_check_item = $('.check-item').length === $('.check-item:checked').length;
+        $('#check-all').prop('checked', is_check_item);
+    });
+
+    $('.delete-multiple').on('click', function (){
+        let url = $(this).data('url');
+        let arrId = [];
+        $('.check-item:checked').each(function (e){
+            arrId[e] = $(this).val();
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        if (arrId.length > 0) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id : arrId,
+                }
+            }).done(function() {
+                location.reload();
+            });
+        }
+    });
+
+    $('.restore-multiple').on('click', function (){
+        let url = $(this).data('url');
+        let arrId = [];
+        $('.check-item:checked').each(function (e){
+            arrId[e] = $(this).val();
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        if (arrId.length > 0) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id : arrId,
+                }
+            }).done(function() {
+                location.reload();
+            });
+        }
+    });
+
+    $('.switch-status').on('change', function (){
+        let id = $(this).data('id');
+        let is_visible = $(this).val();
+        let url = $(this).data('url');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                id : id,
+                is_visible : is_visible
+            }
+        }).done(function() {
+
+        });
+    });
+</script>
 @stack('script')
 

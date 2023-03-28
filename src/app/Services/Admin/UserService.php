@@ -67,7 +67,7 @@ class UserService
 
     public function forceDeleteUser(array $ids)
     {
-        return $this->userRepository->forceDeteteMultiple($ids);
+        return $this->userRepository->forceDeleteMultiple($ids);
     }
 
     public function restoreUser(array $ids)

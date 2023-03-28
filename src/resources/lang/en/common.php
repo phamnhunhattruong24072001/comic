@@ -4,7 +4,7 @@ return [
     'action' => 'Action',
     'status' => [
         'active' => 'Active',
-        'deactive' => 'Deactive',
+        'deactivate' => 'Deactivate',
     ],
     'button' => [
         'create' => 'Create',
@@ -12,5 +12,9 @@ return [
         'delete' => 'Delete',
         'back' => 'Back',
         'reset' => 'Reset',
+        'restore' => 'Restore',
+        'force-delete' => 'Force Delete',
+        'list' => 'List',
+        'trash' => 'Trash'
     ],
 ];

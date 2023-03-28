@@ -13,7 +13,9 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            @include('admin.users.form', ['data' => $user, 'buttonSubmit' => __('common.button.update')])
+            <form id="demo-form" action="{{ route('admin.users.update', $user->id) }}" method="post" enctype="multipart/form-data">
+                @include('admin.users.form', ['data' => $user, 'buttonSubmit' => __('common.button.update')])
+            </form>
         </div>
     </div>
 @endsection

@@ -34,4 +34,18 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    public function deleteMultiple(array $ids)
+    {
+        $this->model->whereIn('id', $ids)->delete();
+    }
+
+    public function forceDeteteMultiple(array $ids)
+    {
+        $this->model->whereIn('id', $ids)->forceDelete();
+    }
+
+    public function restoreMultiple(array $ids)
+    {
+        $this->model->whereIn('id', $ids)->restore();
+    }
 }

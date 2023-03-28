@@ -7,7 +7,8 @@
 @endpush
 
 @section('content')
-    <form action="{{ route('admin.create.permission', $user->id) }}" method="post">
+    <h2>Phân quyền cho <b>{{$user->name}}</b></h2>
+    <form action="{{ route('admin.users.create_permission', $user->id) }}" method="post">
         @csrf
         <div class="row">
             @foreach ($permissions as $permission)
@@ -27,14 +28,14 @@
                                     </div>
                                </div>
                             @foreach ($permission->permissionChildrent as $child)
-                                <div class="child-content-permission">
-                                    <div class="checkbox checkbox-permission">
-                                        <label>
-                                            <input type="checkbox" class="flat" checked="checked" name="id_permissions[]" value="{{ $child->id }}">
-                                        </label>
-                                        <span>{{ $child->name }}</span>
+                                    <div class="child-content-permission">
+                                        <div class="checkbox checkbox-permission">
+                                            <label>
+                                                <input type="checkbox" class="flat" name="id_permissions[]" value="{{ $child->id }}" {{ isset($permissionUserChecked) ? $permissionUserChecked->contains('id', $child->id) ? 'checked' : '' : '' }}>
+                                            </label>
+                                            <span>{{ $child->name }}</span>
+                                        </div>
                                     </div>
-                                </div>
                             @endforeach
                         </div>
                     </div>

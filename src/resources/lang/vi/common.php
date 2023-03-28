@@ -4,7 +4,7 @@ return [
     'action' => 'Hành động',
     'status' => [
         'active' => 'Hoạt động',
-        'deactive' => 'Tạm ngưng',
+        'deactivate' => 'Tạm ngưng',
     ],
     'button' => [
         'create' => 'Thêm mới',
@@ -12,6 +12,10 @@ return [
         'delete' => 'Xóa',
         'back' => 'Quay lẠi',
         'reset' => 'Tải lại',
+        'restore' => 'Khôi phục',
+        'force-delete' => 'Xóa vĩnh viễn',
+        'list' => 'Danh sách',
+        'trash' => 'Thùng rác',
     ],
 ];
 

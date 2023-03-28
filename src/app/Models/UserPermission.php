@@ -20,6 +20,11 @@ class UserPermission extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'permission_id',
+    ];
+
+    protected $table = 'user_permissions';
 
 }

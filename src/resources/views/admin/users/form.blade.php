@@ -1,5 +1,4 @@
 <!-- start form for validation -->
-<form id="demo-form" action="{{ route('admin.users.store') }}" method="post">
     @csrf
     <div class="row">
         <div class="col-lg-6">
@@ -28,7 +27,7 @@
             <div class="form-group required">
                 <label for="email">{{ __('user.email') }}</label>
                 <input type="text" id="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                       value="{{ $user->email }}"/>
+                       value="{{ $user->email != '' ? $user->email : old('email') }}"/>
                 @error('email')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -38,7 +37,7 @@
             <div class="form-group">
                 <label for="day_of_birth">{{ __('user.birth_day') }}</label>
                 <input type="date" id="day_of_birth" class="form-control" name="day_of_birth"
-                       value="{{ $user->day_of_birth }}"/>
+                       value="{{ $user->day_of_birth != '' ? $user->day_of_birth : old('day_of_birth') }}"/>
             </div>
         </div>
     </div>
@@ -46,13 +45,16 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="address">{{ __('user.address') }}</label>
-                <input type="text" id="address" class="form-control" name="address" value="{{ $user->address }}"/>
+                <input type="text" id="address" class="form-control" name="address" value="{{ $user->address != '' ? $user->address : old('address') }}"/>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="avatar">{{ __('user.avatar') }}</label>
-                <input type="text" id="avatar" class="form-control" name="avatar" value="{{ $user->avatar }}"/>
+                <input type="file" id="avatar" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{ $user->avatar }}"/>
+                @error('avatar')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
         </div>
     </div>
@@ -65,15 +67,12 @@
                         <p>
                             {{ __('user.genders.male') }}:
                             <label>
-                                <input type="radio" class="flat" name="gender" value="1"
-                                       @if(empty($user->gender)) checked @endif
-                                       @if($user->gender == config('const.gender.male')) checked @endif/>
+                                <input type="radio" class="flat" name="gender" value="1" @if(!isset($user->gender) || $user->gender == config('const.gender.male')) checked @endif/>
                             </label>
                             &nbsp;&nbsp;
                             {{ __('user.genders.female') }}:
                             <label>
-                                <input type="radio" class="flat" name="gender" value="2"
-                                       @if($user->gender == config('const.gender.female')) checked @endif/>
+                                <input type="radio" class="flat" name="gender" value="2" @if($user->gender == config('const.gender.female')) checked @endif/>
                             </label>
                         </p>
                     </div>
@@ -84,12 +83,12 @@
                         <p>
                             {{ __('common.status.active')  }}:
                             <label>
-                                <input type="radio" class="flat" name="is_visible" value="1" checked/>
+                                <input type="radio" class="flat" name="is_visible" value="1" @if($user->is_visible == config('const.admin.status.active')) checked @endif />
                             </label>
                             &nbsp;&nbsp;
-                            {{ __('common.status.deactive')  }}:
+                            {{ __('common.status.deactivate')  }}:
                             <label>
-                                <input type="radio" class="flat" name="is_visible" value="0" />
+                                <input type="radio" class="flat" name="is_visible" value="0" @if($user->is_visible == config('const.admin.status.deactivate')) checked @endif />
                             </label>
                         </p>
                     </div>
@@ -97,10 +96,9 @@
             </div>
         </div>
         <div class="col-lg-12">
-            <a href="{{ route('admin.users') }}" class="btn btn-warning">{{ __('common.button.back') }} <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+            <a href="{{ route('admin.users.list') }}" class="btn btn-warning">{{ __('common.button.back') }} <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
             <button class="btn btn-secondary" type="reset">{{ __('common.button.reset') }} <i class="fa fa-refresh" aria-hidden="true"></i></button>
             <button class="btn btn-primary" type="submit">{{ $buttonSubmit }} <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
         </div>
     </div>
-</form>
 <!-- end form for validations -->

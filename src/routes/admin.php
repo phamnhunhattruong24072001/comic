@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CountryController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/handle-login', [AuthController::class, 'handleLogin'])->name('admin.handle.login');
@@ -21,11 +22,26 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
         Route::post('/delete', [UserController::class, 'delete'])->name('delete')->middleware('can:' . App\Models\User::DELETE);
         Route::get('/trash', [UserController::class, 'trash'])->name('trash');
-        Route::post('/force-delete', [UserController::class, 'forceDelete'])->name('force-delete');
-        Route::post('/restore', [UserController::class, 'restore'])->name('restore');
+        Route::post('/force-delete', [UserController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\User::FORCE_DELETE);
+        Route::post('/restore', [UserController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\User::RESTORE);
         Route::post('/status', [UserController::class, 'status'])->name('status');
+
         // Permission
         Route::get('/permission/{id}', [UserController::class, 'permission'])->name('permission');
         Route::post('/permission/{id}', [UserController::class, 'createPermission'])->name('create_permission');
+    });
+
+    // Country
+    Route::group(array('prefix' => '/country', 'as' => 'country.'), function () {
+        Route::get('/', [CountryController::class, 'index'])->name('list')->middleware('can:' . App\Models\Country::VIEW);
+        Route::get('/create', [CountryController::class, 'create'])->name('create')->middleware('can:' . App\Models\Country::CREATE);
+        Route::post('/store', [CountryController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Country::UPDATE);
+        Route::post('/update/{id}', [CountryController::class, 'update'])->name('update');
+        Route::post('/delete', [CountryController::class, 'delete'])->name('delete')->middleware('can:' . App\Models\Country::DELETE);
+        Route::get('/trash', [CountryController::class, 'trash'])->name('trash');
+        Route::post('/force-delete', [CountryController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Country::FORCE_DELETE);
+        Route::post('/restore', [CountryController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Country::RESTORE);
+        Route::post('/status', [CountryController::class, 'status'])->name('status');
     });
 });

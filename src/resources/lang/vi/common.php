@@ -2,6 +2,9 @@
 
 return [
     'action' => 'Hành động',
+    'slug' => 'Slug',
+    'tags' => 'Tags',
+    'upload_file' => 'Tải lên',
     'status' => [
         'active' => 'Hoạt động',
         'deactivate' => 'Tạm ngưng',

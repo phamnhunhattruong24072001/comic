@@ -30,14 +30,18 @@
                         </ul>
                     </li>
 
-                    <li><a><i class="fa fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>
+
+                    <li><a><i class="fa fa-users"></i> {{ __('layout.admin.sidebar.manage_user') }} <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ route('admin.users.list') }}">List User</a></li>
+                            @can(\App\Models\User::VIEW)
+                            <li><a href="{{ route('admin.users.list') }}">{{ __('layout.admin.sidebar.list_user') }}</a></li>
+                            @endcan
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+
+                    <li><a><i class="fa fa-table"></i> {{ __('layout.admin.sidebar.manage_comic') }} <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="tables.html">Tables</a></li>
+                            <li><a href="{{ route('admin.country.list') }}">{{ __('layout.admin.sidebar.manage_country') }}</a></li>
                         </ul>
                     </li>
                 </ul>

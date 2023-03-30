@@ -8,7 +8,8 @@
             <div class="x_title">
                 <h2>{{ __('user.list_title') }}</small></h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <a href="{{ route('admin.users.list') }}" class="btn btn-primary rounded-0">{{ __('common.button.list') }} <i class="fa fa-list"></i></a>
+                    <a href="{{ route('admin.users.list') }}" class="btn btn-primary rounded-0">{{ __('common.button.list') }}</a>
+                    <button type="button" data-url="{{ route('admin.users.restore') }}" class="btn btn-info rounded-0 restore-multiple">{{ __('common.button.restore') }}</button>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -21,7 +22,7 @@
                                 <thead>
                                 <tr>
                                     <th>
-                                    <th><input type="checkbox" id="check-all"></th>
+                                    <label><input type="checkbox" id="check-all"></label>
                                     </th>
                                     <th>{{ __('user.avatar') }}</th>
                                     <th>{{ __('user.name') }}</th>
@@ -37,7 +38,7 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>
-                                        <th><input type="checkbox" id="check-all"></th>
+                                            <label><input type="checkbox" class="check-item" value="{{ $user->id }}"></label>
                                         </td>
                                         <td><img src="{{ asset('storage/'.showFile($user->avatar)) }}" alt="" width="50" height="50"></td>
                                         <td>{{ $user->name }}</td>

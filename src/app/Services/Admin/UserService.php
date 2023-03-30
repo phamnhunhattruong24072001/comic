@@ -33,7 +33,8 @@ class UserService
     public function createPermission($param, $id)
     {
        $user = $this->getUserById($id);
-       $user->permissions()->sync($param['id_permissions']);
+       $arr = !isset($param['id_permissions']) ? [] : $param['id_permissions'];
+       $user->permissions()->sync($arr);
        return $user;
     }
 
@@ -67,7 +68,7 @@ class UserService
 
     public function forceDeleteUser(array $ids)
     {
-        return $this->userRepository->forceDeteteMultiple($ids);
+        return $this->userRepository->forceDeleteMultiple($ids);
     }
 
     public function restoreUser(array $ids)

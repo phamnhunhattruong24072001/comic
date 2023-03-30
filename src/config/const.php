@@ -28,6 +28,6 @@ return [
         'imageNull' => 'global/image-null.png',
     ],
     'path' => [
-        'user' => 'public/users/',
-    ]
+        'user' => 'public/users',
+    ],
 ];

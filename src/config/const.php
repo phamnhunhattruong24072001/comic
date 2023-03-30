@@ -29,5 +29,6 @@ return [
     ],
     'path' => [
         'user' => 'public/users',
+        'country' => 'public/countries',
     ],
 ];

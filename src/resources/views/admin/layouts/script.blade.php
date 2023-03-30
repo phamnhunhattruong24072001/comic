@@ -37,7 +37,8 @@
 <script src="{{asset('backend/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <!-- Switchery -->
 <script src="{{asset('backend/vendors/switchery/dist/switchery.min.js')}}"></script>
-
+<!-- jQuery Tags Input -->
+<script src="{{asset('backend/vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script>
 <!-- Datatables -->
 <script src="{{asset('backend/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('backend/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
@@ -143,6 +144,15 @@
 
         });
     });
+
+    function showPreview(event){
+        if(event.target.files.length > 0){
+            let src = URL.createObjectURL(event.target.files[0]);
+            let preview = document.getElementById("file-ip-1-preview");
+            preview.src = src;
+            preview.style.display = "block";
+        }
+    }
 </script>
 @stack('script')
 

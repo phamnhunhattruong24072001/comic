@@ -2,6 +2,9 @@
 
 return [
     'action' => 'Action',
+    'slug' => 'Slug',
+    'tags' => 'Tags',
+    'upload_file' => 'Upload File',
     'status' => [
         'active' => 'Active',
         'deactivate' => 'Deactivate',

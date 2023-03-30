@@ -14,6 +14,7 @@
         </div>
         <div class="x_content">
             <form id="demo-form" action="{{ route('admin.users.update', $user->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
                 @include('admin.users.form', ['data' => $user, 'buttonSubmit' => __('common.button.update')])
             </form>
         </div>

@@ -2,6 +2,14 @@
 
 @section('title', 'Dashboard')
 
+@push('css')
+    <style>
+        .delete-multiple {
+            cursor: pointer;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
@@ -48,7 +56,7 @@
                                           <td>{{ $user->name }}</td>
                                           <td>{{ $user->username }}</td>
                                           <td>{{ $user->email }}</td>
-                                          <td>{{ $user->day_of_birth }}</td>
+                                          <td>{{ formatDate($user->day_of_birth, app('systemLanguage')) }}</td>
                                           <td>
                                               <label>
                                                   <input type="checkbox" class="js-switch switch-status" data-id="{{$user->id}}" data-url="{{route('admin.users.status')}}" @if($user->is_visible == config('const.admin.status.active')) checked @endif value="{{$user->is_visible}}"/>

@@ -18,7 +18,7 @@
                             <h2>{{ $permission->name }}</h2>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="x_content">
+                        <div class="x_content content-permission" data-id="">
                                <div class="child-content-permission">
                                     <div class="checkbox checkbox-permission">
                                         <label>
@@ -31,7 +31,7 @@
                                     <div class="child-content-permission">
                                         <div class="checkbox-permission">
                                             <label>
-                                                <input type="checkbox" class="checked-item-{{ $permission->id }}" name="id_permissions[]" value="{{ $child->id }}" {{ isset($permissionUserChecked) ? $permissionUserChecked->contains('id', $child->id) ? 'checked' : '' : '' }}>
+                                                <input type="checkbox" class="checked-item-{{ $permission->id }} child-item" name="id_permissions[]" value="{{ $child->id }}" {{ isset($permissionUserChecked) ? $permissionUserChecked->contains('id', $child->id) ? 'checked' : '' : '' }}>
                                             </label>
                                             <span>{{ $child->name }}</span>
                                         </div>
@@ -55,5 +55,25 @@
              let id = $(this).val();
              $('.checked-item-'+id).prop('checked', is_check);
          });
+
+         $('.content-permission').on('change', function (e){
+             e.preventDefault();
+             let checked_all = $(this).parent().find('.checked-group')
+             let checked_item = $(this).parent().find('.child-item').length
+             let child_item = $(this).parent().find('.child-item:checked').length
+             let is_check = checked_item === child_item;
+             checked_all.prop('checked', is_check)
+         });
+
+         $(document).ready(function (){
+             $('.content-permission').each(function (e){
+                 let checked_all = $(this).parent().find('.checked-group')
+                 let checked_item = $(this).parent().find('.child-item').length
+                 let child_item = $(this).parent().find('.child-item:checked').length
+                 let is_check = checked_item === child_item;
+                 checked_all.prop('checked', is_check)
+             })
+         });
+
      </script>
 @endpush

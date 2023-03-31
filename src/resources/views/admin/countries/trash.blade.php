@@ -47,21 +47,23 @@
                                         <td>{{ $country->name }}</td>
                                         <td>{{ $country->name_another }}</td>
                                         <td>
-                                            @can(\App\Models\Country::RESTORE)
-                                                <form action="{{ route('admin.country.restore')}}" method="post" class="d-inline">
-                                                    @csrf
-                                                    <input type="hidden" name="id[]" value="{{ $country->id }}">
-                                                    <button class="btn-sm btn-info" title="{{ __('common.button.restore') }}" type="submit"><i class="fa fa-backward"></i></button>
-                                                </form>
-                                            @endcan
+                                            <div class="content-button">
+                                                @can(\App\Models\Country::RESTORE)
+                                                    <form action="{{ route('admin.country.restore')}}" method="post" class="form-button">
+                                                        @csrf
+                                                        <input type="hidden" name="id[]" value="{{ $country->id }}">
+                                                        <button class="btn-sm btn-info" title="{{ __('common.button.restore') }}" type="submit"><i class="fa fa-backward"></i></button>
+                                                    </form>
+                                                @endcan
 
-                                            @can(\App\Models\Country::FORCE_DELETE)
-                                                <form action="{{ route('admin.country.force-delete') }}" method="post" class="d-inline">
-                                                    @csrf
-                                                    <input type="hidden" name="id[]" value="{{ $country->id }}">
-                                                    <button class="btn-sm btn-danger" title="" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                </form>
-                                            @endcan
+                                                @can(\App\Models\Country::FORCE_DELETE)
+                                                    <form action="{{ route('admin.country.force-delete') }}" method="post" class="form-button">
+                                                        @csrf
+                                                        <input type="hidden" name="id[]" value="{{ $country->id }}">
+                                                        <button class="btn-sm btn-danger" title="" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </form>
+                                                @endcan
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

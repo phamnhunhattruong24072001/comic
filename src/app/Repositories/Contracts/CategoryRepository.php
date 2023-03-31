@@ -11,5 +11,9 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface CategoryRepository extends RepositoryInterface
 {
-    //
+    public function deleteMultiple(array $ids);
+
+    public function forceDeleteMultiple(array $ids);
+
+    public function restoreMultiple(array $ids);
 }

@@ -8,8 +8,10 @@
             <div class="x_title">
                 <h2>{{ __('user.list_title') }}</small></h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <a href="{{ route('admin.users.list') }}" class="btn btn-primary rounded-0">{{ __('common.button.list') }}</a>
-                    <button type="button" data-url="{{ route('admin.users.restore') }}" class="btn btn-info rounded-0 restore-multiple">{{ __('common.button.restore') }}</button>
+                    <a href="{{ route('admin.category.list') }}"
+                       class="btn btn-primary rounded-0">{{ __('common.button.list') }}</a>
+                    <button type="button" data-url="{{ route('admin.category.restore') }}"
+                            class="btn btn-info rounded-0 restore-multiple">{{ __('common.button.restore') }}</button>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -22,43 +24,39 @@
                                 <thead>
                                 <tr>
                                     <th>
-                                    <label><input type="checkbox" id="check-all"></label>
+                                        <label>
+                                            <input type="checkbox" id="check-all">
+                                        </label>
                                     </th>
-                                    <th>{{ __('user.avatar') }}</th>
-                                    <th>{{ __('user.name') }}</th>
-                                    <th>{{ __('user.username') }}</th>
-                                    <th>{{ __('user.email') }}</th>
-                                    <th>{{ __('user.birth_day') }}</th>
+                                    <th>{{ __('category.name') }}</th>
+                                    <th>{{ __('common.slug') }}</th>
                                     <th>{{ __('common.action') }}</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($categories as $category)
                                     <tr>
                                         <td>
-                                            <label><input type="checkbox" class="check-item" value="{{ $user->id }}"></label>
+                                            <label><input type="checkbox" class="check-item" value="{{ $category->id }}"></label>
                                         </td>
-                                        <td><img src="{{ asset('storage/'.showFile($user->avatar)) }}" alt="" width="50" height="50"></td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->username }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->day_of_birth }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->slug }}</td>
                                         <td>
                                             <div class="content-button">
-                                                @can(\App\Models\User::RESTORE)
-                                                    <form action="{{ route('admin.users.restore')}}" method="post" class="form-button">
+                                                @can(\App\Models\Category::RESTORE)
+                                                    <form action="{{ route('admin.category.restore')}}" method="post" class="form-button">
                                                         @csrf
-                                                        <input type="hidden" name="id[]" value="{{ $user->id }}">
+                                                        <input type="hidden" name="id[]" value="{{ $category->id }}">
                                                         <button class="btn-sm btn-info" title="{{ __('common.button.restore') }}" type="submit"><i class="fa fa-backward"></i></button>
                                                     </form>
                                                 @endcan
 
-                                                @can(\App\Models\User::FORCE_DELETE)
-                                                    <form action="{{ route('admin.users.force-delete') }}" method="post" class="form-button">
+                                                @can(\App\Models\Category::FORCE_DELETE)
+                                                    <form action="{{ route('admin.category.force-delete') }}" method="post" class="form-button">
                                                         @csrf
-                                                        <input type="hidden" name="id[]" value="{{ $user->id }}">
+                                                        <input type="hidden" name="id[]" value="{{ $category->id }}">
                                                         <button class="btn-sm btn-danger" title="" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </form>
                                                 @endcan

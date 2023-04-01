@@ -31,4 +31,7 @@ return [
         'user' => 'public/users',
         'country' => 'public/countries',
     ],
+    'category' => [
+        'parent' => 0,
+    ],
 ];

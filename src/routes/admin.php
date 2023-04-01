@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/handle-login', [AuthController::class, 'handleLogin'])->name('admin.handle.login');
@@ -43,5 +44,19 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::post('/force-delete', [CountryController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Country::FORCE_DELETE);
         Route::post('/restore', [CountryController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Country::RESTORE);
         Route::post('/status', [CountryController::class, 'status'])->name('status');
+    });
+
+    // Category
+    Route::group(array('prefix' => '/category', 'as' => 'category.'), function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('list')->middleware('can:' . App\Models\Category::VIEW);
+        Route::get('/create', [CategoryController::class, 'create'])->name('create')->middleware('can:' . App\Models\Category::CREATE);
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Category::UPDATE);
+        Route::post('/update/{id}', [CategoryController::class, 'update'])->name('update');
+        Route::post('/delete', [CategoryController::class, 'delete'])->name('delete')->middleware('can:' . App\Models\Category::DELETE);
+        Route::get('/trash', [CategoryController::class, 'trash'])->name('trash');
+        Route::post('/force-delete', [CategoryController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Category::FORCE_DELETE);
+        Route::post('/restore', [CategoryController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Category::RESTORE);
+        Route::post('/status', [CategoryController::class, 'status'])->name('status');
     });
 });

@@ -48,3 +48,21 @@
     width:50%;
     margin-bottom:30px;
 }
+
+.form-button {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 4px;
+    padding: 0;
+}
+
+.form-button > button{
+    outline: 0;
+    border: 0;
+}
+
+.content-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

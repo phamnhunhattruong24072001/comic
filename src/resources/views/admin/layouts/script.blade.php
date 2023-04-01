@@ -56,6 +56,7 @@
 <script src="{{asset('backend/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
 <script src="{{asset('backend/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{asset('backend/build/js/custom.min.js')}}"></script>
 <script src="{{asset('backend/build/js/meCustom.js')}}"></script>
@@ -153,6 +154,69 @@
             preview.style.display = "block";
         }
     }
+
+    const slugify = str =>
+        str
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+    function convertToSlug(input)
+    {
+        let result = slugify(input);
+        $('.slug-convert').val(result);
+    }
+
+    $('.confirm-delete').on('click', function (){
+        confirm('Bạn chắc chắn muốn xóa');
+    });
+
+    function confirmCheck(e)
+    {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+    }
+
+    $('.button-delete').on('click', function (e){
+        e.preventDefault();
+        let form = $(this).parents('form');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+                form.submit();
+            }
+        })
+    })
 </script>
 @stack('script')
 

@@ -6,7 +6,7 @@
             <div class="col-lg-6">
                 <div class="form-group required">
                     <label for="name">{{ __('country.name') }}</label>
-                    <input type="text" id="name" class="form-control @error('name') is-invalid @enderror" name="name"
+                    <input type="text" id="name" class="form-control @error('name') is-invalid @enderror" onkeyup="convertToSlug(this.value)" name="name"
                            value="{{ $country->name != '' ? $country->name : old('name')}}"/>
                     @error('name')
                     <span class="text-danger">{{ $message }}</span>
@@ -28,7 +28,7 @@
             <div class="col-lg-6">
                 <div class="form-group required">
                     <label for="slug">{{ __('common.slug') }}</label>
-                    <input type="text" id="slug" class="form-control @error('slug') is-invalid @enderror" name="slug"
+                    <input type="text" id="slug" class="form-control @error('slug') is-invalid @enderror slug-convert" name="slug"
                            value="{{ $country->slug != '' ? $country->slug : old('slug') }}"/>
                     @error('slug')
                     <span class="text-danger">{{ $message }}</span>

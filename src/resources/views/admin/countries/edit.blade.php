@@ -2,10 +2,6 @@
 
 @section('title', __('country.update_title'))
 
-@push('css')
-    <link rel="stylesheet" href="{{ asset('backend/build/css/main.css') }}">
-@endpush
-
 @section('content')
     <div class="x_panel">
         <div class="x_title">

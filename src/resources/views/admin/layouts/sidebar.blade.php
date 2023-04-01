@@ -41,7 +41,13 @@
 
                     <li><a><i class="fa fa-table"></i> {{ __('layout.admin.sidebar.manage_comic') }} <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
+                            @can(\App\Models\Country::VIEW)
                             <li><a href="{{ route('admin.country.list') }}">{{ __('layout.admin.sidebar.manage_country') }}</a></li>
+                            @endcan
+
+                            @can(\App\Models\Category::VIEW)
+                                <li><a href="{{ route('admin.category.list') }}">{{ __('layout.admin.sidebar.manage_category') }}</a></li>
+                            @endcan
                         </ul>
                     </li>
                 </ul>

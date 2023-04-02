@@ -10,6 +10,7 @@ class PermissionGateAndPolicy
         $this->defineGateUser();
         $this->defineGateCountry();
         $this->defineGateCategory();
+        $this->defineGateGenre();
     }
 
     public function defineGateUser()
@@ -40,5 +41,15 @@ class PermissionGateAndPolicy
         Gate::define(\App\Models\Category::DELETE, 'App\Policies\CategoryPolicy@delete');
         Gate::define(\App\Models\Category::RESTORE, 'App\Policies\CategoryPolicy@restore');
         Gate::define(\App\Models\Category::FORCE_DELETE, 'App\Policies\CategoryPolicy@forceDelete');
+    }
+
+    public function defineGateGenre()
+    {
+        Gate::define(\App\Models\Genre::VIEW, 'App\Policies\GenrePolicy@view');
+        Gate::define(\App\Models\Genre::CREATE, 'App\Policies\GenrePolicy@create');
+        Gate::define(\App\Models\Genre::UPDATE, 'App\Policies\GenrePolicy@update');
+        Gate::define(\App\Models\Genre::DELETE, 'App\Policies\GenrePolicy@delete');
+        Gate::define(\App\Models\Genre::RESTORE, 'App\Policies\GenrePolicy@restore');
+        Gate::define(\App\Models\Genre::FORCE_DELETE, 'App\Policies\GenrePolicy@forceDelete');
     }
 }

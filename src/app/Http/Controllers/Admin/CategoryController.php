@@ -6,15 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Services\Admin\CategoryService;
+use App\Services\Admin\CountryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     protected $categoryService;
+    protected $countryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(CategoryService $categoryService, CountryService $countryService)
     {
         $this->categoryService = $categoryService;
+        $this->countryService = $countryService;
     }
 
     public function index()
@@ -30,8 +33,9 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $parentCategory = $this->categoryService->getParentCategory();
-        return view('admin.categories.create', compact('category', 'parentCategory'));
-
+        $countries = $this->countryService->getAllCountry(['id', 'name']);
+        $countrySelected = [];
+        return view('admin.categories.create', compact('category', 'parentCategory', 'countries', 'countrySelected'));
     }
 
     public function store(CategoryRequest $request)
@@ -45,7 +49,9 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->findCategoryById($id);
         $parentCategory = $this->categoryService->getParentCategory($id);
-        return view('admin.categories.edit', compact('category', 'parentCategory'));
+        $countries = $this->countryService->getAllCountry(['id', 'name']);
+        $countrySelected = $category->countries()->pluck('country_id')->toArray();
+        return view('admin.categories.edit', compact('category', 'parentCategory', 'countries', 'countrySelected'));
     }
 
     public function update(CategoryRequest $request, $id)

@@ -48,6 +48,10 @@
                             @can(\App\Models\Category::VIEW)
                                 <li><a href="{{ route('admin.category.list') }}">{{ __('layout.admin.sidebar.manage_category') }}</a></li>
                             @endcan
+
+                            @can(\App\Models\Genre::VIEW)
+                                <li><a href="{{ route('admin.genre.list') }}">{{ __('layout.admin.sidebar.manage_genre') }}</a></li>
+                            @endcan
                         </ul>
                     </li>
                 </ul>

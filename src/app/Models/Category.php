@@ -44,4 +44,13 @@ class Category extends Model implements Transformable
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    public function countries()
+    {
+        return $this->belongsToMany(Country::class, 'country_categories', 'category_id', 'country_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_visible', config('const.activate.on'));
+    }
 }

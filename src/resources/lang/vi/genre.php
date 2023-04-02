@@ -8,6 +8,9 @@ return [
     'name' => 'Tên danh mục',
     'status' => 'Trạng thái',
     'short_desc' => 'Mô tả ngắn',
-    'long_desc' => 'Mo tả',
-    'parent_id' => 'Danh mục cha',
+    'long_desc' => 'Mô tả',
+    'category' => 'Thể loại',
+    'select_category' => 'Chọn thể loại',
+    'highlight' => 'Nổi bật',
+    'view_search' => 'Lượt tìm kiếm',
 ];

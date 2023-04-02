@@ -66,11 +66,19 @@
     </div>
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="long_desc">{{ __('category.parent_id') }}</label>
+            <label for="parent_id">{{ __('category.parent_id') }}</label>
             <select class="form-control" name="parent_id">
                 <option value="0">{{ __('category.select_parent_category') }}</option>
                 @foreach($parentCategory as $parent)
                     <option value="{{ $parent->id }}" @if($parent->id == $category->parent_id) selected @endif>{{ $parent->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="countries">{{ __('category.country') }}</label>
+            <select class="form-control js-example-basic-multiple" name="countries[]" multiple="multiple" data-placeholder="{{ __('category.select_country') }}">
+                @foreach($countries as $country)
+                    <option value="{{ $country->id }}" @if(in_array($country->id, $countrySelected)) selected @endif>{{ $country->name }}</option>
                 @endforeach
             </select>
         </div>

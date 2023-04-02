@@ -3,12 +3,12 @@
 return [
     'admin' => [
         'sidebar' => [
-            'manage_user' => 'Manager User',
-            'list_user' => 'List User',
-            'manage_country' => 'Manager Country',
-            'manage_category' => 'Manager Category',
-            'manage_comic' => 'Manager Comic',
-            'manage_genre' => 'Manager Genre',
+            'manage_user' => 'Quản lý Admin',
+            'list_user' => 'Danh sách Admin',
+            'manage_country' => 'Quản lý quốc gia',
+            'manage_category' => 'Quản lý danh mục',
+            'manage_comic' => 'Quản lý truyện',
+            'manage_genre' => 'Quản lý thể loại',
         ]
     ],
 

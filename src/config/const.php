@@ -34,4 +34,7 @@ return [
     'category' => [
         'parent' => 0,
     ],
+    'genre' => [
+        'highlight' => 1,
+    ],
 ];

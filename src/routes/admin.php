@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\GenreController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/handle-login', [AuthController::class, 'handleLogin'])->name('admin.handle.login');
@@ -58,5 +59,19 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::post('/force-delete', [CategoryController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Category::FORCE_DELETE);
         Route::post('/restore', [CategoryController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Category::RESTORE);
         Route::post('/status', [CategoryController::class, 'status'])->name('status');
+    });
+
+    // Category
+    Route::group(array('prefix' => '/genre', 'as' => 'genre.'), function () {
+        Route::get('/', [GenreController::class, 'index'])->name('list')->middleware('can:' . App\Models\Genre::VIEW);
+        Route::get('/create', [GenreController::class, 'create'])->name('create')->middleware('can:' . App\Models\Genre::CREATE);
+        Route::post('/store', [GenreController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [GenreController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Genre::UPDATE);
+        Route::post('/update/{id}', [GenreController::class, 'update'])->name('update');
+        Route::post('/delete', [GenreController::class, 'delete'])->name('delete')->middleware('can:' . App\Models\Genre::DELETE);
+        Route::get('/trash', [GenreController::class, 'trash'])->name('trash');
+        Route::post('/force-delete', [GenreController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Genre::FORCE_DELETE);
+        Route::post('/restore', [GenreController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Genre::RESTORE);
+        Route::post('/status', [GenreController::class, 'status'])->name('status');
     });
 });

@@ -25,13 +25,26 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
         return Category::class;
     }
 
-
-
     /**
      * Boot up the repository, pushing criteria
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function deleteMultiple(array $ids)
+    {
+        return $this->model->whereIn('id', $ids)->delete();
+    }
+
+    public function forceDeleteMultiple(array $ids)
+    {
+        return $this->model->whereIn('id', $ids)->forceDelete();
+    }
+
+    public function restoreMultiple(array $ids)
+    {
+        return $this->model->whereIn('id', $ids)->restore();
     }
 }

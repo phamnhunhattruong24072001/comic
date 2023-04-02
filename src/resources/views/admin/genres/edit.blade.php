@@ -1,17 +1,17 @@
 @extends('admin.admin_layout')
 
-@section('title', __('category.update_title'))
+@section('title', __('genre.update_title'))
 
 @section('content')
     <div class="x_panel">
         <div class="x_title">
-            <h2>{{ __('category.update_title') }}</h2>
+            <h2>{{ __('genre.update_title') }}</h2>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <form id="demo-form" action="{{ route('admin.category.update', ['id' => $category->id]) }}" method="post" enctype="multipart/form-data">
+            <form id="demo-form" action="{{ route('admin.genre.update', ['id' => $genre->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                @include('admin.categories.form', ['data' => $category, 'buttonSubmit' => __('common.button.update')])
+                @include('admin.genres.form', ['data' => $genre, 'buttonSubmit' => __('common.button.update')])
             </form>
         </div>
     </div>

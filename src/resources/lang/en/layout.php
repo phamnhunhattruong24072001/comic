@@ -8,7 +8,7 @@ return [
             'manage_country' => 'Manager Country',
             'manage_category' => 'Manager Category',
             'manage_comic' => 'Manager Comic',
-
+            'manage_genre' => 'Manager Genre',
         ]
     ],
 

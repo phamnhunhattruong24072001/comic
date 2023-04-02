@@ -42,4 +42,8 @@ class Country extends Model implements Transformable
         'is_visible',
     ];
 
+    function scopeActive($query)
+    {
+        return $query->where('is_visible', config('const.activate.on'));
+    }
 }

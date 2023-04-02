@@ -1,6 +1,6 @@
 @extends('admin.admin_layout')
 
-@section('title', __('category.list_category'))
+@section('title', __('genre.list_genre'))
 
 @push('css')
     <style>
@@ -16,9 +16,9 @@
             <div class="x_title">
                 <h2>{{ __('user.list_title') }}</small></h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <a href="{{ route('admin.category.create') }}" class="btn-sm btn-primary rounded-0">{{ __('common.button.create') }}</a>
-                    <a href="{{ route('admin.category.trash') }}" class="btn-sm btn-secondary rounded-0">{{ __('common.button.trash') }}</a>
-                    <a class="btn-sm btn-danger rounded-0 delete-multiple" data-url="{{route('admin.category.delete')}}" data-action="delete">{{ __('common.button.delete') }}</a>
+                    <a href="{{ route('admin.genre.create') }}" class="btn-sm btn-primary rounded-0">{{ __('common.button.create') }}</a>
+                    <a href="{{ route('admin.genre.trash') }}" class="btn-sm btn-secondary rounded-0">{{ __('common.button.trash') }}</a>
+                    <a class="btn-sm btn-danger rounded-0 delete-multiple" data-url="{{route('admin.genre.delete')}}" data-action="delete">{{ __('common.button.delete') }}</a>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -35,38 +35,40 @@
                                             <input type="checkbox" id="check-all">
                                         </label>
                                     </th>
-                                    <th>{{ __('category.name') }}</th>
+                                    <th>{{ __('genre.name') }}</th>
+                                    <th>{{ __('genre.name_another') }}</th>
                                     <th>{{ __('common.slug') }}</th>
-                                    <th>{{ __('category.status') }}</th>
+                                    <th>{{ __('genre.status') }}</th>
                                     <th>{{ __('common.action') }}</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($genres as $genre)
                                     <tr>
                                         <td>
-                                            <label><input type="checkbox" class="check-item" value="{{ $category->id }}"></label>
+                                            <label><input type="checkbox" class="check-item" value="{{ $genre->id }}"></label>
                                         </td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
+                                        <td>{{ $genre->name }}</td>
+                                        <td>{{ $genre->name_another }}</td>
+                                        <td>{{ $genre->slug }}</td>
                                         <td>
                                             <label>
-                                                <input type="checkbox" class="js-switch switch-status" data-id="{{$category->id}}" data-url="{{route('admin.category.status')}}"
-                                                       @if($category->is_visible == config('const.activate.on')) checked @endif value="{{$category->is_visible}}"/>
+                                                <input type="checkbox" class="js-switch switch-status" data-id="{{$genre->id}}" data-url="{{route('admin.genre.status')}}"
+                                                       @if($genre->is_visible == config('const.activate.on')) checked @endif value="{{$genre->is_visible}}"/>
                                             </label>
                                         </td>
                                         <td>
                                             <div class="content-button">
-                                                @can(\App\Models\Category::UPDATE)
-                                                    <a href="{{ route('admin.category.edit', $category->id) }}" class="btn-sm btn-warning" title=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                @can(\App\Models\Genre::UPDATE)
+                                                    <a href="{{ route('admin.genre.edit', $genre->id) }}" class="btn-sm btn-warning" title=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                 @endcan
 
-                                                @can(\App\Models\Category::DELETE)
-                                                    <form action="{{ route('admin.category.delete')}}" method="post" class="form-button">
+                                                @can(\App\Models\Genre::DELETE)
+                                                    <form action="{{ route('admin.genre.delete')}}" method="post" class="form-button">
                                                         @csrf
-                                                        <input type="hidden" name="id[]" value="{{ $category->id }}">
+                                                        <input type="hidden" name="id[]" value="{{ $genre->id }}">
                                                         <button class="btn-sm btn-danger button-delete" title="" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </form>
                                                 @endcan

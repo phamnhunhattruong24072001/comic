@@ -66,4 +66,9 @@ class CountryService
     {
         return $this->countryRepository->update($param, $id);
     }
+
+    public function getAllCountry($columns = ['*'])
+    {
+        return $this->countryRepository->active()->select($columns)->get();
+    }
 }

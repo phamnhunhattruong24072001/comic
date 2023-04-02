@@ -38,7 +38,11 @@ class CategoryService
 
     public function storeCategory($data)
     {
-        return $this->categoryRepository->create($data);
+        $result = $this->categoryRepository->create($data);
+        if($result) {
+            $this->categoryRepository->sync($result->id ,'countries', $data['countries']);
+        }
+        return $result;
     }
 
     public function findCategoryById($id, $columns = ['*'])
@@ -48,7 +52,11 @@ class CategoryService
 
     public function updateCategoryById($data, $id)
     {
-        return $this->categoryRepository->update($data, $id);
+        $result = $this->categoryRepository->update($data, $id);
+        if($result) {
+            $this->categoryRepository->sync($id ,'countries', $data['countries']);
+        }
+        return $result;
     }
 
     public function getListTrashCategoryPaginate($param, $columns = ['*'])
@@ -95,5 +103,10 @@ class CategoryService
         });
         $result->orderBy('id', 'DESC');
         return $result->all($columns);
+    }
+
+    public function getAllCategory($columns = ['*'])
+    {
+        return $this->categoryRepository->active()->select($columns)->get();
     }
 }

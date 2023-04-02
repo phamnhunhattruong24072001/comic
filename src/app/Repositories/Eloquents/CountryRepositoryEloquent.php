@@ -34,4 +34,19 @@ class CountryRepositoryEloquent extends BaseRepository implements CountryReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function deleteMultiple(array $ids)
+    {
+        return $this->model->whereIn('id', $ids)->delete();
+    }
+
+    public function forceDeleteMultiple(array $ids)
+    {
+        return $this->model->whereIn('id', $ids)->forceDelete();
+    }
+
+    public function restoreMultiple(array $ids)
+    {
+        return $this->model->whereIn('id', $ids)->restore();
+    }
 }

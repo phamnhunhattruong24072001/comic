@@ -4,15 +4,16 @@ namespace App\Repositories\Eloquents;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\UserRepository;
-use App\Models\User;
+use App\Repositories\Contracts\GenreRepository;
+use App\Models\Genre;
+use App\Validators\GenreValidator;
 
 /**
- * Class UserRepositoryEloquent.
+ * Class GenreRepositoryEloquent.
  *
  * @package namespace App\Repositories\Eloquents;
  */
-class UserRepositoryEloquent extends BaseRepository implements UserRepository
+class GenreRepositoryEloquent extends BaseRepository implements GenreRepository
 {
     /**
      * Specify Model class name
@@ -21,8 +22,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
      */
     public function model()
     {
-        return User::class;
+        return Genre::class;
     }
+
+
 
     /**
      * Boot up the repository, pushing criteria

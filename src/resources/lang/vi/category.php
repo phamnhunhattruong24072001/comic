@@ -8,6 +8,7 @@ return [
     'name' => 'Tên danh mục',
     'status' => 'Trạng thái',
     'short_desc' => 'Mô tả ngắn',
-    'long_desc' => 'Mo tả',
-    'parent_id' => 'Danh mục cha',
+    'long_desc' => 'Mô tả',
+    'country' => 'Quốc gia',
+    'select_country' => 'Chọn quốc gia',
 ];

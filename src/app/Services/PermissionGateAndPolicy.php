@@ -11,6 +11,8 @@ class PermissionGateAndPolicy
         $this->defineGateCountry();
         $this->defineGateCategory();
         $this->defineGateGenre();
+        $this->defineGateComic();
+        $this->defineGateChapter();
     }
 
     public function defineGateUser()
@@ -51,5 +53,25 @@ class PermissionGateAndPolicy
         Gate::define(\App\Models\Genre::DELETE, 'App\Policies\GenrePolicy@delete');
         Gate::define(\App\Models\Genre::RESTORE, 'App\Policies\GenrePolicy@restore');
         Gate::define(\App\Models\Genre::FORCE_DELETE, 'App\Policies\GenrePolicy@forceDelete');
+    }
+
+    public function defineGateComic()
+    {
+        Gate::define(\App\Models\Comic::VIEW, 'App\Policies\ComicPolicy@view');
+        Gate::define(\App\Models\Comic::CREATE, 'App\Policies\ComicPolicy@create');
+        Gate::define(\App\Models\Comic::UPDATE, 'App\Policies\ComicPolicy@update');
+        Gate::define(\App\Models\Comic::DELETE, 'App\Policies\ComicPolicy@delete');
+        Gate::define(\App\Models\Comic::RESTORE, 'App\Policies\ComicPolicy@restore');
+        Gate::define(\App\Models\Comic::FORCE_DELETE, 'App\Policies\ComicPolicy@forceDelete');
+    }
+
+    public function defineGateChapter()
+    {
+        Gate::define(\App\Models\Chapter::VIEW, 'App\Policies\ChapterPolicy@view');
+        Gate::define(\App\Models\Chapter::CREATE, 'App\Policies\ChapterPolicy@create');
+        Gate::define(\App\Models\Chapter::UPDATE, 'App\Policies\ChapterPolicy@update');
+        Gate::define(\App\Models\Chapter::DELETE, 'App\Policies\ChapterPolicy@delete');
+        Gate::define(\App\Models\Chapter::RESTORE, 'App\Policies\ChapterPolicy@restore');
+        Gate::define(\App\Models\Chapter::FORCE_DELETE, 'App\Policies\ChapterPolicy@forceDelete');
     }
 }

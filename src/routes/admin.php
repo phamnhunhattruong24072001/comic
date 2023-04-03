@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\ComicController;
+use App\Http\Controllers\Admin\ChapterController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/handle-login', [AuthController::class, 'handleLogin'])->name('admin.handle.login');
@@ -61,7 +63,7 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::post('/status', [CategoryController::class, 'status'])->name('status');
     });
 
-    // Category
+    // Genre
     Route::group(array('prefix' => '/genre', 'as' => 'genre.'), function () {
         Route::get('/', [GenreController::class, 'index'])->name('list')->middleware('can:' . App\Models\Genre::VIEW);
         Route::get('/create', [GenreController::class, 'create'])->name('create')->middleware('can:' . App\Models\Genre::CREATE);
@@ -73,5 +75,33 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::post('/force-delete', [GenreController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Genre::FORCE_DELETE);
         Route::post('/restore', [GenreController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Genre::RESTORE);
         Route::post('/status', [GenreController::class, 'status'])->name('status');
+    });
+
+    // Comic
+    Route::group(array('prefix' => '/comic', 'as' => 'comic.'), function () {
+        Route::get('/', [ComicController::class, 'index'])->name('list')->middleware('can:' . App\Models\Comic::VIEW);
+        Route::get('/create', [ComicController::class, 'create'])->name('create')->middleware('can:' . App\Models\Comic::CREATE);
+        Route::post('/store', [ComicController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ComicController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Comic::UPDATE);
+        Route::post('/update/{id}', [ComicController::class, 'update'])->name('update');
+        Route::post('/delete', [ComicController::class, 'delete'])->name('delete')->middleware('can:' . App\Models\Comic::DELETE);
+        Route::get('/trash', [ComicController::class, 'trash'])->name('trash');
+        Route::post('/force-delete', [ComicController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Comic::FORCE_DELETE);
+        Route::post('/restore', [ComicController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Comic::RESTORE);
+        Route::post('/status', [ComicController::class, 'status'])->name('status');
+    });
+
+    // Chapter
+    Route::group(array('prefix' => '/chapter', 'as' => 'chapter.'), function () {
+        Route::get('/{any?}', [ChapterController::class, 'index'])->name('list')->middleware('can:' . App\Models\Comic::VIEW);
+        Route::get('/create/{any?}', [ChapterController::class, 'create'])->name('create')->middleware('can:' . App\Models\Comic::CREATE);
+        Route::post('/store', [ChapterController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ChapterController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Comic::UPDATE);
+        Route::post('/update/{id}', [ChapterController::class, 'update'])->name('update');
+        Route::post('/delete', [ChapterController::class, 'delete'])->name('delete')->middleware('can:' . App\Models\Comic::DELETE);
+        Route::get('/trash', [ChapterController::class, 'trash'])->name('trash');
+        Route::post('/force-delete', [ChapterController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Comic::FORCE_DELETE);
+        Route::post('/restore', [ChapterController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Comic::RESTORE);
+        Route::post('/status', [ChapterController::class, 'status'])->name('status');
     });
 });

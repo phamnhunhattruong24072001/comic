@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('long_desc')->nullable();
             $table->text('tags')->nullable();
             $table->boolean('highlight')->nullable()->default(0);
-            $table->boolean('view_search')->nullable()->default(0);
+            $table->integer('view_search')->nullable()->default(0);
             $table->boolean('is_visible')->default(0);
             $table->softDeletes();
             $table->timestamps();

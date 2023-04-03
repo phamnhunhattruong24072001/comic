@@ -74,4 +74,9 @@ class GenreService
     {
         return $this->genreRepository->update($param, $id);
     }
+
+    public function getAllGenre($columns = ['*'])
+    {
+        return $this->genreRepository->active()->select($columns)->get();
+    }
 }

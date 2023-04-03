@@ -16,24 +16,11 @@ class CategoryService
 
     public function getListCategoryPaginate($param, $columns = ['*'])
     {
-        $parentCategories = $this->categoryRepository->scopeQuery(function ($query) use ($param) {
-            $query->where('parent_id', config('const.category.parent'));
+        $result = $this->categoryRepository->scopeQuery(function ($query) use ($param) {
             return $query;
         })
-        ->with('childCategory')
-        ->orderBy('created_at', 'ASC')
-        ->get();
-
-        $result = [];
-        $prefix = '--';
-        foreach ($parentCategories as $parentCategory) {
-            $result[] = $parentCategory;
-            foreach ($parentCategory->childCategory as $childCategory) {
-                $childCategory->name = $prefix.' '.$childCategory->name;
-                $result[] = $childCategory;
-            }
-        }
-        return $result;
+        ->orderBy('created_at', 'ASC');
+        return $result->paginate($param['limit'], $columns);
     }
 
     public function storeCategory($data)
@@ -87,22 +74,6 @@ class CategoryService
     public function updateStatus($param, $id)
     {
         return $this->categoryRepository->update($param, $id);
-    }
-
-    public function getParentCategory($id = null, $columns = ['*'])
-    {
-        $columns = [
-            'id',
-            'name'
-        ];
-        $result = $this->categoryRepository->scopeQuery(function ($query) use ($id) {
-            $query->where('parent_id', config('const.category.parent'));
-            $query->where('id', '!=', $id);
-            $query->where('is_visible', config('const.activate.on'));
-            return $query;
-        });
-        $result->orderBy('id', 'DESC');
-        return $result->all($columns);
     }
 
     public function getAllCategory($columns = ['*'])

@@ -2,15 +2,16 @@
 
 
 return [
-    'list_title' => 'Quản lý danh mục',
-    'create_title' => 'Thêm mới danh mục',
-    'update_title' => 'Cập nhật danh mục',
-    'name' => 'Tên danh mục',
+    'list_title' => 'Quản lý thể loại',
+    'create_title' => 'Thêm mới thể loại',
+    'update_title' => 'Cập nhật thể loại',
+    'name' => 'Tên thể loại',
+    'name_another' => 'Tên khác',
     'status' => 'Trạng thái',
     'short_desc' => 'Mô tả ngắn',
     'long_desc' => 'Mô tả',
-    'category' => 'Thể loại',
-    'select_category' => 'Chọn thể loại',
+    'category' => 'Danh mục',
+    'select_category' => 'Chọn danh mục',
     'highlight' => 'Nổi bật',
     'view_search' => 'Lượt tìm kiếm',
 ];

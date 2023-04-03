@@ -18,17 +18,17 @@ class GenreRequest extends FormRequest
                 'required',
                 'min:4',
                 'max:50',
-                'unique:categories,name,' . $this->id . ',id,deleted_at,NULL',
+                'unique:genres,name,' . $this->id . ',id,deleted_at,NULL',
             ],
             'name_another' => [
-                'required',
+                'nullable',
                 'min:4',
                 'max:50',
-                'unique:categories,name_another,' . $this->id . ',id,deleted_at,NULL',
+                'unique:genres,name_another,' . $this->id . ',id,deleted_at,NULL',
             ],
             'slug' => [
                 'required',
-                'unique:categories,slug,' . $this->id . ',id,deleted_at,NULL',
+                'unique:genres,slug,' . $this->id . ',id,deleted_at,NULL',
             ],
         ];
     }
@@ -40,7 +40,6 @@ class GenreRequest extends FormRequest
             'name.min' => __('validation.custom.min', ['count' => 4]),
             'name.max' => __('validation.custom.max', ['count' => 50]),
             'name.unique' => __('validation.custom.unique'),
-            'name_another.required' => __('validation.custom.required'),
             'name_another.min' => __('validation.custom.min', ['count' => 4]),
             'name_another.max' => __('validation.custom.max', ['count' => 50]),
             'name_another.unique' => __('validation.custom.unique'),

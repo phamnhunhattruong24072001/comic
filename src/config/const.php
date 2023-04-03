@@ -30,11 +30,15 @@ return [
     'path' => [
         'user' => 'public/users',
         'country' => 'public/countries',
+        'comic' => 'public/comics',
     ],
     'category' => [
         'parent' => 0,
     ],
     'genre' => [
+        'highlight' => 1,
+    ],
+    'comic' => [
         'highlight' => 1,
     ],
 ];

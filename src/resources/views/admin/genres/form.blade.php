@@ -27,6 +27,16 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
+                    <label for="name_another">{{ __('genre.name_another') }}</label>
+                    <input type="text" id="name_another" class="form-control @error('name_another') is-invalid @enderror" name="name_another"
+                           value="{{ $genre->name_another != '' ? $genre->name_another : old('name_another')}}"/>
+                    @error('name_another')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-lg-6 d-flex flex-row">
+                <div class="form-group w-50">
                     <label>{{ __('genre.status') }}</label>
                     <p>
                         {{ __('common.status.active')  }}:
@@ -40,9 +50,7 @@
                         </label>
                     </p>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
+                <div class="form-group w-50">
                     <label>{{ __('genre.highlight') }}</label>
                     <p>
                         <label>

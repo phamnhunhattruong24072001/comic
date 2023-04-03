@@ -32,10 +32,9 @@ class CategoryController extends Controller
     public function create()
     {
         $category = new Category();
-        $parentCategory = $this->categoryService->getParentCategory();
         $countries = $this->countryService->getAllCountry(['id', 'name']);
         $countrySelected = [];
-        return view('admin.categories.create', compact('category', 'parentCategory', 'countries', 'countrySelected'));
+        return view('admin.categories.create', compact('category', 'countries', 'countrySelected'));
     }
 
     public function store(CategoryRequest $request)
@@ -48,10 +47,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = $this->categoryService->findCategoryById($id);
-        $parentCategory = $this->categoryService->getParentCategory($id);
         $countries = $this->countryService->getAllCountry(['id', 'name']);
         $countrySelected = $category->countries()->pluck('country_id')->toArray();
-        return view('admin.categories.edit', compact('category', 'parentCategory', 'countries', 'countrySelected'));
+        return view('admin.categories.edit', compact('category', 'countries', 'countrySelected'));
     }
 
     public function update(CategoryRequest $request, $id)

@@ -28,21 +28,10 @@ class Category extends Model implements Transformable
         'name',
         'slug',
         'tags',
-        'parent_id',
         'short_desc',
         'long_desc',
         'is_visible',
     ];
-
-    public function parent()
-    {
-        return $this->hasOne(Category::class, 'parent_id');
-    }
-
-    public function childCategory()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
 
     public function countries()
     {

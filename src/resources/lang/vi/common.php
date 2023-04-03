@@ -13,7 +13,7 @@ return [
         'create' => 'Thêm mới',
         'update' => 'Cập nhật',
         'delete' => 'Xóa',
-        'back' => 'Quay lẠi',
+        'back' => 'Quay lại',
         'reset' => 'Tải lại',
         'restore' => 'Khôi phục',
         'force-delete' => 'Xóa vĩnh viễn',

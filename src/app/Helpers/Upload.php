@@ -4,9 +4,12 @@
 use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('uploadFile')) {
-    function uploadFile($path, $file)
+    function uploadFile($path, $file, $key = 0)
     {
-        $newFileName = time() . '.' . $file->extension();
+        if (!$file) {
+            return '';
+        }
+        $newFileName = $key.time() . '.' . $file->extension();
         Storage::disk('local')->putFileAs(
             'files/' . $newFileName,
             $file,

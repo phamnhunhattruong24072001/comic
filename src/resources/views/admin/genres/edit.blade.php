@@ -9,7 +9,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <form id="demo-form" action="{{ route('admin.genre.update', ['id' => $genre->id]) }}" method="post" enctype="multipart/form-data">
+            <form id="demo-form" action="{{ route('admin.genre.update', ['id' => $genre->id]) }}" method="post" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 @include('admin.genres.form', ['data' => $genre, 'buttonSubmit' => __('common.button.update')])
             </form>

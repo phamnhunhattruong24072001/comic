@@ -9,7 +9,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <form action="{{ route('admin.category.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.category.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 @include('admin.categories.form', ['data' => $category, 'buttonSubmit' => __('common.button.create')])
             </form>

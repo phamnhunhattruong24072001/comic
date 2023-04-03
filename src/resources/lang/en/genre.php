@@ -6,6 +6,7 @@ return [
     'create_title' => 'Create Genre',
     'update_title' => 'Update Genre',
     'name' => 'Name',
+    'name_another' => 'Name Another',
     'status' => 'Status',
     'short_desc' => 'Short Desc',
     'long_desc' => 'Long Desc',

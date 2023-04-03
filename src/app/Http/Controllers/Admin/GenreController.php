@@ -41,13 +41,13 @@ class GenreController extends Controller
     {
         $data = $request->all();
         $this->genreService->storeGenre($data);
-        return redirect()->route('admin.category.list');
+        return redirect()->route('admin.genre.list');
     }
 
     public function edit($id)
     {
         $genre = $this->genreService->findGenreById($id);
-        $categories = $this->categoryService->getAllGenre(['id', 'name']);
+        $categories = $this->categoryService->getAllCategory(['id', 'name']);
         $categorySelected = $genre->categories()->pluck('category_id')->toArray();
         return view('admin.genres.edit', compact('genre', 'categories', 'categorySelected'));
     }
@@ -56,7 +56,7 @@ class GenreController extends Controller
     {
         $data = $request->all();
         $this->genreService->updateGenreById($data, $id);
-        return redirect()->route('admin.category.list');
+        return redirect()->route('admin.genre.list');
     }
 
     public function delete(Request $request)
@@ -85,8 +85,8 @@ class GenreController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $categories = $this->genreService->getListTrashGenrePaginate($param);
-        return view('admin.genres.trash', compact('categories'));
+        $genres = $this->genreService->getListTrashGenrePaginate($param);
+        return view('admin.genres.trash', compact('genres'));
     }
 
     public function status(Request $request)

@@ -1,87 +1,3 @@
-
-@push('css')
-    <style>
-        .upload__box{
-            padding: 0px;
-        }
-        .upload__btn-box{
-            margin-bottom: 10px;
-        }
-
-        .upload__btn{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #fff;
-            width: 200px;
-            height: 40px;
-            transition: all .3s ease;
-            cursor: pointer;
-            border: 2px solid;
-            background-color: #4045ba;
-            border-color: #4045ba;
-            font-size: 14px;
-            padding-top: 10px;
-        }
-
-        .upload__btn:hover{
-            background-color: unset;
-            color: #4045ba;
-            transition: all .3s ease;
-        }
-        .upload__inputfile{
-            width: .1px;
-            height: .1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -1;
-        }
-        .upload__img-wrap{
-            display: flex;
-            width: 100%;
-            min-height: 300px;
-            background: #EEEEEE;
-            flex-wrap: wrap;
-        }
-
-        .upload__img-box{
-            width: 200px;
-            padding: 0 10px;
-            margin-bottom: 12px;
-        }
-
-        .upload__img-close{
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            text-align: center;
-            line-height: 24px;
-            z-index: 1;
-            cursor: pointer;
-        }
-
-        .upload__img-close:after{
-            content: '\2716';
-            font-size: 14px;
-            color: white;
-        }
-
-        .img-bg {
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            padding-bottom: 100%;
-        }
-
-    </style>
-@endpush
 <!-- start form for validation -->
 <div class="row">
     <div class="col-lg-9">
@@ -99,7 +15,7 @@
             <div class="col-lg-6">
                 <div class="form-group required">
                     <label for="number_chapter">{{ __('chapter.number_chapter') }}</label>
-                    <input type="text" id="number_chapter" class="form-control @error('number_chapter') is-invalid @enderror" onkeyup="convertToSlug(this.value, '{{ config('const.slug_chapter') }}')" name="number_chapter"
+                    <input type="number" id="number_chapter" class="form-control @error('number_chapter') is-invalid @enderror" onkeyup="convertToSlug(this.value, '{{ config('const.slug_chapter') }}')" name="number_chapter"
                            value="{{ $chapter->number_chapter != '' ? $chapter->number_chapter : old('number_chapter')}}"/>
                     @error('number_chapter')
                     <span class="text-danger">{{ $message }}</span>

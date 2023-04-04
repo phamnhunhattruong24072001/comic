@@ -20,6 +20,9 @@ class GenreRequest extends FormRequest
                 'max:50',
                 'unique:genres,name,' . $this->id . ',id,deleted_at,NULL',
             ],
+            'categories' => [
+                'required',
+            ],
             'name_another' => [
                 'nullable',
                 'min:4',
@@ -37,6 +40,7 @@ class GenreRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.custom.required'),
+            'categories.required' => __('validation.custom.required'),
             'name.min' => __('validation.custom.min', ['count' => 4]),
             'name.max' => __('validation.custom.max', ['count' => 50]),
             'name.unique' => __('validation.custom.unique'),

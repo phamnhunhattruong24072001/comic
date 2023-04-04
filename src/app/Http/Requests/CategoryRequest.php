@@ -30,6 +30,9 @@ class CategoryRequest extends FormRequest
                 'max:50',
                 'unique:categories,name,' . $this->id . ',id,deleted_at,NULL',
             ],
+            'countries' => [
+                'required',
+            ],
             'slug' => [
                 'required',
                 'unique:categories,slug,' . $this->id . ',id,deleted_at,NULL',
@@ -41,6 +44,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.custom.required'),
+            'countries.required' => __('validation.custom.required'),
             'name.min' => __('validation.custom.min', ['count' => 4]),
             'name.max' => __('validation.custom.max', ['count' => 50]),
             'name.unique' => __('validation.custom.unique'),

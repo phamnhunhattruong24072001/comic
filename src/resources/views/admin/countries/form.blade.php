@@ -35,25 +35,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>{{ __('country.status') }}</label>
-                    <p>
-                        {{ __('common.status.active')  }}:
-                        <label>
-                            <input type="radio" class="flat" name="is_visible" value="1" @if($country->is_visible == config('const.admin.status.active')) checked @endif />
-                        </label>
-                        &nbsp;&nbsp;
-                        {{ __('common.status.deactivate')  }}:
-                        <label>
-                            <input type="radio" class="flat" name="is_visible" value="0" @if($country->is_visible == config('const.admin.status.deactivate')) checked @endif />
-                        </label>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="form-group">
                     <label for="tags">{{ __('common.tags') }}</label>
                     <input id="tags_1" type="text" class="tags form-control" name="tags" value="{{ $country->tags != '' ? $country->tags : old('tags') }}" />
@@ -78,6 +60,20 @@
             @error('avatar')
             <span class="text-danger">{{ $message }}</span>
             @enderror
+        </div>
+        <div class="form-group">
+            <label>{{ __('country.status') }}</label>
+            <p>
+                {{ __('common.status.active')  }}:
+                <label>
+                    <input type="radio" class="flat" name="is_visible" value="1" @if($country->is_visible == config('const.admin.status.active')) checked @endif />
+                </label>
+                &nbsp;&nbsp;
+                {{ __('common.status.deactivate')  }}:
+                <label>
+                    <input type="radio" class="flat" name="is_visible" value="0" @if($country->is_visible == config('const.admin.status.deactivate')) checked @endif />
+                </label>
+            </p>
         </div>
     </div>
     <div class="col-lg-12 mt-5">

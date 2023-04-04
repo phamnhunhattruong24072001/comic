@@ -1,20 +1,12 @@
 @extends('admin.admin_layout')
 
-@section('title', __('comic.list_comic'))
-
-@push('css')
-    <style>
-        .delete-multiple {
-            cursor: pointer;
-        }
-    </style>
-@endpush
+@section('title', __('chapter.list_title'))
 
 @section('content')
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>{{ __('comic.list_title') }}</small></h2>
+                <h2>{{ __('chapter.list_title') }} |<small>{{ $comic->name }}</small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <a href="{{ route('admin.chapter.create', $comic->slug) }}" class="btn-sm btn-primary rounded-0">{{ __('common.button.create') }}</a>
                     <a href="{{ route('admin.chapter.trash', $comic->slug) }}" class="btn-sm btn-secondary rounded-0">{{ __('common.button.trash') }}</a>
@@ -36,23 +28,23 @@
                                         </label>
                                     </th>
                                     <th>{{ __('comic.thumbnail') }}</th>
+                                    <th>{{ __('chapter.comic') }}</th>
                                     <th>{{ __('chapter.name') }}</th>
+                                    <th>{{ __('chapter.number_chapter') }}</th>
                                     <th>{{ __('common.slug') }}</th>
                                     <th>{{ __('common.action') }}</th>
                                 </tr>
                                 </thead>
-
-
                                 <tbody>
-                                @if(!empty($chapters))
                                     @foreach ($chapters as $chapter)
-{{--                                        @dd($chapter);--}}
                                         <tr>
                                             <td>
                                                 <label><input type="checkbox" class="check-item" value="{{ $chapter->id }}"></label>
                                             </td>
                                             <td><img src="{{ asset('storage/'.showFile($chapter->comic->thumbnail)) }}" width="50"></td>
+                                            <td>{{ $chapter->comic->name }}</td>
                                             <td>{{ $chapter->name }}</td>
+                                            <td>{{ $chapter->number_chapter }}</td>
                                             <td>{{ $chapter->slug }}</td>
                                             <td>
                                                 <div class="content-button">
@@ -71,7 +63,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                @endif
                                 </tbody>
                             </table>
                         </div>

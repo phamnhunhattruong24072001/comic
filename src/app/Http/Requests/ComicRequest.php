@@ -30,6 +30,9 @@ class ComicRequest extends FormRequest
                 'max:50',
                 'unique:comics,name,' . $this->id . ',id,deleted_at,NULL',
             ],
+            'genres' => [
+                'required',
+            ],
             'name_another' => [
                 'nullable',
                 'min:4',
@@ -40,6 +43,18 @@ class ComicRequest extends FormRequest
                 'required',
                 'unique:comics,slug,' . $this->id . ',id,deleted_at,NULL',
             ],
+            'thumbnail' => [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg,gif',
+                'max:2048'
+            ],
+            'cover_image' => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,gif',
+                'max:2048'
+            ],
         ];
     }
 
@@ -47,6 +62,7 @@ class ComicRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.custom.required'),
+            'genres.required' => __('validation.custom.required'),
             'name.min' => __('validation.custom.min', ['count' => 4]),
             'name.max' => __('validation.custom.max', ['count' => 50]),
             'name.unique' => __('validation.custom.unique'),
@@ -55,6 +71,12 @@ class ComicRequest extends FormRequest
             'name_another.unique' => __('validation.custom.unique'),
             'slug.required' => __('validation.custom.required'),
             'slug.unique' => __('validation.custom.unique'),
+            'thumbnail.image' => __('validation.custom.images.image'),
+            'thumbnail.mimes' => __('validation.custom.images.mimes'),
+            'thumbnail.max' => __('validation.custom.images.max', ['count' => 2048]),
+            'cover_image.image' => __('validation.custom.images.image'),
+            'cover_image.mimes' => __('validation.custom.images.mimes'),
+            'cover_image.max' => __('validation.custom.images.max', ['count' => 2048]),
         ];
     }
 }

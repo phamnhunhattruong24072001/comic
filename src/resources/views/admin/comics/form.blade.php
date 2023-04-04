@@ -59,21 +59,15 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="release_time">{{ __('comic.release_time') }}</label>
-                    <input type="datetime-local" id="release_time" class="form-control @error('release_time') is-invalid @enderror" name="release_time"
+                    <input type="datetime-local" id="release_time" class="form-control" name="release_time"
                            value="{{ $comic->release_time != '' ? $comic->release_time : old('release_time')}}"/>
-                    @error('release_time')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="the_origin">{{ __('comic.the_origin') }}</label>
-                    <input type="text" id="the_origin" class="form-control @error('the_origin') is-invalid @enderror" name="the_origin"
+                    <input type="text" id="the_origin" class="form-control" name="the_origin"
                            value="{{ $comic->the_origin != '' ? $comic->the_origin : old('the_origin')}}"/>
-                    @error('the_origin')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
                 </div>
             </div>
             <div class="col-lg-12">
@@ -84,6 +78,9 @@
                             <option value="{{ $genre->id }}" @if(in_array($genre->id, $genreSelected)) selected @endif>{{ $genre->name }}</option>
                         @endforeach
                     </select>
+                    @error('genres')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
         </div>
@@ -97,7 +94,7 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label for="long_desc">{{ __('comic.long_desc') }}</label>
-                    <textarea name="long_desc" class="form-control" id="" cols="20" rows="4">{{ $comic->long_desc }}</textarea>
+                    <textarea name="long_desc" class="form-control ckeditor" id="" cols="20" rows="4">{{ $comic->long_desc }}</textarea>
                 </div>
             </div>
         </div>

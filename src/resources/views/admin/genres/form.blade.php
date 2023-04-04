@@ -35,31 +35,6 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-lg-6 d-flex flex-row">
-                <div class="form-group w-50">
-                    <label>{{ __('genre.status') }}</label>
-                    <p>
-                        {{ __('common.status.active')  }}:
-                        <label>
-                            <input type="radio" class="flat" name="is_visible" value="1" @if($genre->is_visible == config('const.admin.status.active')) checked @endif />
-                        </label>
-                        &nbsp;&nbsp;
-                        {{ __('common.status.deactivate')  }}:
-                        <label>
-                            <input type="radio" class="flat" name="is_visible" value="0" @if($genre->is_visible == config('const.admin.status.deactivate')) checked @endif />
-                        </label>
-                    </p>
-                </div>
-                <div class="form-group w-50">
-                    <label>{{ __('genre.highlight') }}</label>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="flat" name="highlight" value="1" @if($genre->highlight == config('const.genre.highlight')) checked @endif />
-                        </label>
-                        &nbsp
-                    </p>
-                </div>
-            </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="tags">{{ __('common.tags') }}</label>
@@ -78,7 +53,7 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label for="long_desc">{{ __('genre.long_desc') }}</label>
-                    <textarea name="long_desc" class="form-control" id="" cols="20" rows="4">{{ $genre->long_desc }}</textarea>
+                    <textarea name="long_desc" class="form-control ckeditor" id="" cols="20" rows="4">{{ $genre->long_desc }}</textarea>
                 </div>
             </div>
         </div>
@@ -91,6 +66,34 @@
                     <option value="{{ $category->id }}" @if(in_array($category->id, $categorySelected)) selected @endif>{{ $category->name }}</option>
                 @endforeach
             </select>
+            @error('categories')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="d-flex w-100">
+            <div class="form-group w-75">
+                <label>{{ __('genre.status') }}</label>
+                <p>
+                    {{ __('common.status.active')  }}:
+                    <label>
+                        <input type="radio" class="flat" name="is_visible" value="1" @if($genre->is_visible == config('const.admin.status.active')) checked @endif />
+                    </label>
+                    &nbsp;&nbsp;
+                    {{ __('common.status.deactivate')  }}:
+                    <label>
+                        <input type="radio" class="flat" name="is_visible" value="0" @if($genre->is_visible == config('const.admin.status.deactivate')) checked @endif />
+                    </label>
+                </p>
+            </div>
+            <div class="form-group w-25">
+                <label>{{ __('genre.highlight') }}</label>
+                <p>
+                    <label>
+                        <input type="checkbox" class="flat" name="highlight" value="1" @if($genre->highlight == config('const.genre.highlight')) checked @endif />
+                    </label>
+                    &nbsp
+                </p>
+            </div>
         </div>
     </div>
     <div class="col-lg-12 mt-5">

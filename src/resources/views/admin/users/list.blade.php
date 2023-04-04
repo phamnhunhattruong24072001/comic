@@ -1,14 +1,6 @@
 @extends('admin.admin_layout')
 
-@section('title', 'Dashboard')
-
-@push('css')
-    <style>
-        .delete-multiple {
-            cursor: pointer;
-        }
-    </style>
-@endpush
+@section('title', __('user.list_title'))
 
 @section('content')
     <div class="col-md-12 col-sm-12 ">
@@ -67,7 +59,7 @@
                                                   @if(is_admin())
                                                       <a href="{{ route('admin.users.permission', ['id' => $user->id]) }}" class="btn-sm btn-primary" title=""><i class="fa fa-users" aria-hidden="true"></i></a>
                                                   @endif
-
+                                                      &nbsp;
                                                   @can(\App\Models\User::UPDATE)
                                                       <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn-sm btn-warning" title=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                   @endcan

@@ -1,14 +1,6 @@
 @extends('admin.admin_layout')
 
-@section('title', __('genre.list_genre'))
-
-@push('css')
-    <style>
-        .delete-multiple {
-            cursor: pointer;
-        }
-    </style>
-@endpush
+@section('title', __('genre.list_title'))
 
 @section('content')
     <div class="col-md-12 col-sm-12 ">

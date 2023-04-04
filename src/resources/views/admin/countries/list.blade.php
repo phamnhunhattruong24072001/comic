@@ -1,14 +1,6 @@
 @extends('admin.admin_layout')
 
-@section('title', 'List Country')
-
-@push('css')
-    <style>
-        .delete-multiple {
-            cursor: pointer;
-        }
-    </style>
-@endpush
+@section('title', __('country.list_title'))
 
 @section('content')
     <div class="col-md-12 col-sm-12 ">

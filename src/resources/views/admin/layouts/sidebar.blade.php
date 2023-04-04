@@ -56,6 +56,10 @@
                             @can(\App\Models\Comic::VIEW)
                                 <li><a href="{{ route('admin.comic.list') }}">{{ __('layout.admin.sidebar.manage_comic') }}</a></li>
                             @endcan
+
+                                @can(\App\Models\Chapter::VIEW)
+                                    <li><a href="{{ route('admin.chapter.list') }}">{{ __('layout.admin.sidebar.manage_chapter') }}</a></li>
+                                @endcan
                         </ul>
                     </li>
                 </ul>

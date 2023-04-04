@@ -58,6 +58,9 @@
 <!-- Select2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+<!-- CKEditor 4 -->
+<script src="{{ asset('backend/ckeditor/ckeditor.js') }}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{asset('backend/build/js/custom.min.js')}}"></script>
@@ -187,10 +190,10 @@
         return slug;
     }
 
-    function convertToSlug(input)
+    function convertToSlug(input, key = "")
     {
         let result = ChangeToSlug(input);
-        $('.slug-convert').val(result);
+        $('.slug-convert').val(key+result);
     }
 
     $('.confirm-delete').on('click', function (){

@@ -74,8 +74,8 @@
                                                         <button class="btn-sm btn-danger button-delete" title="" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </form>
                                                 @endcan
-                                                    <a href="{{ route('admin.chapter.list', $comic->slug) }}" class="btn-sm btn-info" title="">Danh sách chapter</a>
-                                                    <a href="{{ route('admin.chapter.create', $comic->slug) }}" class="btn-sm btn-info" title="">Thêm chapter</a>
+                                                    <a href="{{ route('admin.chapter.list', $comic->slug) }}" class="btn-sm btn-info" title=""><i class="fa fa-bars"></i></a>&nbsp;
+                                                    <a href="{{ route('admin.chapter.create', $comic->slug) }}" class="btn-sm btn-info" title=""><i class="fa fa-plus"></i></a>
                                             </div>
                                         </td>
                                     </tr>

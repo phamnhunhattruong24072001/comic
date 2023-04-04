@@ -9,6 +9,7 @@ return [
             'manage_category' => 'Manager Category',
             'manage_comic' => 'Manager Comic',
             'manage_genre' => 'Manager Genre',
+            'manage_chapter' => 'Manager Chapter',
         ]
     ],
 

@@ -9,7 +9,7 @@ if (!function_exists('uploadFile')) {
         if (!$file) {
             return '';
         }
-        $newFileName = $key.time() . '.' . $file->extension();
+        $newFileName = time() . rand(1, 99) . '.' . $file->extension();
         Storage::disk('local')->putFileAs(
             'files/' . $newFileName,
             $file,
@@ -28,11 +28,29 @@ if (!function_exists('showFile')) {
         } else {
             $exists = Storage::disk('public')->exists($fileName);
             if ($exists) {
-               $newFileName = $fileName;
+                $newFileName = $fileName;
             } else {
                 $newFileName = config('const.image.imageNull');
             }
         }
         return $newFileName;
+    }
+}
+
+if (!function_exists('uploadFileMultiple')) {
+    function uploadFileMultiple($path, $files)
+    {
+        $file_images = array();
+        foreach ($files as $key => $file) {
+            $fileName = time() . rand(1, 99) . '.' . $file->extension();
+            Storage::disk('local')->putFileAs(
+                'files/' . $fileName,
+                $file,
+                $fileName
+            );
+            $pathName = $file->storeAs($path, $fileName, 'local');
+            $file_images[$key] = substr($pathName, strlen('public/'));
+        }
+        return $file_images;
     }
 }

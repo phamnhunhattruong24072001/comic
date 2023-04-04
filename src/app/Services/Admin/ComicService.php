@@ -77,7 +77,7 @@ class ComicService
 
     public function findComicBySlug($slug)
     {
-        return $this->comicRepository->where('slug', $slug)->select(['id', 'slug'])->first();
+        return $this->comicRepository->where('slug', $slug)->select(['id', 'slug', 'name'])->first();
     }
 
     public function getAllComic($columns = ['*'])

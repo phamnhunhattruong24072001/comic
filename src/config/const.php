@@ -31,6 +31,7 @@ return [
         'user' => 'public/users',
         'country' => 'public/countries',
         'comic' => 'public/comics',
+        'chapter' => 'public/chapters',
     ],
     'category' => [
         'parent' => 0,
@@ -41,4 +42,5 @@ return [
     'comic' => [
         'highlight' => 1,
     ],
+    'slug_chapter' => 'chapter-',
 ];

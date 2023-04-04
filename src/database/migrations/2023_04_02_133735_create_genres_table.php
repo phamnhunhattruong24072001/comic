@@ -14,8 +14,8 @@ return new class extends Migration
 	{
 		Schema::create('genres', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('name_another')->nullable();
             $table->text('short_desc')->nullable();
             $table->text('long_desc')->nullable();

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('name_another')->nullable();
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('author_name')->nullable();
             $table->integer('view')->default(0)->nullable();
             $table->text('tags')->nullable();

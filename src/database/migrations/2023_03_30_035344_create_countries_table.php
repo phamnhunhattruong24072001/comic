@@ -15,12 +15,12 @@ return new class extends Migration
 	{
 		Schema::create('countries', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('another_name')->nullable();
             $table->text('short_desc')->nullable();
             $table->text('avatar')->nullable();
             $table->text('tags')->nullable();
-            $table->string('slug');
             $table->boolean('is_visible')->default(0);
             $table->softDeletes();
             $table->timestamps();

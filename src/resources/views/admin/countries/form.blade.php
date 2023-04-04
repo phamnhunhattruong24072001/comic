@@ -74,7 +74,7 @@
                 <img id="file-ip-1-preview" src="{{ asset('storage/'.showFile($country->avatar)) }}">
             </div>
             <label for="file-ip-1">{{ __('common.upload_file') }}</label>
-            <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);" name="avatar">
+            <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event, 'file-ip-1-preview');" name="avatar">
             @error('avatar')
             <span class="text-danger">{{ $message }}</span>
             @enderror

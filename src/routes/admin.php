@@ -93,7 +93,7 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
 
     // Chapter
     Route::group(array('prefix' => '/chapter', 'as' => 'chapter.'), function () {
-        Route::get('/{any?}', [ChapterController::class, 'index'])->name('list')->middleware('can:' . App\Models\Comic::VIEW);
+        Route::get('/list/{any?}', [ChapterController::class, 'index'])->name('list')->middleware('can:' . App\Models\Comic::VIEW);
         Route::get('/create/{any?}', [ChapterController::class, 'create'])->name('create')->middleware('can:' . App\Models\Comic::CREATE);
         Route::post('/store', [ChapterController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [ChapterController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Comic::UPDATE);

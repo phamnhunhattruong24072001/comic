@@ -44,8 +44,9 @@
 
 
                                 <tbody>
-                                @if(empty($chapters))
+                                @if(!empty($chapters))
                                     @foreach ($chapters as $chapter)
+{{--                                        @dd($chapter);--}}
                                         <tr>
                                             <td>
                                                 <label><input type="checkbox" class="check-item" value="{{ $chapter->id }}"></label>

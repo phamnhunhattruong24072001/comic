@@ -26,7 +26,7 @@ class CountryRequest extends FormRequest
                 'unique:countries,name,' . $this->id . ',id,deleted_at,NULL'
             ],
             'another_name' => [
-                'required',
+                'nullable',
                 'min:4',
                 'max:20',
                 'unique:countries,another_name,' . $this->id . ',id,deleted_at,NULL'

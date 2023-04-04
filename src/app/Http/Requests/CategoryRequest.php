@@ -30,12 +30,6 @@ class CategoryRequest extends FormRequest
                 'max:50',
                 'unique:categories,name,' . $this->id . ',id,deleted_at,NULL',
             ],
-            'name_another' => [
-                'required',
-                'min:4',
-                'max:50',
-                'unique:categories,name,' . $this->id . ',id,deleted_at,NULL',
-            ],
             'slug' => [
                 'required',
                 'unique:categories,slug,' . $this->id . ',id,deleted_at,NULL',
@@ -50,10 +44,6 @@ class CategoryRequest extends FormRequest
             'name.min' => __('validation.custom.min', ['count' => 4]),
             'name.max' => __('validation.custom.max', ['count' => 50]),
             'name.unique' => __('validation.custom.unique'),
-            'name_another.required' => __('validation.custom.required'),
-            'name_another.min' => __('validation.custom.min', ['count' => 4]),
-            'name_another.max' => __('validation.custom.max', ['count' => 50]),
-            'name_another.unique' => __('validation.custom.unique'),
             'slug.required' => __('validation.custom.required'),
             'slug.unique' => __('validation.custom.unique'),
         ];

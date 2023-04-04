@@ -11,7 +11,7 @@
         <div class="x_content">
             <form action="{{ route('admin.chapter.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                @include('admin.chapters.form', ['data' => $comic, 'chapter' => $chapter, 'type' => $type,'buttonSubmit' => __('common.button.create')])
+                @include('admin.chapters.form', ['data' => $comic, 'chapter' => $chapter, 'is_list' => $is_list,'buttonSubmit' => __('common.button.create')])
             </form>
         </div>
     </div>

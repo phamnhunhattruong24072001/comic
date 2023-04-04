@@ -24,16 +24,17 @@ class Chapter extends Model implements Transformable
     const FORCE_DELETE = 'chapter_force_delete';
 
     protected $fillable = [
+        'comic_id',
         'name',
         'number_chapter',
         'slug',
-        'images',
-        'content',
+        'content_image',
+        'content_text',
         'short_desc',
+        'is_visible'
     ];
-
     public function comic()
     {
-        return $this->belongsTo(Comic::class, 'chapter_id', 'comic_id', 'chapters');
+        return $this->hasOne(Comic::class, 'id', 'comic_id');
     }
 }

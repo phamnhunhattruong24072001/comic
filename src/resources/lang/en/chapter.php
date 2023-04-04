@@ -10,4 +10,6 @@ return [
     'comic' => 'Truyện',
     'select_comic' => 'Chọn truyện',
     'number_chapter' => 'Số của chapter',
+    'images' => 'Nội dung ảnh',
+    'content' => 'Nội dung chữ',
 ];

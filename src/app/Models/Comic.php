@@ -51,7 +51,7 @@ class Comic extends Model implements Transformable
 
     public function chapters()
     {
-        return $this->belongsToMany(Chapter::class, 'comic_chapter', 'comic_id', 'chapter_id');
+        return $this->hasMany(Chapter::class);
     }
 
     public function scopeActive($query)

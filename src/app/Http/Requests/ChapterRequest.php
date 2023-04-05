@@ -28,10 +28,33 @@ class ChapterRequest extends FormRequest
             'comic_id' => [
                 'required',
             ],
-            'name' => [
+            'title' => [
                 'nullable',
                 'min:2',
                 'max:100',
+                function ($attribute, $value, $fail) {
+                    $chapter = Chapter::where('title', $value)
+                        ->where('comic_id', $this->comic_id)
+                        ->first();
+
+                    if ($chapter && $chapter->id != $this->id) {
+                        $fail(__('validation.custom.unique'));
+                    }
+                },
+            ],
+            'name' => [
+                'required',
+                'min:2',
+                'max:100',
+                function ($attribute, $value, $fail) {
+                    $chapter = Chapter::where('name', $value)
+                        ->where('comic_id', $this->comic_id)
+                        ->first();
+
+                    if ($chapter && $chapter->id != $this->id) {
+                        $fail(__('validation.custom.unique'));
+                    }
+                },
             ],
             'number_chapter' => [
                 'required',
@@ -66,9 +89,12 @@ class ChapterRequest extends FormRequest
         return [
             'name.min' => __('validation.custom.min', ['count' => 2]),
             'name.max' => __('validation.custom.max', ['count' => 100]),
+            'title.min' => __('validation.custom.min', ['count' => 2]),
+            'title.max' => __('validation.custom.max', ['count' => 100]),
             'slug.max' => __('validation.custom.max', ['count' => 100]),
             'name_another.required' => __('validation.custom.required'),
             'slug.required' => __('validation.custom.required'),
+            'title.required' => __('validation.custom.required'),
             'number_chapter.required' => __('validation.custom.required'),
             'comic_id.required' => __('validation.custom.required'),
         ];

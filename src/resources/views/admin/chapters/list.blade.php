@@ -29,9 +29,9 @@
                                     </th>
                                     <th>{{ __('comic.thumbnail') }}</th>
                                     <th>{{ __('chapter.comic') }}</th>
-                                    <th>{{ __('chapter.name') }}</th>
+                                    <th>{{ __('chapter.name').' / '.__('chapter.title') }}</th>
                                     <th>{{ __('chapter.number_chapter') }}</th>
-                                    <th>{{ __('common.slug') }}</th>
+                                    <th>{{ __('chapter.status') }}</th>
                                     <th>{{ __('common.action') }}</th>
                                 </tr>
                                 </thead>
@@ -41,11 +41,16 @@
                                             <td>
                                                 <label><input type="checkbox" class="check-item" value="{{ $chapter->id }}"></label>
                                             </td>
-                                            <td><img src="{{ asset('storage/'.showFile($chapter->comic->thumbnail)) }}" width="50"></td>
+                                            <td><img src="{{ asset(showFile($chapter->comic->thumbnail)) }}" width="50"></td>
                                             <td>{{ $chapter->comic->name }}</td>
-                                            <td>{{ $chapter->name }}</td>
+                                            <td>{{ $chapter->name.' / '.$chapter->title }}</td>
                                             <td>{{ $chapter->number_chapter }}</td>
-                                            <td>{{ $chapter->slug }}</td>
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox" class="js-switch switch-status" data-id="{{$chapter->id}}" data-url="{{route('admin.chapter.status')}}"
+                                                           @if($chapter->is_visible == config('const.activate.on')) checked @endif value="{{$chapter->is_visible}}"/>
+                                                </label>
+                                            </td>
                                             <td>
                                                 <div class="content-button">
                                                     @can(\App\Models\Genre::UPDATE)

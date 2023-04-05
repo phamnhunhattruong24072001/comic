@@ -67,18 +67,20 @@ class ChapterController extends Controller
 
     public function edit($id)
     {
-        $chapter = $this->chapterService->findChapterById($id);
-        $comic = $this->comicService->getAllComic();
-        $chapterImages = json_decode($chapter->content_image);
-        $is_list = true;
-        return view('admin.chapters.edit', compact('chapter', 'comic', 'is_list', 'chapterImages'));
+        $this->data['chapter'] = $this->chapterService->findChapterById($id);
+        $this->data['comic'] = $this->comicService->getAllComic(['id', 'name']);
+        $comic = $this->data['chapter']->comic;
+        $this->data['chapterImages'] = json_decode($this->data['chapter']->content_image);
+        $this->data['is_list'] = true;
+        $this->data['type_comic'] = $comic->category->type;
+        return view('admin.chapters.edit')->with($this->data);
     }
 
     public function update(Request $request, $id)
     {
         $data = $request->all();
         $arrExist = [];
-        if($data['image_exist'] != '') {
+        if($request->has('image_exist')) {
             $arrExist = explode(',', $data['image_exist']);
         }
         if ($request->hasFile('images')) {
@@ -91,5 +93,45 @@ class ChapterController extends Controller
         }
         $this->chapterService->updatecChapter($data, $id);
         return back();
+    }
+
+    public function status(Request $request)
+    {
+        $id = $request->get('id');
+        $is_visible = $request->get('is_visible') == config('const.activate.on') ? config('const.activate.off') : config('const.activate.on');
+        $param = [
+            'is_visible' => $is_visible
+        ];
+        $this->chapterService->updateStatus($param, $id);
+    }
+
+    public function delete(Request $request)
+    {
+        $ids = $request->get('id');
+        $this->chapterService->deleteMultipleChapter($ids);
+        return redirect()->back();
+    }
+
+    public function restore(Request $request)
+    {
+        $ids = $request->get('id');
+        $this->chapterService->restoreMultipleChapter($ids);
+        return redirect()->back();
+    }
+
+    public function forceDelete(Request $request)
+    {
+        $ids = $request->get('id');
+        $this->chapterService->forceDeleteMultipleChapter($ids);
+        return redirect()->back();
+    }
+
+    public function trash()
+    {
+        $param = [
+            'limit' => 10,
+        ];
+        $comics = $this->chapterService->getListTrashChapterPaginate($param);
+        return view('admin.chapters.trash', compact('comics'));
     }
 }

@@ -25,5 +25,9 @@ return [
         'waiting_for_release' => 'Waiting for release',
         'release' => 'Release',
         'pause' => 'Pause',
-    ]
+    ],
+    'country' => 'Country',
+    'select_country' => 'Select Country',
+    'category' => 'Category',
+    'select_category' => 'Select Category',
 ];

@@ -41,6 +41,8 @@ return [
     ],
     'comic' => [
         'highlight' => 1,
+        'type_image' => 'image',
+        'type_text' => 'text',
     ],
     'slug_chapter' => 'chapter-',
 ];

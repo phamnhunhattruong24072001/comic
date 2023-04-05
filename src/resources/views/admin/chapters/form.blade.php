@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="name">{{ __('chapter.name') }}</label>
-                    <input type="text" id="name" class="form-control @error('name') is-invalid @enderror" name="name"
-                           value="{{ $chapter->name != '' ? $chapter->name : old('name')}}"/>
-                    @error('name')
+                    <label for="title">{{ __('chapter.title') }}</label>
+                    <input type="text" id="title" class="form-control @error('title') is-invalid @enderror" name="title"
+                           value="{{ $chapter->title ?? old('name')}}"/>
+                    @error('title')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
@@ -15,8 +15,8 @@
             <div class="col-lg-6">
                 <div class="form-group required">
                     <label for="number_chapter">{{ __('chapter.number_chapter') }}</label>
-                    <input type="number" id="number_chapter" class="form-control @error('number_chapter') is-invalid @enderror" onkeyup="convertToSlug(this.value, '{{ config('const.slug_chapter') }}')" name="number_chapter"
-                           value="{{ $chapter->number_chapter != '' ? $chapter->number_chapter : old('number_chapter')}}"/>
+                    <input type="number" id="number_chapter" class="form-control @error('number_chapter') is-invalid @enderror change-number-chapter" data-slug="{{ config('const.slug_chapter') }}" name="number_chapter"
+                           value="{{ $chapter->number_chapter ?? old('number_chapter')}}"/>
                     @error('number_chapter')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -26,8 +26,18 @@
                 <div class="form-group required">
                     <label for="slug">{{ __('common.slug') }}</label>
                     <input type="text" id="slug" class="form-control @error('slug') is-invalid @enderror slug-convert" name="slug"
-                           value="{{ $chapter->slug != '' ? $chapter->slug : old('slug') }}"/>
+                           value="{{ $chapter->slug ?? old('slug') }}"/>
                     @error('slug')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group required">
+                    <label for="name">{{ __('chapter.name') }}</label>
+                    <input type="text" id="name" class="form-control @error('name') is-invalid @enderror change-name" name="name"
+                           value="{{ $chapter->name ?? old('name')}}" readonly/>
+                    @error('name')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
@@ -37,10 +47,11 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label for="short_desc">{{ __('chapter.short_desc') }}</label>
-                    <textarea name="short_desc" class="form-control" id="" cols="20" rows="4">{{ $chapter->short_desc }}</textarea>
+                    <textarea name="short_desc" class="form-control" id="" cols="20" rows="4">{{ $chapter->short_desc || old('short_desc') }}</textarea>
                 </div>
             </div>
-            <div class="col-lg-12">
+
+            <div class="col-lg-12 content-image @if(isset($type_comic) && $type_comic == config('const.comic.type_image')) d-block @else d-none @endif">
                 <div class="form-group">
                     <div class="upload__box">
                         <div class="upload__btn-box">
@@ -53,7 +64,7 @@
                             @if(isset($chapterImages))
                                 <input type="hidden" name="image_exist" class="image_exist" value="{{ implode(',', $chapterImages) }}">
                                 @foreach($chapterImages as $key => $image)
-                                    <div class='upload__img-box'><div style="background-image: url({{ asset('storage/'.showFile($image)) }})" data-number="{{ $key }}" data-file="{{ $image }}" class="img-bg">
+                                    <div class='upload__img-box'><div style="background-image: url({{ asset(showFile($image)) }})" data-number="{{ $key }}" data-file="{{ $image }}" class="img-bg">
                                             <div class='upload__img-close' data-name="{{ $image }}"></div>
                                         </div>
                                     </div>
@@ -63,18 +74,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12">
+
+            <div class="col-lg-12 content-text @if(isset($type_comic) && $type_comic == config('const.comic.type_text')) d-block @else d-none @endif">
                 <div class="form-group">
-                    <label for="short_desc">{{ __('chapter.content') }}</label>
-                    <textarea name="content_text" class="ckeditor" cols="100" rows="40">{!! $chapter->content_text !!}</textarea>
+                    <label for="content_text">{{ __('chapter.content') }}</label>
+                    <textarea name="content_text" class="ckeditor" cols="100" rows="40">{!! $chapter->content_text ?? old('content_text') !!}</textarea>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="form-group">
-            <label for="genres">{{ __('chapter.comic') }}</label>
-            <select class="form-control js-example-basic-multiple @error('comic_id') is-invalid @enderror" name="comic_id" data-placeholder="{{ __('chapter.select_comic') }}">
+            <label for="comic">{{ __('chapter.comic') }}</label>
+            <select class="form-control js-example-basic-multiple @error('comic_id') is-invalid @enderror change-comic" data-url="{{ route('admin.response.check_type_comic') }}" name="comic_id" data-placeholder="{{ __('chapter.select_comic') }}">
                 @if($is_list)
                     <option value="">{{ __('chapter.select_comic') }}</option>
                     @foreach($comic as $item)
@@ -90,6 +102,20 @@
             @error('comic_id')
             <span class="text-danger">{{ $message }}</span>
             @enderror
+        </div>
+        <div class="form-group">
+            <label>{{ __('comic.is_visible') }}</label>
+            <p>
+                {{ __('common.status.active')  }}:
+                <label>
+                    <input type="radio" class="flat" name="is_visible" value="1" @if($chapter->is_visible == config('const.activate.on') || old('is_visible') == config('const.activate.on')) checked @endif />
+                </label>
+                &nbsp;&nbsp;
+                {{ __('common.status.deactivate')  }}:
+                <label>
+                    <input type="radio" class="flat" name="is_visible" value="0" @if($chapter->is_visible == config('const.activate.off')) checked @endif />
+                </label>
+            </p>
         </div>
     </div>
     <div class="col-lg-12 mt-5">
@@ -171,6 +197,40 @@
                     }
                 }
                 $(this).parent().parent().remove();
+            });
+
+            $('.change-comic').on('change', function (){
+                let val = $(this).val();
+                let url = $(this).data('url');
+                if(val !== '') {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            id : val,
+                        }
+                    }).done(function(response) {
+                        if(response === 'image') {
+                            $('.content-image').removeClass('d-none')
+                            $('.content-text').addClass('d-none')
+                        }else{
+                            $('.content-image').addClass('d-none')
+                            $('.content-text').removeClass('d-none')
+                        }
+                    });
+                }
+            });
+
+            $('.change-number-chapter').on('keyup', function (){
+                let slug = $(this).data('slug');
+                let val = $(this).val();
+                convertToSlug(val, slug);
+                $('.change-name').val('Chapter'+' '+val);
             });
         }
     </script>

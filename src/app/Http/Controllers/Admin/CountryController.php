@@ -55,6 +55,7 @@ class CountryController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('avatar')) {
+            deleteFile($data['image_exist']);
             $path = config('const.path.country');
             $fileName = uploadFile($path ,$request->file('avatar'));
             $data['avatar'] = $fileName;

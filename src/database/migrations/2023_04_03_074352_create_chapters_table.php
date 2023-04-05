@@ -16,6 +16,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('comic_id');
             $table->foreign('comic_id')->references('id')->on('comics');
+            $table->string('title')->nullable();
             $table->string('name')->nullable();
             $table->string('number_chapter');
             $table->string('slug');

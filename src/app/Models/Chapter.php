@@ -25,6 +25,7 @@ class Chapter extends Model implements Transformable
 
     protected $fillable = [
         'comic_id',
+        'title',
         'name',
         'number_chapter',
         'slug',

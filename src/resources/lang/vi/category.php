@@ -10,5 +10,9 @@ return [
     'short_desc' => 'Mô tả ngắn',
     'long_desc' => 'Mô tả',
     'country' => 'Quốc gia',
+    'type' => 'Loại',
     'select_country' => 'Chọn quốc gia',
+    'select_type' => 'Chọn loại (tranh, chữ)',
+    'type_image' => 'Loại hình ảnh',
+    'type_text' => 'Loại chữ',
 ];

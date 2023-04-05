@@ -42,7 +42,7 @@
                                         <td>
                                             <label><input type="checkbox" class="check-item" value="{{ $country->id }}"></label>
                                         </td>
-                                        <td><img src="{{ asset('storage/'.showFile($country->avatar)) }}" alt=""
+                                        <td><img src="{{ asset(showFile($country->avatar)) }}" alt=""
                                                  width="50" height="50"></td>
                                         <td>{{ $country->name }}</td>
                                         <td>{{ $country->name_another }}</td>

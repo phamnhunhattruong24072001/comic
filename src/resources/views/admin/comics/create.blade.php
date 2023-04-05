@@ -11,7 +11,7 @@
         <div class="x_content">
             <form action="{{ route('admin.comic.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                @include('admin.comics.form', ['data' => $comic, 'buttonSubmit' => __('common.button.create')])
+                @include('admin.comics.form', ['buttonSubmit' => __('common.button.create')])
             </form>
         </div>
     </div>

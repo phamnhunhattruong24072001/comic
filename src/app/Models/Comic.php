@@ -25,6 +25,8 @@ class Comic extends Model implements Transformable
 
     protected $table = 'comics';
     protected $fillable = [
+        'country_id',
+        'category_id',
         'name',
         'name_another',
         'slug',
@@ -47,6 +49,16 @@ class Comic extends Model implements Transformable
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'genre_comics', 'comic_id', 'genre_id');
+    }
+
+    public function country()
+    {
+        return $this->hasOne(Country::class, 'id', 'country_id');
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function chapters()

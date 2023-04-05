@@ -42,6 +42,10 @@ class Country extends Model implements Transformable
         'is_visible',
     ];
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'country_categories', 'category_id', 'country_id');
+    }
     function scopeActive($query)
     {
         return $query->where('is_visible', config('const.activate.on'));

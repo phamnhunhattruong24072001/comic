@@ -22,11 +22,15 @@ class Category extends Model implements Transformable
     const RESTORE = 'category_restore';
     const FORCE_DELETE = 'category_force_delete';
 
+    const IMAGE = 'image';
+    const TEXT = 'text';
+
     protected $table = 'categories';
 
     protected $fillable = [
         'name',
         'slug',
+        'type',
         'tags',
         'short_desc',
         'long_desc',
@@ -36,6 +40,11 @@ class Category extends Model implements Transformable
     public function countries()
     {
         return $this->belongsToMany(Country::class, 'country_categories', 'category_id', 'country_id');
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'category_genres', 'category_id', 'genre_id');
     }
 
     public function scopeActive($query)

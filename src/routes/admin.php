@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\ComicController;
 use App\Http\Controllers\Admin\ChapterController;
+use App\Http\Controllers\Admin\ResponseController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/handle-login', [AuthController::class, 'handleLogin'])->name('admin.handle.login');
@@ -103,5 +104,12 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::post('/force-delete', [ChapterController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Comic::FORCE_DELETE);
         Route::post('/restore', [ChapterController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Comic::RESTORE);
         Route::post('/status', [ChapterController::class, 'status'])->name('status');
+    });
+
+    // Response
+    Route::group(array('prefix' => '/response', 'as' => 'response.'), function () {
+        Route::post('/get-category', [ResponseController::class, 'getCategory'])->name('get_category');
+        Route::post('/get-genre', [ResponseController::class, 'getGenre'])->name('get_genre');
+        Route::post('/check-type-comic', [ResponseController::class, 'checkTypeComic'])->name('check_type_comic');
     });
 });

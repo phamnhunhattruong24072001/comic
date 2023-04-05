@@ -30,6 +30,12 @@ class ComicRequest extends FormRequest
                 'max:50',
                 'unique:comics,name,' . $this->id . ',id,deleted_at,NULL',
             ],
+            'country_id' => [
+                'required',
+            ],
+            'category_id' => [
+                'required',
+            ],
             'genres' => [
                 'required',
             ],
@@ -44,7 +50,7 @@ class ComicRequest extends FormRequest
                 'unique:comics,slug,' . $this->id . ',id,deleted_at,NULL',
             ],
             'thumbnail' => [
-                'required',
+                $this->id ? 'nullable' : 'required',
                 'image',
                 'mimes:jpeg,png,jpg,gif',
                 'max:2048'
@@ -53,7 +59,6 @@ class ComicRequest extends FormRequest
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif',
-                'max:2048'
             ],
         ];
     }
@@ -62,6 +67,8 @@ class ComicRequest extends FormRequest
     {
         return [
             'name.required' => __('validation.custom.required'),
+            'country_id.required' => __('validation.custom.required'),
+            'category_id.required' => __('validation.custom.required'),
             'genres.required' => __('validation.custom.required'),
             'name.min' => __('validation.custom.min', ['count' => 4]),
             'name.max' => __('validation.custom.max', ['count' => 50]),
@@ -76,7 +83,6 @@ class ComicRequest extends FormRequest
             'thumbnail.max' => __('validation.custom.images.max', ['count' => 2048]),
             'cover_image.image' => __('validation.custom.images.image'),
             'cover_image.mimes' => __('validation.custom.images.mimes'),
-            'cover_image.max' => __('validation.custom.images.max', ['count' => 2048]),
         ];
     }
 }

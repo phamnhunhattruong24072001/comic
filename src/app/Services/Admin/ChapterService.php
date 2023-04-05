@@ -46,4 +46,44 @@ class ChapterService
     {
         return $this->chapterRepository->update($data, $id);
     }
+
+    public function updateStatus($param, $id)
+    {
+        return $this->chapterRepository->update($param, $id);
+    }
+
+    public function getListTrashChapterPaginate($param, $columns = ['*'])
+    {
+        $result = $this->chapterRepository->scopeQuery(function ($query) use ($param) {
+            $query->onlyTrashed();
+            return $query;
+        });
+        $result->orderBy('id', 'DESC');
+        return $result->paginate($param['limit'], $columns);
+    }
+
+    public function deleteMultipleChapter(array $ids)
+    {
+        return $this->chapterRepository->deleteMultiple($ids);
+    }
+
+    public function forceDeleteMultipleChapter(array $ids)
+    {
+        return $this->chapterRepository->forceDeleteMultiple($ids);
+    }
+
+    public function restoreMultipleChapter(array $ids)
+    {
+        return $this->chapterRepository->restoreMultiple($ids);
+    }
+
+    public function findChapterBySlug($slug)
+    {
+        return $this->chapterRepository->where('slug', $slug)->select(['id', 'slug', 'name'])->first();
+    }
+
+    public function getAllChapter($columns = ['*'])
+    {
+        return $this->chapterRepository->active()->select($columns)->get();
+    }
 }

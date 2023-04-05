@@ -33,7 +33,13 @@
                 </div>
             </div>
             <div class="col-lg-6">
-
+                <div class="form-group">
+                    <label for="type">{{ __('category.type') }}</label>
+                    <select name="type" id="" class="form-control">
+                        <option value="{{ \App\Models\Category::IMAGE }}">{{ __('category.type_image') }}</option>
+                        <option value="{{ \App\Models\Category::TEXT }}">{{ __('category.type_text') }}</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="row">

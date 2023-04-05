@@ -10,5 +10,9 @@ return [
     'short_desc' => 'Short Desc',
     'long_desc' => 'Long Desc',
     'country' => 'Country',
+    'type' => 'Type',
     'select_country' => 'Select Country',
+    'select_type' => 'Select Type (Comic, Text)',
+    'type_image' => 'Type Image',
+    'type_text' => 'Type text',
 ];

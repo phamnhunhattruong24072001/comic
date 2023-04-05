@@ -40,7 +40,7 @@
                                         <td>
                                             <label><input type="checkbox" class="check-item" value="{{ $user->id }}"></label>
                                         </td>
-                                        <td><img src="{{ asset('storage/'.showFile($user->avatar)) }}" alt="" width="50" height="50"></td>
+                                        <td><img src="{{ asset(showFile($user->avatar)) }}" alt="" width="50" height="50"></td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->email }}</td>

@@ -28,7 +28,7 @@ if (!function_exists('showFile')) {
         } else {
             $exists = Storage::disk('public')->exists($fileName);
             if ($exists) {
-                $newFileName = $fileName;
+                $newFileName = 'storage/'.$fileName;
             } else {
                 $newFileName = config('const.image.imageNull');
             }
@@ -52,5 +52,12 @@ if (!function_exists('uploadFileMultiple')) {
             $file_images[$key] = substr($pathName, strlen('public/'));
         }
         return $file_images;
+    }
+}
+
+if (!function_exists('deleteFile')) {
+    function deleteFile($fileName)
+    {
+        Storage::disk('public')->delete($fileName);
     }
 }

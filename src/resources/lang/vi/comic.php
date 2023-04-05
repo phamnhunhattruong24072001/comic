@@ -11,7 +11,7 @@ return [
     'is_visible' => 'Trạng thái',
     'short_desc' => 'Mô tả ngắn',
     'long_desc' => 'Mô tả',
-    'category' => 'Thể loại',
+    'genre' => 'Thể loại',
     'select_genre' => 'Chọn thể loại',
     'highlight' => 'Nổi bật',
     'view_search' => 'Lượt tìm kiếm',
@@ -25,5 +25,9 @@ return [
         'waiting_for_release' => 'Chờ phát hành',
         'release' => 'Phát hành',
         'pause' => 'Tạm ngưng',
-    ]
+    ],
+    'country' => 'Quốc gia',
+    'select_country' => 'Chọn quốc gia',
+    'category' => 'Danh mục',
+    'select_category' => 'Chọn danh mục',
 ];

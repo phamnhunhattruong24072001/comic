@@ -14,6 +14,10 @@ return new class extends Migration
 	{
 		Schema::create('comics', function(Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('country_id');
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->unsignedInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name');
             $table->string('name_another')->nullable();
             $table->string('slug')->unique();

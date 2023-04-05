@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GenrePermissionSeeder::class);
         $this->call(ComicPermissionSeeder::class);
         $this->call(ChapterPermissionSeeder::class);
+        $this->call(CountrySeeder::class);
     }
 }

@@ -134,4 +134,15 @@ class ChapterController extends Controller
         $comics = $this->chapterService->getListTrashChapterPaginate($param);
         return view('admin.chapters.trash', compact('comics'));
     }
+
+    public function editImage($id)
+    {
+        $this->data['chapter'] = $this->chapterService->findChapterById($id, ['id', 'content_image']);
+        return view('admin.chapters.edit_image')->with($this->data);
+    }
+
+    public function updateImage()
+    {
+
+    }
 }

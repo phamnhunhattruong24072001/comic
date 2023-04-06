@@ -6,7 +6,6 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\GenreRepository;
 use App\Models\Genre;
-use App\Validators\GenreValidator;
 
 /**
  * Class GenreRepositoryEloquent.

@@ -6,13 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\CategoryRepository;
 use App\Models\Category;
-use App\Validators\CategoryValidator;
 
-/**
- * Class CategoryRepositoryEloquent.
- *
- * @package namespace App\Repositories\Eloquents;
- */
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
     /**

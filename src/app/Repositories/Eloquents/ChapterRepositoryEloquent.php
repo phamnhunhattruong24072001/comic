@@ -6,7 +6,6 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\ChapterRepository;
 use App\Models\Chapter;
-use App\Validators\ChapterValidator;
 
 /**
  * Class ChapterRepositoryEloquent.

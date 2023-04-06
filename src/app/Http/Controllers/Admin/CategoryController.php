@@ -25,14 +25,14 @@ class CategoryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['categories'] = $this->categoryService->getListCategoryPaginate($param);
+        $this->data['categories'] = $this->categoryService->getListModelPaginate($param);
         return view('admin.categories.list')->with($this->data);
     }
 
     public function create()
     {
         $this->data['category'] = new Category();
-        $this->data['countries'] = $this->countryService->getAllCountry(['id', 'name']);
+        $this->data['countries'] = $this->countryService->getAll(['id', 'name']);
         $this->data['countrySelected'] = [];
         return view('admin.categories.create')->with($this->data);
     }
@@ -46,8 +46,8 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $this->data['category'] = $this->categoryService->findCategoryById($id);
-        $this->data['countries'] = $this->countryService->getAllCountry(['id', 'name']);
+        $this->data['category'] = $this->categoryService->findModelById($id);
+        $this->data['countries'] = $this->countryService->getAll(['id', 'name']);
         $this->data['countrySelected'] = $this->data['category']->countries()->pluck('country_id')->toArray();
         return view('admin.categories.edit')->with($this->data);
     }
@@ -62,21 +62,21 @@ class CategoryController extends Controller
     public function delete(Request $request)
     {
         $ids = $request->get('id');
-        $this->categoryService->deleteMultipleCategory($ids);
+        $this->categoryService->deleteMultiple($ids);
         return redirect()->back();
     }
 
     public function restore(Request $request)
     {
         $ids = $request->get('id');
-        $this->categoryService->restoreMultipleCategory($ids);
+        $this->categoryService->restoreMultiple($ids);
         return redirect()->back();
     }
 
     public function forceDelete(Request $request)
     {
         $ids = $request->get('id');
-        $this->categoryService->forceDeleteMultipleCategory($ids);
+        $this->categoryService->forceDeleteMultiple($ids);
         return redirect()->back();
     }
 
@@ -85,7 +85,7 @@ class CategoryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['categories'] = $this->categoryService->getListTrashCategoryPaginate($param);
+        $this->data['categories'] = $this->categoryService->getListTrashModelPaginate($param);
         return view('admin.categories.trash')->with($this->data);
     }
 

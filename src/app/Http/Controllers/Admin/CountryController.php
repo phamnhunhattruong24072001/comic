@@ -22,13 +22,13 @@ class CountryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['countries'] = $this->countryService->getListCountryPaginate($param);
+        $this->data['countries'] = $this->countryService->getListModelPaginate($param);
         return view('admin.countries.list')->with($this->data);
     }
 
     public function create()
     {
-        $country = new Country();
+        $this->data['country'] = new Country();
         return view('admin.countries.create')->with($this->data);
 
     }
@@ -41,13 +41,13 @@ class CountryController extends Controller
             $fileName = uploadFile($path ,$request->file('avatar'));
             $data['avatar'] = $fileName;
         }
-        $this->countryService->storeCountry($data);
+        $this->countryService->storeModel($data);
         return redirect()->route('admin.country.list');
     }
 
     public function edit($id)
     {
-        $this->data['country'] = $this->countryService->findCountryById($id);
+        $this->data['country'] = $this->countryService->findModelById($id);
         return view('admin.countries.edit')->with($this->data);
     }
 
@@ -60,28 +60,28 @@ class CountryController extends Controller
             $fileName = uploadFile($path ,$request->file('avatar'));
             $data['avatar'] = $fileName;
         }
-        $this->countryService->updateCountryById($data, $id);
+        $this->countryService->updateModel($data, $id);
         return redirect()->route('admin.country.list');
     }
 
     public function delete(Request $request)
     {
         $ids = $request->get('id');
-        $this->countryService->deleteMultipleCountry($ids);
+        $this->countryService->deleteMultiple($ids);
         return redirect()->back();
     }
 
     public function restore(Request $request)
     {
         $ids = $request->get('id');
-        $this->countryService->restoreMultipleCountry($ids);
+        $this->countryService->restoreMultiple($ids);
         return redirect()->back();
     }
 
     public function forceDelete(Request $request)
     {
         $ids = $request->get('id');
-        $this->countryService->forceDeleteMultipleCountry($ids);
+        $this->countryService->forceDeleteMultiple($ids);
         return redirect()->back();
     }
 
@@ -90,7 +90,7 @@ class CountryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['countries'] = $this->countryService->getListTrashCountryPaginate($param);
+        $this->data['countries'] = $this->countryService->getListTrashModelPaginate($param);
         return view('admin.countries.trash')->with($this->data);
     }
 
@@ -101,7 +101,7 @@ class CountryController extends Controller
         $param = [
             'is_visible' => $is_visible
         ];
-        $this->countryService->updateCountryById($param, $id);
+        $this->countryService->updateModel($param, $id);
     }
 
 }

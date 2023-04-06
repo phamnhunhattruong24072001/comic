@@ -38,4 +38,9 @@ class Chapter extends Model implements Transformable
     {
         return $this->hasOne(Comic::class, 'id', 'comic_id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_visible', config('const.activate.on'));
+    }
 }

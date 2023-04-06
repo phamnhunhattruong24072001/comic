@@ -32,6 +32,7 @@ return [
         'country' => 'public/countries',
         'comic' => 'public/comics',
         'chapter' => 'public/chapters',
+        'figure' => 'public/figures',
     ],
     'category' => [
         'parent' => 0,

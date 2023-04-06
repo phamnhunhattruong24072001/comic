@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function permission($id)
     {
-        $this->data['user'] = $this->userService->getUserById($id);
+        $this->data['user'] = $this->userService->findModelById($id);
         $this->data['permissionUserChecked'] = $this->data['user']->permissions;
         $this->data['permissions'] = $this->permissionService->getAll();
         $this->data['permissionsRoleChecked'] = $this->userRoleService->getPermissionRoleByUserId($id);
@@ -71,7 +71,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $this->data['user'] = $this->userService->getUserById($id);
+        $this->data['user'] = $this->userService->findModelById($id);
         return view('admin.users.edit')->with($this->data);
     }
 
@@ -83,14 +83,14 @@ class UserController extends Controller
             $fileName = uploadFile($path ,$request->file('avatar'));
             $data['avatar'] = $fileName;
         }
-        $this->userService->updateUser($data, $id);
+        $this->userService->updateModel($data, $id);
         return redirect()->route('admin.users.list');
     }
 
     public function delete(Request $request)
     {
         $ids = $request->get('id');
-        $this->userService->deleteUser($ids);
+        $this->userService->deleteMultiple($ids);
         return back();
     }
 
@@ -106,14 +106,14 @@ class UserController extends Controller
     public function forceDelete(Request $request)
     {
         $ids = $request->get('id');
-        $this->userService->forceDeleteUser($ids);
+        $this->userService->forceDeleteMultiple($ids);
         return back();
     }
 
     public function restore(Request $request)
     {
         $ids = $request->get('id');
-        $this->userService->restoreUser($ids);
+        $this->userService->restoreMultiple($ids);
         return redirect()->back();
     }
 
@@ -124,6 +124,6 @@ class UserController extends Controller
         $param = [
             'is_visible' => $is_visible
         ];
-        $this->userService->updateStatus($param, $id);
+        $this->userService->updateModel($param, $id);
     }
 }

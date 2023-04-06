@@ -33,14 +33,14 @@ class ComicController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['comics'] = $this->comicService->getListComicPaginate($param);
+        $this->data['comics'] = $this->comicService->getListModelPaginate($param);
         return view('admin.comics.list')->with($this->data);
     }
 
     public function create()
     {
         $this->data['comic'] = new Comic();
-        $this->data['countries'] = $this->countryService->getAllCountry();
+        $this->data['countries'] = $this->countryService->getAll(['id', 'name']);
         $this->data['genreSelected'] = [];
         return view('admin.comics.create')->with($this->data);
     }
@@ -57,11 +57,11 @@ class ComicController extends Controller
 
     public function edit($id)
     {
-        $this->data['comic'] = $this->comicService->findComicById($id);
-        $this->data['countries'] = $this->countryService->getAllCountry(['id', 'name', 'another_name']);
-        $country = $this->countryService->findCountryById($this->data['comic']->country_id, ['id']);
+        $this->data['comic'] = $this->comicService->findModelById($id);
+        $this->data['countries'] = $this->countryService->getAll(['id', 'name', 'another_name']);
+        $country = $this->countryService->findModelById($this->data['comic']->country_id, ['id']);
         $this->data['categories'] = $country->categories;
-        $category = $this->categoryService->findCategoryById($this->data['comic']->category_id, ['id']);
+        $category = $this->categoryService->findModelById($this->data['comic']->category_id, ['id']);
         $this->data['genres'] = $category->genres;
         $this->data['genreSelected'] = $this->data['comic']->genres()->pluck('genre_id')->toArray();
         $this->data['is_update'] = true;
@@ -87,21 +87,21 @@ class ComicController extends Controller
     public function delete(Request $request)
     {
         $ids = $request->get('id');
-        $this->comicService->deleteMultipleComic($ids);
+        $this->comicService->deleteMultiple($ids);
         return redirect()->back();
     }
 
     public function restore(Request $request)
     {
         $ids = $request->get('id');
-        $this->comicService->restoreMultipleComic($ids);
+        $this->comicService->restoreMultiple($ids);
         return redirect()->back();
     }
 
     public function forceDelete(Request $request)
     {
         $ids = $request->get('id');
-        $this->comicService->forceDeleteMultipleComic($ids);
+        $this->comicService->forceDeleteMultiple($ids);
         return redirect()->back();
     }
 
@@ -110,7 +110,7 @@ class ComicController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['comics'] = $this->comicService->getListTrashComicPaginate($param);
+        $this->data['comics'] = $this->comicService->getListTrashModelPaginate($param);
         return view('admin.comics.trash')->with($this->data);
     }
 

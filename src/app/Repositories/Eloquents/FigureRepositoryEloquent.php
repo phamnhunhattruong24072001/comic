@@ -4,15 +4,15 @@ namespace App\Repositories\Eloquents;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\ComicRepository;
-use App\Models\Comic;
+use App\Repositories\Contracts\FigureRepository;
+use App\Models\Figure;
 
 /**
- * Class ComicRepositoryEloquent.
+ * Class FigureRepositoryEloquent.
  *
  * @package namespace App\Repositories\Eloquents;
  */
-class ComicRepositoryEloquent extends BaseRepository implements ComicRepository
+class FigureRepositoryEloquent extends BaseRepository implements FigureRepository
 {
     /**
      * Specify Model class name
@@ -21,7 +21,7 @@ class ComicRepositoryEloquent extends BaseRepository implements ComicRepository
      */
     public function model()
     {
-        return Comic::class;
+        return Figure::class;
     }
 
 

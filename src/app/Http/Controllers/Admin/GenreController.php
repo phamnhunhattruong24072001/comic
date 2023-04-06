@@ -25,14 +25,14 @@ class GenreController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['genres'] = $this->genreService->getListGenrePaginate($param);
+        $this->data['genres'] = $this->genreService->getListModelPaginate($param);
         return view('admin.genres.list')->with($this->data);
     }
 
     public function create()
     {
         $this->data['genre'] = new Genre();
-        $this->data['categories'] = $this->categoryService->getAllCategory(['id', 'name']);
+        $this->data['categories'] = $this->categoryService->getAll(['id', 'name']);
         $this->data['categorySelected'] = [];
         return view('admin.genres.create')->with($this->data);
     }
@@ -46,8 +46,8 @@ class GenreController extends Controller
 
     public function edit($id)
     {
-        $this->data['genre'] = $this->genreService->findGenreById($id);
-        $this->data['categories'] = $this->categoryService->getAllCategory(['id', 'name']);
+        $this->data['genre'] = $this->genreService->findModelById($id);
+        $this->data['categories'] = $this->categoryService->getAll(['id', 'name']);
         $this->data['categorySelected'] = $this->data['genre']->categories()->pluck('category_id')->toArray();
         return view('admin.genres.edit')->with($this->data);
     }
@@ -62,21 +62,21 @@ class GenreController extends Controller
     public function delete(Request $request)
     {
         $ids = $request->get('id');
-        $this->genreService->deleteMultipleGenre($ids);
+        $this->genreService->deleteMultiple($ids);
         return redirect()->back();
     }
 
     public function restore(Request $request)
     {
         $ids = $request->get('id');
-        $this->genreService->restoreMultipleGenre($ids);
+        $this->genreService->restoreMultiple($ids);
         return redirect()->back();
     }
 
     public function forceDelete(Request $request)
     {
         $ids = $request->get('id');
-        $this->genreService->forceDeleteMultipleGenre($ids);
+        $this->genreService->forceDeleteMultiple($ids);
         return redirect()->back();
     }
 
@@ -85,7 +85,7 @@ class GenreController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['genres'] = $this->genreService->getListTrashGenrePaginate($param);
+        $this->data['genres'] = $this->genreService->getListTrashModelPaginate($param);
         return view('admin.genres.trash')->with($this->data);
     }
 

@@ -6,7 +6,6 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Models\UserRole;
-use App\Validators\UserRoleValidator;
 
 /**
  * Class UserRoleRepositoryEloquent.
@@ -25,7 +24,7 @@ class UserRoleRepositoryEloquent extends BaseRepository implements UserRoleRepos
         return UserRole::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -34,5 +33,19 @@ class UserRoleRepositoryEloquent extends BaseRepository implements UserRoleRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function deleteMultiple(array $ids)
+    {
+        // TODO: Implement deleteMultiple() method.
+    }
+
+    public function forceDeleteMultiple(array $ids)
+    {
+        // TODO: Implement forceDeleteMultiple() method.
+    }
+
+    public function restoreMultiple(array $ids)
+    {
+        // TODO: Implement restoreMultiple() method.
+    }
 }

@@ -6,7 +6,6 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\CountryRepository;
 use App\Models\Country;
-use App\Validators\CountryValidator;
 
 /**
  * Class CountryRepositoryEloquent.

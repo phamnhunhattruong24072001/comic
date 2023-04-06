@@ -9,6 +9,7 @@ return [
             'manage_category' => 'Quản lý danh mục',
             'manage_comic' => 'Quản lý truyện',
             'manage_genre' => 'Quản lý thể loại',
+            'manage_figure' => 'Quản lý nhân vật',
         ]
     ],
 

@@ -3,82 +3,37 @@
 namespace App\Services\Admin;
 
 use App\Repositories\Contracts\ChapterRepository;
+use App\Services\BaseService;
 use Illuminate\Support\Facades\DB;
 
-class ChapterService
+class ChapterService extends BaseService
 {
     protected $chapterRepository;
+
     public function __construct(ChapterRepository $chapterRepository)
     {
+        parent::__construct($chapterRepository);
         $this->chapterRepository = $chapterRepository;
     }
 
     public function getListChapterPaginate($param, $columns = ['*'])
     {
-        $result = $this->chapterRepository->scopeQuery( function($query) use ($param){
+        $result = $this->chapterRepository->scopeQuery(function ($query) use ($param) {
             return $query;
-        })->with('comic');
+        });
         $result->orderBy('created_at', 'DESC');
         return $result->paginate($param['limit'], $columns);
     }
 
-    public function storeChapter($data)
+    public function getListChapterByIdComic($param, $id)
     {
-        return $this->chapterRepository->create($data);
-    }
-
-    public function getListChapterByIdComic($param ,$id)
-    {
-        $result = $this->chapterRepository->scopeQuery( function($query) use ($id){
+        $result = $this->chapterRepository->scopeQuery(function ($query) use ($id) {
             $query->where('comic_id', $id);
+            $query->where('is_visible', config('const.activate.on'));
             return $query;
         });
         $result->orderBy('created_at', 'DESC');
         return $result->paginate($param['limit'], ['*']);
     }
 
-    public function findChapterById($id, $columns = ['*'])
-    {
-        return $this->chapterRepository->find($id, $columns);
-    }
-
-    public function updateChapter($data, $id)
-    {
-        return $this->chapterRepository->update($data, $id);
-    }
-
-    public function getListTrashChapterPaginate($param, $columns = ['*'])
-    {
-        $result = $this->chapterRepository->scopeQuery(function ($query) use ($param) {
-            $query->onlyTrashed();
-            return $query;
-        });
-        $result->orderBy('id', 'DESC');
-        return $result->paginate($param['limit'], $columns);
-    }
-
-    public function deleteMultipleChapter(array $ids)
-    {
-        return $this->chapterRepository->deleteMultiple($ids);
-    }
-
-    public function forceDeleteMultipleChapter(array $ids)
-    {
-        return $this->chapterRepository->forceDeleteMultiple($ids);
-    }
-
-    public function restoreMultipleChapter(array $ids)
-    {
-        return $this->chapterRepository->restoreMultiple($ids);
-    }
-
-    public function findChapterBySlug($slug)
-    {
-        return $this->chapterRepository->where('slug', $slug)->select(['id', 'slug', 'name'])->first();
-    }
-
-    public function getAllChapter($columns = ['*'])
-    {
-        return $this->chapterRepository->active()->select($columns)->get();
-    }
 }

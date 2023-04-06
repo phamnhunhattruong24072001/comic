@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\ComicController;
 use App\Http\Controllers\Admin\ChapterController;
 use App\Http\Controllers\Admin\ResponseController;
+use App\Http\Controllers\Admin\FigureController;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/handle-login', [AuthController::class, 'handleLogin'])->name('admin.handle.login');
@@ -108,10 +109,25 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::post('/update-image/{id}', [ChapterController::class, 'updateImage'])->name('update_image');
     });
 
+    // Chapter
+    Route::group(array('prefix' => '/figure', 'as' => 'figure.'), function () {
+        Route::get('/list/{any?}', [FigureController::class, 'index'])->name('list')->middleware('can:' . App\Models\Figure::VIEW);
+        Route::get('/create/{any?}', [FigureController::class, 'create'])->name('create')->middleware('can:' . App\Models\Figure::CREATE);
+        Route::post('/store', [FigureController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [FigureController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Figure::UPDATE);
+        Route::post('/update/{id}', [FigureController::class, 'update'])->name('update');
+        Route::post('/delete', [FigureController::class, 'delete'])->name('delete')->middleware('can:' . App\Models\Figure::DELETE);
+        Route::get('/trash', [FigureController::class, 'trash'])->name('trash');
+        Route::post('/force-delete', [FigureController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Figure::FORCE_DELETE);
+        Route::post('/restore', [FigureController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Figure::RESTORE);
+        Route::post('/status', [FigureController::class, 'update'])->name('status');
+    });
+
     // Response
     Route::group(array('prefix' => '/response', 'as' => 'response.'), function () {
         Route::post('/get-category', [ResponseController::class, 'getCategory'])->name('get_category');
         Route::post('/get-genre', [ResponseController::class, 'getGenre'])->name('get_genre');
+        Route::post('/get-chapter', [ResponseController::class, 'getChapter'])->name('get_chapter');
         Route::post('/check-type-comic', [ResponseController::class, 'checkTypeComic'])->name('check_type_comic');
     });
 });

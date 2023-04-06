@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Repositories\BaseInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
@@ -9,7 +10,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories\Contracts;
  */
-interface RoleRepository extends RepositoryInterface
+interface RoleRepository extends RepositoryInterface, BaseInterface
 {
     //
 }

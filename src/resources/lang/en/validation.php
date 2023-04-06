@@ -151,6 +151,7 @@ return [
         'max' => 'This field max :count',
         'unique' => 'This field already exist',
         'email' => 'Invalid email',
+        'numeric' => 'This is numeric',
         'images' => [
             'image' => 'This field must be an image',
             'mimes' => 'Incorrect image format (jpeg,png,jpg,gif)',

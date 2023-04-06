@@ -46,7 +46,7 @@ class ChapterController extends Controller
             $this->data['type_comic'] = $this->data['comic']->category->type;
             $this->data['is_list'] = false;
         }else{
-            $this->data['comic'] = $this->comicService->getAllComic();
+            $this->data['comic'] = $this->comicService->getAll();
         }
         return view('admin.chapters.create')->with($this->data);
     }
@@ -59,7 +59,7 @@ class ChapterController extends Controller
             $newFiles = uploadFileMultiple($path, $data['images']);
             $data['content_image'] = json_encode($newFiles);
         }
-        $this->chapterService->storeChapter($data);
+        $this->chapterService->storeModel($data);
         if (isset($data['is_comic'])) {
             return redirect()->route('admin.chapter.list', $data['is_comic']);
         }
@@ -68,8 +68,8 @@ class ChapterController extends Controller
 
     public function edit($id)
     {
-        $this->data['chapter'] = $this->chapterService->findChapterById($id);
-        $this->data['comic'] = $this->comicService->getAllComic(['id', 'name']);
+        $this->data['chapter'] = $this->chapterService->findModelById($id);
+        $this->data['comic'] = $this->comicService->getAll(['id', 'name']);
         $comic = $this->data['chapter']->comic;
         $this->data['chapterImages'] = json_decode($this->data['chapter']->content_image);
         $this->data['is_list'] = true;
@@ -92,7 +92,7 @@ class ChapterController extends Controller
         }else{
             $data['content_image'] = json_encode($arrExist);
         }
-        $this->chapterService->updateChapter($data, $id);
+        $this->chapterService->updateModel($data, $id);
         return back();
     }
 
@@ -103,27 +103,27 @@ class ChapterController extends Controller
         $param = [
             'is_visible' => $is_visible
         ];
-        $this->chapterService->updateChapter($param, $id);
+        $this->chapterService->updateModel($param, $id);
     }
 
     public function delete(Request $request)
     {
         $ids = $request->get('id');
-        $this->chapterService->deleteMultipleChapter($ids);
+        $this->chapterService->deleteMultiple($ids);
         return redirect()->back();
     }
 
     public function restore(Request $request)
     {
         $ids = $request->get('id');
-        $this->chapterService->restoreMultipleChapter($ids);
+        $this->chapterService->restoreMultiple($ids);
         return redirect()->back();
     }
 
     public function forceDelete(Request $request)
     {
         $ids = $request->get('id');
-        $this->chapterService->forceDeleteMultipleChapter($ids);
+        $this->chapterService->forceDeleteMultiple($ids);
         return redirect()->back();
     }
 
@@ -132,13 +132,13 @@ class ChapterController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['comics'] = $this->chapterService->getListTrashChapterPaginate($param);
+        $this->data['comics'] = $this->chapterService->getListTrashModelPaginate($param);
         return view('admin.chapters.trash')->with($this->data);
     }
 
     public function editImage($id)
     {
-        $this->data['chapter'] = $this->chapterService->findChapterById($id, ['id', 'content_image', 'name']);
+        $this->data['chapter'] = $this->chapterService->findModelById($id, ['id', 'content_image', 'name']);
         $this->data['arrImage'] = json_decode($this->data['chapter']->content_image);
         return view('admin.chapters.edit_image')->with($this->data);
     }
@@ -149,7 +149,7 @@ class ChapterController extends Controller
             $image_move = $request->get('image_move');
             $arr = explode(',', $image_move);
             $data['content_image'] = json_encode($arr);
-            $this->chapterService->updatecChapter($data, $id);
+            $this->chapterService->updateModel($data, $id);
         }
         return redirect()->route('admin.chapter.list');
     }

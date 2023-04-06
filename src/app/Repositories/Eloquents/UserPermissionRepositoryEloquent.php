@@ -6,7 +6,6 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\UserPermissionRepository;
 use App\Models\UserPermission;
-use App\Validators\UserPermissionValidator;
 
 /**
  * Class UserPermissionRepositoryEloquent.
@@ -25,7 +24,7 @@ class UserPermissionRepositoryEloquent extends BaseRepository implements UserPer
         return UserPermission::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -34,5 +33,5 @@ class UserPermissionRepositoryEloquent extends BaseRepository implements UserPer
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

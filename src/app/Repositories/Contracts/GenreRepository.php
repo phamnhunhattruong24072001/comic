@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Repositories\BaseInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
@@ -9,11 +10,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories\Contracts;
  */
-interface GenreRepository extends RepositoryInterface
+interface GenreRepository extends RepositoryInterface, BaseInterface
 {
-    public function deleteMultiple(array $ids);
-
-    public function forceDeleteMultiple(array $ids);
-
-    public function restoreMultiple(array $ids);
+ //
 }

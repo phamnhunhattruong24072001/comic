@@ -6,7 +6,6 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Contracts\PermissionRoleRepository;
 use App\Models\PermissionRole;
-use App\Validators\PermissionRoleValidator;
 
 /**
  * Class PermissionRoleRepositoryEloquent.
@@ -25,7 +24,7 @@ class PermissionRoleRepositoryEloquent extends BaseRepository implements Permiss
         return PermissionRole::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -34,5 +33,5 @@ class PermissionRoleRepositoryEloquent extends BaseRepository implements Permiss
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

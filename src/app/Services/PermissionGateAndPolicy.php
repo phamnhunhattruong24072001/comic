@@ -13,6 +13,7 @@ class PermissionGateAndPolicy
         $this->defineGateGenre();
         $this->defineGateComic();
         $this->defineGateChapter();
+        $this->defineGateFigure();
     }
 
     public function defineGateUser()
@@ -73,5 +74,15 @@ class PermissionGateAndPolicy
         Gate::define(\App\Models\Chapter::DELETE, 'App\Policies\ChapterPolicy@delete');
         Gate::define(\App\Models\Chapter::RESTORE, 'App\Policies\ChapterPolicy@restore');
         Gate::define(\App\Models\Chapter::FORCE_DELETE, 'App\Policies\ChapterPolicy@forceDelete');
+    }
+
+    public function defineGateFigure()
+    {
+        Gate::define(\App\Models\Figure::VIEW, 'App\Policies\FigurePolicy@view');
+        Gate::define(\App\Models\Figure::CREATE, 'App\Policies\FigurePolicy@create');
+        Gate::define(\App\Models\Figure::UPDATE, 'App\Policies\FigurePolicy@update');
+        Gate::define(\App\Models\Figure::DELETE, 'App\Policies\FigurePolicy@delete');
+        Gate::define(\App\Models\Figure::RESTORE, 'App\Policies\FigurePolicy@restore');
+        Gate::define(\App\Models\Figure::FORCE_DELETE, 'App\Policies\FigurePolicy@forceDelete');
     }
 }

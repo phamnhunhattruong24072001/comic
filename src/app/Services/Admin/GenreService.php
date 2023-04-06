@@ -70,11 +70,6 @@ class GenreService
         return $this->genreRepository->restoreMultiple($ids);
     }
 
-    public function updateStatus($param, $id)
-    {
-        return $this->genreRepository->update($param, $id);
-    }
-
     public function getAllGenre($columns = ['*'])
     {
         return $this->genreRepository->active()->select($columns)->get();

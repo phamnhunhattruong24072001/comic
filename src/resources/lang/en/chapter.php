@@ -5,6 +5,7 @@ return [
     'list_title' => 'Quản lý chương',
     'create_title' => 'Thêm mới chương',
     'update_title' => 'Cập nhật chương',
+    'update_image' => 'Cập nhật vị trí hình ảnh',
     'title' => 'Tiêu đề chương',
     'name' => 'Tên chương',
     'short_desc' => 'Mô tả ngắn',
@@ -14,4 +15,5 @@ return [
     'images' => 'Nội dung ảnh',
     'content' => 'Nội dung chữ',
     'status' => 'Trạng thái',
+    'location_image' => 'Location',
 ];

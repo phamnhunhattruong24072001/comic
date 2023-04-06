@@ -22,14 +22,14 @@ class CountryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $countries = $this->countryService->getListCountryPaginate($param);
-        return view('admin.countries.list', compact('countries'));
+        $this->data['countries'] = $this->countryService->getListCountryPaginate($param);
+        return view('admin.countries.list')->with($this->data);
     }
 
     public function create()
     {
         $country = new Country();
-        return view('admin.countries.create', compact('country'));
+        return view('admin.countries.create')->with($this->data);
 
     }
 
@@ -47,8 +47,8 @@ class CountryController extends Controller
 
     public function edit($id)
     {
-        $country = $this->countryService->findCountryById($id);
-        return view('admin.countries.edit', compact('country'));
+        $this->data['country'] = $this->countryService->findCountryById($id);
+        return view('admin.countries.edit')->with($this->data);
     }
 
     public function update(CountryRequest $request, $id)
@@ -90,8 +90,8 @@ class CountryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $countries = $this->countryService->getListTrashCountryPaginate($param);
-        return view('admin.countries.trash', compact('countries'));
+        $this->data['countries'] = $this->countryService->getListTrashCountryPaginate($param);
+        return view('admin.countries.trash')->with($this->data);
     }
 
     public function status(Request $request)
@@ -101,7 +101,7 @@ class CountryController extends Controller
         $param = [
             'is_visible' => $is_visible
         ];
-        $this->countryService->updateStatus($param, $id);
+        $this->countryService->updateCountryById($param, $id);
     }
 
 }

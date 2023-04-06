@@ -11,7 +11,7 @@
         <div class="x_content">
             <form id="demo-form" action="{{ route('admin.category.update', ['id' => $category->id]) }}" method="post" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                @include('admin.categories.form', ['data' => $category, 'buttonSubmit' => __('common.button.update')])
+                @include('admin.categories.form', ['buttonSubmit' => __('common.button.update')])
             </form>
         </div>
     </div>

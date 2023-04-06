@@ -70,14 +70,9 @@ class ComicService
         return $this->comicRepository->restoreMultiple($ids);
     }
 
-    public function updateStatus($param, $id)
+    public function findComicBySlug($slug, $columns = ['*'])
     {
-        return $this->comicRepository->update($param, $id);
-    }
-
-    public function findComicBySlug($slug)
-    {
-        return $this->comicRepository->where('slug', $slug)->select(['id', 'slug', 'name'])->first();
+        return $this->comicRepository->findByField('slug', $slug, $columns)->first();
     }
 
     public function getAllComic($columns = ['*'])

@@ -25,16 +25,16 @@ class GenreController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $genres = $this->genreService->getListGenrePaginate($param);
-        return view('admin.genres.list', compact('genres'));
+        $this->data['genres'] = $this->genreService->getListGenrePaginate($param);
+        return view('admin.genres.list')->with($this->data);
     }
 
     public function create()
     {
-        $genre = new Genre();
-        $categories = $this->categoryService->getAllCategory(['id', 'name']);
-        $categorySelected = [];
-        return view('admin.genres.create', compact('genre', 'categories', 'categorySelected'));
+        $this->data['genre'] = new Genre();
+        $this->data['categories'] = $this->categoryService->getAllCategory(['id', 'name']);
+        $this->data['categorySelected'] = [];
+        return view('admin.genres.create')->with($this->data);
     }
 
     public function store(GenreRequest $request)
@@ -46,10 +46,10 @@ class GenreController extends Controller
 
     public function edit($id)
     {
-        $genre = $this->genreService->findGenreById($id);
-        $categories = $this->categoryService->getAllCategory(['id', 'name']);
-        $categorySelected = $genre->categories()->pluck('category_id')->toArray();
-        return view('admin.genres.edit', compact('genre', 'categories', 'categorySelected'));
+        $this->data['genre'] = $this->genreService->findGenreById($id);
+        $this->data['categories'] = $this->categoryService->getAllCategory(['id', 'name']);
+        $this->data['categorySelected'] = $this->data['genre']->categories()->pluck('category_id')->toArray();
+        return view('admin.genres.edit')->with($this->data);
     }
 
     public function update(GenreRequest $request, $id)
@@ -85,8 +85,8 @@ class GenreController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $genres = $this->genreService->getListTrashGenrePaginate($param);
-        return view('admin.genres.trash', compact('genres'));
+        $this->data['genres'] = $this->genreService->getListTrashGenrePaginate($param);
+        return view('admin.genres.trash')->with($this->data);
     }
 
     public function status(Request $request)
@@ -96,6 +96,6 @@ class GenreController extends Controller
         $param = [
             'is_visible' => $is_visible
         ];
-        $this->genreService->updateStatus($param, $id);
+        $this->genreService->updateGenreById($param, $id);
     }
 }

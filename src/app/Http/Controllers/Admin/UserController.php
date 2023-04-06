@@ -31,14 +31,14 @@ class UserController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $users = $this->userService->getListUserPaginate($param);
-        return view('admin.users.list', compact('users'));
+        $this->data['users'] = $this->userService->getListUserPaginate($param);
+        return view('admin.users.list')->with($this->data);
     }
 
     public function create()
     {
-        $user  = new User();
-        return view('admin.users.create', compact('user'));
+        $this->data['user']  = new User();
+        return view('admin.users.create')->with($this->data);
     }
 
     public function store(UserRequest $request)
@@ -55,12 +55,11 @@ class UserController extends Controller
 
     public function permission($id)
     {
-        $user = $this->userService->getUserById($id);
-        $permissionUserChecked = $user->permissions;
-        $permissions = $this->permissionService->getAll();
-        $permissionsRoleChecked = $this->userRoleService->getPermissionRoleByUserId($id);
-        return view('admin.users.permission',
-            compact('user', 'permissionUserChecked', 'permissions', 'permissionsRoleChecked'));
+        $this->data['user'] = $this->userService->getUserById($id);
+        $this->data['permissionUserChecked'] = $this->data['user']->permissions;
+        $this->data['permissions'] = $this->permissionService->getAll();
+        $this->data['permissionsRoleChecked'] = $this->userRoleService->getPermissionRoleByUserId($id);
+        return view('admin.users.permission')->with($this->data);
     }
 
     public function createPermission(Request $request, $id)
@@ -72,8 +71,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = $this->userService->getUserById($id);
-        return view('admin.users.edit', compact('user'));
+        $this->data['user'] = $this->userService->getUserById($id);
+        return view('admin.users.edit')->with($this->data);
     }
 
     public function update(UserRequest $request, $id)
@@ -100,8 +99,8 @@ class UserController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $users = $this->userService->getListUserTrash($param);
-        return view('admin.users.trash', compact('users'));
+        $this->data['users'] = $this->userService->getListUserTrash($param);
+        return view('admin.users.trash')->with($this->data);
     }
 
     public function forceDelete(Request $request)

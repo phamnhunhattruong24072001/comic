@@ -42,14 +42,9 @@ class ChapterService
         return $this->chapterRepository->find($id, $columns);
     }
 
-    public function updatecChapter($data, $id)
+    public function updateChapter($data, $id)
     {
         return $this->chapterRepository->update($data, $id);
-    }
-
-    public function updateStatus($param, $id)
-    {
-        return $this->chapterRepository->update($param, $id);
     }
 
     public function getListTrashChapterPaginate($param, $columns = ['*'])

@@ -64,7 +64,7 @@
                                                             <button class="btn-sm btn-danger button-delete" title="" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                         </form>
                                                     @endcan
-                                                        <a href="{{ route('admin.chapter.edit_image', $chapter->id) }}" class="btn-sm btn-warning" title=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                        <a href="{{ route('admin.chapter.edit_image', $chapter->id) }}" class="btn-sm btn-info" title=""><i class="fa fa-image" aria-hidden="true"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

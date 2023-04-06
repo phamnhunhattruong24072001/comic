@@ -11,7 +11,7 @@
         <div class="x_content">
             <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                @include('admin.users.form', ['data' => $user, 'buttonSubmit' => __('common.button.create')])
+                @include('admin.users.form', ['buttonSubmit' => __('common.button.create')])
             </form>
         </div>
     </div>

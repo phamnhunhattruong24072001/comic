@@ -33,8 +33,8 @@ class ComicController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $comics = $this->comicService->getListComicPaginate($param);
-        return view('admin.comics.list', compact('comics'));
+        $this->data['comics'] = $this->comicService->getListComicPaginate($param);
+        return view('admin.comics.list')->with($this->data);
     }
 
     public function create()
@@ -110,8 +110,8 @@ class ComicController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $comics = $this->comicService->getListTrashComicPaginate($param);
-        return view('admin.comics.trash', compact('comics'));
+        $this->data['comics'] = $this->comicService->getListTrashComicPaginate($param);
+        return view('admin.comics.trash')->with($this->data);
     }
 
     public function status(Request $request)
@@ -121,6 +121,6 @@ class ComicController extends Controller
         $param = [
             'is_visible' => $is_visible
         ];
-        $this->comicService->updateStatus($param, $id);
+        $this->comicService->updateComicById($param, $id);
     }
 }

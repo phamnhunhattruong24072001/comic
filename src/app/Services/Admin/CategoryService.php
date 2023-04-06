@@ -71,11 +71,6 @@ class CategoryService
         return $this->categoryRepository->restoreMultiple($ids);
     }
 
-    public function updateStatus($param, $id)
-    {
-        return $this->categoryRepository->update($param, $id);
-    }
-
     public function getAllCategory($columns = ['*'])
     {
         return $this->categoryRepository->active()->select($columns)->get();

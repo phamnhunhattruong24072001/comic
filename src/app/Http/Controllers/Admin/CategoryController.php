@@ -25,16 +25,16 @@ class CategoryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $categories = $this->categoryService->getListCategoryPaginate($param);
-        return view('admin.categories.list', compact('categories'));
+        $this->data['categories'] = $this->categoryService->getListCategoryPaginate($param);
+        return view('admin.categories.list')->with($this->data);
     }
 
     public function create()
     {
-        $category = new Category();
-        $countries = $this->countryService->getAllCountry(['id', 'name']);
-        $countrySelected = [];
-        return view('admin.categories.create', compact('category', 'countries', 'countrySelected'));
+        $this->data['category'] = new Category();
+        $this->data['countries'] = $this->countryService->getAllCountry(['id', 'name']);
+        $this->data['countrySelected'] = [];
+        return view('admin.categories.create')->with($this->data);
     }
 
     public function store(CategoryRequest $request)
@@ -46,10 +46,10 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $category = $this->categoryService->findCategoryById($id);
-        $countries = $this->countryService->getAllCountry(['id', 'name']);
-        $countrySelected = $category->countries()->pluck('country_id')->toArray();
-        return view('admin.categories.edit', compact('category', 'countries', 'countrySelected'));
+        $this->data['category'] = $this->categoryService->findCategoryById($id);
+        $this->data['countries'] = $this->countryService->getAllCountry(['id', 'name']);
+        $this->data['countrySelected'] = $this->data['category']->countries()->pluck('country_id')->toArray();
+        return view('admin.categories.edit')->with($this->data);
     }
 
     public function update(CategoryRequest $request, $id)
@@ -85,8 +85,8 @@ class CategoryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $categories = $this->categoryService->getListTrashCategoryPaginate($param);
-        return view('admin.categories.trash', compact('categories'));
+        $this->data['categories'] = $this->categoryService->getListTrashCategoryPaginate($param);
+        return view('admin.categories.trash')->with($this->data);
     }
 
     public function status(Request $request)
@@ -96,6 +96,6 @@ class CategoryController extends Controller
         $param = [
             'is_visible' => $is_visible
         ];
-        $this->categoryService->updateStatus($param, $id);
+        $this->categoryService->updateCategoryById($param, $id);
     }
 }

@@ -66,8 +66,11 @@
                                                         <button class="btn-sm btn-danger button-delete" title="" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </form>
                                                 @endcan
-                                                    <a href="{{ route('admin.chapter.list', $comic->slug) }}" class="btn-sm btn-info" title=""><i class="fa fa-bars"></i></a>&nbsp;
+                                                    <a href="{{ route('admin.chapter.list', $comic->slug) }}" class="btn-sm btn-secondary" title=""><i class="fa fa-bars"></i></a>&nbsp;
                                                     <a href="{{ route('admin.chapter.create', $comic->slug) }}" class="btn-sm btn-info" title=""><i class="fa fa-plus"></i></a>
+                                                    <a href="{{ route('admin.figure.list', $comic->slug) }}" class="btn-sm btn-dark" title=""><i class="fa fa-users"></i></a>
+                                                    <a href="{{ route('admin.figure.create', $comic->slug) }}" class="btn-sm btn-primary" title=""><i class="fa fa-user-plus"></i></a>
+
                                             </div>
                                         </td>
                                     </tr>

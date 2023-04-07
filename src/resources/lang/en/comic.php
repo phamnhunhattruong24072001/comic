@@ -5,6 +5,7 @@ return [
     'list_title' => 'Manager Comic',
     'create_title' => 'Create Comic',
     'update_title' => 'Update Comic',
+    'detail_title' => 'Detail Comic',
     'name' => 'Name',
     'name_another' => 'Name Another',
     'status' => 'Status Comic',

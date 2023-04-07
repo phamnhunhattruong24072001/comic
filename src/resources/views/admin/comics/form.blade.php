@@ -103,10 +103,11 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="genres">{{ __('comic.genre') }}</label>
+{{--                    @dd($genreSelected);--}}
                     <select class="form-control js-example-basic-multiple genre" name="genres[]" multiple="multiple" data-placeholder="{{ __('comic.select_genre') }}">
                         @if(isset($is_update))
                             @foreach($genres as $genre)
-                                <option value="{{ $genre->id }}" @if(in_array($genre->id, $genreSelected) || in_array($genre->id, old('genres'))) selected @endif>{{ $genre->name }}</option>
+                                <option value="{{ $genre->id }}" @if(in_array($genre->id, $genreSelected)) selected @endif>{{ $genre->name }}</option>
                             @endforeach
                         @endif
                     </select>

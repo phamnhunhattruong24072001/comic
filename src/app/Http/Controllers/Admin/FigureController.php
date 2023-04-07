@@ -46,7 +46,7 @@ class FigureController extends Controller
         $this->data['is_list'] = true;
         if($any != "") {
             $this->data['comic'] = $this->comicService->findModelByField('slug' ,$any, ['id', 'name', 'slug', 'category_id']);
-            $this->data['chapters'] = $this->data['comic']->chapters;
+            $this->data['chapters'] = $this->chapterService->getListByField('comic_id', $this->data['comic']->id, ['id', 'name'], 'number_chapter', 'ASC');
             $this->data['is_list'] = false;
         }else{
             $this->data['comic'] = $this->comicService->getAll();
@@ -82,17 +82,11 @@ class FigureController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $arrExist = [];
-        if($request->has('image_exist')) {
-            $arrExist = explode(',', $data['image_exist']);
-        }
-        if ($request->hasFile('images')) {
+        if ($request->hasFile('avatar')) {
+            deleteFile($data['image_exist']);
             $path = config('const.path.figure');
-            $newFiles = uploadFileMultiple($path, $data['images']);
-            $newFiles = array_merge($arrExist, $newFiles);
-            $data['content_image'] = json_encode($newFiles);
-        }else{
-            $data['content_image'] = json_encode($arrExist);
+            $newFile = uploadFile($path, $data['avatar']);
+            $data['avatar'] = $newFile;
         }
         $this->figureService->updateModel($data, $id);
         return back();

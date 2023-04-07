@@ -104,12 +104,12 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::get('/trash', [ChapterController::class, 'trash'])->name('trash');
         Route::post('/force-delete', [ChapterController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Comic::FORCE_DELETE);
         Route::post('/restore', [ChapterController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Comic::RESTORE);
-        Route::post('/status', [ChapterController::class, 'update'])->name('status');
+        Route::post('/status', [ChapterController::class, 'status'])->name('status');
         Route::get('/edit-image/{id}', [ChapterController::class, 'editImage'])->name('edit_image');
         Route::post('/update-image/{id}', [ChapterController::class, 'updateImage'])->name('update_image');
     });
 
-    // Chapter
+    // Figure
     Route::group(array('prefix' => '/figure', 'as' => 'figure.'), function () {
         Route::get('/list/{any?}', [FigureController::class, 'index'])->name('list')->middleware('can:' . App\Models\Figure::VIEW);
         Route::get('/create/{any?}', [FigureController::class, 'create'])->name('create')->middleware('can:' . App\Models\Figure::CREATE);
@@ -120,7 +120,7 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
         Route::get('/trash', [FigureController::class, 'trash'])->name('trash');
         Route::post('/force-delete', [FigureController::class, 'forceDelete'])->name('force-delete')->middleware('can:' . App\Models\Figure::FORCE_DELETE);
         Route::post('/restore', [FigureController::class, 'restore'])->name('restore')->middleware('can:' . App\Models\Figure::RESTORE);
-        Route::post('/status', [FigureController::class, 'update'])->name('status');
+        Route::post('/status', [FigureController::class, 'status'])->name('status');
     });
 
     // Response

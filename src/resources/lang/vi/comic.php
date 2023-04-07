@@ -5,6 +5,7 @@ return [
     'list_title' => 'Quản lý truyện',
     'create_title' => 'Thêm mới truyện',
     'update_title' => 'Cập nhật truyện',
+    'detail_title' => 'Chi tiết truyện',
     'name' => 'Tên truyện',
     'name_another' => 'Tên khác',
     'status' => 'Trạng thái truyện',

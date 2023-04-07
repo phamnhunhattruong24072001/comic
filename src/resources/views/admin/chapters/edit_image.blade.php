@@ -60,7 +60,7 @@
                         <input type="hidden" id="move-image" value="" name="image_move">
                         <a href="{{ route('admin.chapter.list') }}" class="btn btn-warning">{{ __('common.button.back') }} <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                         <a class="btn btn-secondary" href="" type="reset">{{ __('common.button.reset') }} <i class="fa fa-refresh" aria-hidden="true"></i></a>
-                        <button class="btn btn-primary" type="submit">{{ __('common.button.create') }} <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                        <button class="btn btn-primary" type="submit">{{ __('common.button.save') }} <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
                     </div>
                 </div>
 

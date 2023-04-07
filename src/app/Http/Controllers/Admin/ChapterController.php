@@ -100,10 +100,10 @@ class ChapterController extends Controller
     {
         $id = $request->get('id');
         $is_visible = $request->get('is_visible') == config('const.activate.on') ? config('const.activate.off') : config('const.activate.on');
-        $param = [
+        $data = [
             'is_visible' => $is_visible
         ];
-        $this->chapterService->updateModel($param, $id);
+        $this->chapterService->updateModel($data, $id);
     }
 
     public function delete(Request $request)

@@ -63,7 +63,7 @@ class Comic extends Model implements Transformable
 
     public function chapters()
     {
-        return $this->hasMany(Chapter::class);
+        return $this->hasMany(Chapter::class, 'comic_id', 'id');
     }
 
     public function scopeActive($query)

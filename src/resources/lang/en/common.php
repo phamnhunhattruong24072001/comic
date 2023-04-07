@@ -18,6 +18,7 @@ return [
         'restore' => 'Restore',
         'force-delete' => 'Force Delete',
         'list' => 'List',
-        'trash' => 'Trash'
+        'trash' => 'Trash',
+        'save' => 'Save',
     ],
 ];

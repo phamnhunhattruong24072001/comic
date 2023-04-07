@@ -47,7 +47,7 @@
                                             <td>{{ $chapter->number_chapter }}</td>
                                             <td>
                                                 <label>
-                                                    <input type="checkbox" class="js-switch switch-status" data-id="{{$chapter->id}}" data-url="{{route('admin.chapter.status')}}"
+                                                    <input type="checkbox" class="js-switch switch-status" data-id="{{$chapter->id}}" data-url="{{ route('admin.chapter.status') }}"
                                                            @if($chapter->is_visible == config('const.activate.on')) checked @endif value="{{$chapter->is_visible}}"/>
                                                 </label>
                                             </td>

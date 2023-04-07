@@ -19,6 +19,7 @@ return [
         'force-delete' => 'Xóa vĩnh viễn',
         'list' => 'Danh sách',
         'trash' => 'Thùng rác',
+        'save' => 'Lưu',
     ],
 ];
 

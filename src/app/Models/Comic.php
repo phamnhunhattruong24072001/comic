@@ -66,6 +66,11 @@ class Comic extends Model implements Transformable
         return $this->hasMany(Chapter::class, 'comic_id', 'id');
     }
 
+    public function chapterLatest()
+    {
+        return $this->hasOne(Chapter::class, 'comic_id', 'id')->latest('number_chapter');
+    }
+
     public function scopeActive($query)
     {
         $query->where('is_visible', config('const.activate.on'));

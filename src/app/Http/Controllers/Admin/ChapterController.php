@@ -26,11 +26,10 @@ class ChapterController extends Controller
         $param = [
             'limit' => 10
         ];
-        if($any != "") {
+        if ($any != "") {
             $this->data['comic'] = $this->comicService->findComicBySlug($any);
             $this->data['chapters'] = $this->chapterService->getListChapterByIdComic($param, $this->data['comic']->id);
-
-        }else{
+        } else {
             $this->data['comic'] = new Comic();
             $this->data['chapters'] = $this->chapterService->getListChapterPaginate($param);
         }
@@ -41,11 +40,11 @@ class ChapterController extends Controller
     {
         $this->data['chapter'] = new Chapter();
         $this->data['is_list'] = true;
-        if($any != "") {
+        if ($any != "") {
             $this->data['comic'] = $this->comicService->findComicBySlug($any, ['id', 'name', 'slug', 'category_id']);
             $this->data['type_comic'] = $this->data['comic']->category->type;
             $this->data['is_list'] = false;
-        }else{
+        } else {
             $this->data['comic'] = $this->comicService->getAll();
         }
         return view('admin.chapters.create')->with($this->data);
@@ -81,7 +80,7 @@ class ChapterController extends Controller
     {
         $data = $request->all();
         $arrExist = [];
-        if($request->has('image_exist')) {
+        if ($request->has('image_exist')) {
             $arrExist = explode(',', $data['image_exist']);
         }
         if ($request->hasFile('images')) {
@@ -89,7 +88,7 @@ class ChapterController extends Controller
             $newFiles = uploadFileMultiple($path, $data['images']);
             $newFiles = array_merge($arrExist, $newFiles);
             $data['content_image'] = json_encode($newFiles);
-        }else{
+        } else {
             $data['content_image'] = json_encode($arrExist);
         }
         $this->chapterService->updateModel($data, $id);

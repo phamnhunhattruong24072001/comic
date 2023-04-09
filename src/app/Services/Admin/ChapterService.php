@@ -29,7 +29,6 @@ class ChapterService extends BaseService
     {
         $result = $this->chapterRepository->scopeQuery(function ($query) use ($id) {
             $query->where('comic_id', $id);
-            $query->where('is_visible', config('const.activate.on'));
             return $query;
         });
         $result->orderBy('created_at', 'DESC');

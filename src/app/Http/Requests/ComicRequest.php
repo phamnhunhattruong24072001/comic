@@ -52,13 +52,13 @@ class ComicRequest extends FormRequest
             'thumbnail' => [
                 $this->id ? 'nullable' : 'required',
                 'image',
-                'mimes:jpeg,png,jpg,gif',
+                'mimes:jpeg,png,jpg,gif,webp',
                 'max:2048'
             ],
             'cover_image' => [
                 'nullable',
                 'image',
-                'mimes:jpeg,png,jpg,gif',
+                'mimes:jpeg,png,jpg,gif,webp',
             ],
         ];
     }

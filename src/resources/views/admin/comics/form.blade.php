@@ -103,7 +103,6 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="genres">{{ __('comic.genre') }}</label>
-{{--                    @dd($genreSelected);--}}
                     <select class="form-control js-example-basic-multiple genre" name="genres[]" multiple="multiple" data-placeholder="{{ __('comic.select_genre') }}">
                         @if(isset($is_update))
                             @foreach($genres as $genre)
@@ -225,7 +224,8 @@
                             id: item.id,
                             text: item.name
                         });
-                    })
+                    });
+                    $(elementChange).empty().val(null);
                     $(elementChange).select2({
                         data: data
                     })

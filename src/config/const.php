@@ -44,6 +44,12 @@ return [
         'highlight' => 1,
         'type_image' => 'image',
         'type_text' => 'text',
+        'status' => [
+            'not_released' => 0,
+            'waiting_for_release' => 1,
+            'release' => 2,
+            'pause' => 3,
+        ]
     ],
     'slug_chapter' => 'chapter-',
 ];

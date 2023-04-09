@@ -38,7 +38,7 @@ class CountryRequest extends FormRequest
             'avatar' => [
                 'nullable',
                 'image',
-                'mimes:jpeg,png,jpg,gif',
+                'mimes:jpeg,png,jpg,gif,webp',
                 'max:2048'
             ],
         ];

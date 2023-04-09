@@ -23,6 +23,6 @@ Route::get('/category/get-list', [CategoryController::class, 'getList']);
 Route::get('/genre/get-list', [GenreController::class, 'getList']);
 
 Route::group(array('prefix' => '/comic'), function () {
-    Route::get('/get-list-new', [ComicController::class, 'getListNew']);
-    Route::get('/detail/{slug}', [ComicController::class, 'findComicBySlug']);
+    Route::get('/get-list-new', [ComicController::class, 'HomePageApi']);
+    Route::get('/detail/{slug}', [ComicController::class, 'DetailComicApi']);
 });

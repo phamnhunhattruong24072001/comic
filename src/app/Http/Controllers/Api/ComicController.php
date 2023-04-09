@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\Admin\ComicService;
+use App\Services\Api\ComicService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,13 +15,14 @@ class ComicController extends Controller
         $this->comicService = $comicService;
     }
 
-    public function getListNew()
+    public function HomePageApi()
     {
-        $comics = $this->comicService->getAllComicApi();
-        return $this->sendResult(Response::HTTP_OK, trans('comic.list_title'), $comics);
+        $this->data['comic_news'] = $this->comicService->getAllComicNewApi();
+        $this->data['comic_coming_soon'] = $this->comicService->getAllComicComingSoonApi();
+        return $this->sendResult(Response::HTTP_OK, trans('comic.list_title'), $this->data);
     }
 
-    public function findComicBySlug($slug)
+    public function DetailComicApi($slug)
     {
         $comic = $this->comicService->findComicBySlugApi($slug);
         return $this->sendResult(Response::HTTP_OK, trans('comic.detail_title'), $comic);

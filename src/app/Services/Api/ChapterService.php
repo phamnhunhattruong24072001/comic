@@ -4,6 +4,7 @@ namespace App\Services\Api;
 
 use App\Services\BaseService;
 use App\Repositories\Contracts\ChapterRepository;
+use Illuminate\Support\Facades\DB;
 
 class ChapterService extends BaseService
 {
@@ -17,11 +18,13 @@ class ChapterService extends BaseService
 
     public function findBySlugChapterAndComic($slugComic, $slugChapter, $columns = ['*'])
     {
-        return $this->chapterRepository->scopeQuery(function ($query) use($slugComic){
-            $query->join('comics', 'chapters.comic_id', '=', 'comics.id');
-            $query->where('comics.slug', $slugComic);
-            $query->where('comics.status', config('const.comic.status.release'));
-            return $query;
-        })->findByField('slug', $slugChapter, $columns)->first();
+        $columns = ['chapters.*'];
+        $result = DB::table('chapters')
+            ->select($columns)
+            ->join('comics', 'chapters.comic_id', '=', 'comics.id')
+            ->where('comics.slug', $slugComic)
+            ->where('comics.status', config('const.comic.status.release'))
+            ->where('chapters.slug', $slugChapter);
+        return $result->first();
     }
 }

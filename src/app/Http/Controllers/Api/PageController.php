@@ -35,8 +35,21 @@ class PageController extends Controller
 
     public function ViewChapterPageApi($slugComic, $slugChapter)
     {
-        $this->data['chapter'] = $this->chapterService->findBySlugChapterAndComic($slugComic, $slugChapter);
         $this->data['comic'] = $this->comicService->findComicBySlugApi($slugComic);
+        $chapters = $this->data['comic']->chapters;
+        foreach($chapters as $key => $value) {
+            if($value->slug == $slugChapter){
+                $this->data['preChapter'] = $chapters[$key];
+                $this->data['nextChapter'] = $chapters[$key];
+                if(isset($chapters[$key + 1])){
+                    $this->data['preChapter'] = $chapters[$key + 1];
+                }
+                if(isset($chapters[$key - 1])){
+                    $this->data['nextChapter'] = $chapters[$key - 1];
+                }
+            }
+        }
+        $this->data['chapter'] = $this->chapterService->findBySlugChapterAndComic($slugComic, $slugChapter);
         return $this->sendResult(Response::HTTP_OK, trans('chapter.list_title'), $this->data);
     }
 }

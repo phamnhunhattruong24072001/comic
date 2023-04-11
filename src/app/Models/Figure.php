@@ -24,8 +24,8 @@ class Figure extends Model implements Transformable
     const FORCE_DELETE = 'figure_force_delete';
 
     protected $fillable = [
-        'comic_id',
         'name',
+        'slug',
         'nickname',
         'age',
         'birthday',
@@ -37,14 +37,11 @@ class Figure extends Model implements Transformable
         'career',
         'short_desc',
         'long_desc',
-        'chapter_appeared',
-        'chapter_end',
         'relationship',
         'is_visible',
     ];
-
-    public function comic()
+    public function comics()
     {
-        return $this->hasOne(Comic::class, 'id', 'comic_id');
+        return $this->belongsToMany(Comic::class, 'comic_figures', 'figure_id', 'comic_id');
     }
 }

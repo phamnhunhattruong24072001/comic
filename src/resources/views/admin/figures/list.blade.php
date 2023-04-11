@@ -6,10 +6,10 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>{{ __('figure.list_title') }} |<small>{{ $comic->name }}</small></h2>
+                <h2>{{ __('figure.list_title') }}</small></h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <a href="{{ route('admin.figure.create', $comic->slug) }}" class="btn-sm btn-primary rounded-0">{{ __('common.button.create') }}</a>
-                    <a href="{{ route('admin.figure.trash', $comic->slug) }}" class="btn-sm btn-secondary rounded-0">{{ __('common.button.trash') }}</a>
+                    <a href="{{ route('admin.figure.create') }}" class="btn-sm btn-primary rounded-0">{{ __('common.button.create') }}</a>
+                    <a href="{{ route('admin.figure.trash') }}" class="btn-sm btn-secondary rounded-0">{{ __('common.button.trash') }}</a>
                     <a class="btn-sm btn-danger rounded-0 delete-multiple" data-url="{{route('admin.comic.delete')}}" data-action="delete">{{ __('common.button.delete') }}</a>
                 </ul>
                 <div class="clearfix"></div>
@@ -41,7 +41,11 @@
                                                 <label><input type="checkbox" class="check-item" value="{{ $figure->id }}"></label>
                                             </td>
                                             <td><img src="{{ asset(showFile($figure->avatar)) }}" width="50"></td>
-                                            <td>{{ $figure->comic->name }}</td>
+                                            <td>
+                                                @foreach($figure->comics->pluck('name')->toArray() as $comic)
+                                                    <span class="badge badge-dark">{{ $comic }}</span>
+                                                @endforeach
+                                            </td>
                                             <td>{{ $figure->name }}</td>
                                             <td>
                                                 <label>

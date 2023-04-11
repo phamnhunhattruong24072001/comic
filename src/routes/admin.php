@@ -111,8 +111,8 @@ Route::group(array('middleware' => ['auth:admin', 'localization'], 'as' => 'admi
 
     // Figure
     Route::group(array('prefix' => '/figure', 'as' => 'figure.'), function () {
-        Route::get('/list/{any?}', [FigureController::class, 'index'])->name('list')->middleware('can:' . App\Models\Figure::VIEW);
-        Route::get('/create/{any?}', [FigureController::class, 'create'])->name('create')->middleware('can:' . App\Models\Figure::CREATE);
+        Route::get('/', [FigureController::class, 'index'])->name('list')->middleware('can:' . App\Models\Figure::VIEW);
+        Route::get('/create', [FigureController::class, 'create'])->name('create')->middleware('can:' . App\Models\Figure::CREATE);
         Route::post('/store', [FigureController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [FigureController::class, 'edit'])->name('edit')->middleware('can:' . App\Models\Figure::UPDATE);
         Route::post('/update/{id}', [FigureController::class, 'update'])->name('update');

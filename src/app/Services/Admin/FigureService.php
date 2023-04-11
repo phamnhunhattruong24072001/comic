@@ -23,4 +23,22 @@ class FigureService extends BaseService
         $result->orderBy('created_at', 'DESC');
         return $result->paginate($param['limit'], ['*']);
     }
+
+    public function storeFigure($data)
+    {
+        $result = $this->figureRepository->create($data);
+        if ($result) {
+            $this->figureRepository->sync($result->id, 'comics', $data['comics']);
+        }
+        return $result;
+    }
+
+    public function updateFigure($data, $id)
+    {
+        $result = $this->figureRepository->update($data, $id);
+        if ($result) {
+            $this->figureRepository->sync($id, 'comics', $data['comics']);
+        }
+        return $result;
+    }
 }

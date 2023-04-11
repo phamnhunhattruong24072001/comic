@@ -14,13 +14,8 @@ return new class extends Migration
 	{
 		Schema::create('figures', function(Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('comic_id');
-            $table->foreign('comic_id')->references('id')->on('comics');
-            $table->unsignedInteger('chapter_appeared');
-            $table->foreign('chapter_appeared')->references('id')->on('chapters');
-            $table->unsignedInteger('chapter_end');
-            $table->foreign('chapter_end')->references('id')->on('chapters');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('nickname')->nullable();
             $table->integer('age')->nullable();
             $table->date('birthday')->nullable();

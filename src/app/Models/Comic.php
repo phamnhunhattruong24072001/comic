@@ -71,6 +71,11 @@ class Comic extends Model implements Transformable
         return $this->hasOne(Chapter::class, 'comic_id', 'id')->latest('number_chapter');
     }
 
+    public function figures()
+    {
+        return $this->belongsToMany(Figure::class, 'comic_figures', 'comic_id', 'figure_id');
+    }
+
     public function scopeActive($query)
     {
         $query->where('is_visible', config('const.activate.on'));

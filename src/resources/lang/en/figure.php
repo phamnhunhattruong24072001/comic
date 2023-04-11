@@ -6,6 +6,7 @@ return [
     'create_title' => 'Add new figure',
     'update_title' => 'Update figure',
     'name' => 'Name figure',
+    'slug' => 'Slug',
     'short_desc' => 'Short description',
     'comic' => 'Comic',
     'select_comic' => 'Select Comic',

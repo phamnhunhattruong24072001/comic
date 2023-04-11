@@ -25,7 +25,7 @@ class FigureRequest extends FormRequest
     public function rules()
     {
         return [
-            'comic_id' => [
+            'comics' => [
                 'required',
             ],
             'age' => [
@@ -36,15 +36,12 @@ class FigureRequest extends FormRequest
                 'required',
                 'min:2',
                 'max:100',
-                function ($attribute, $value, $fail) {
-                    $figure = Figure::where('name', $value)
-                        ->where('comic_id', $this->comic_id)
-                        ->first();
-
-                    if ($figure && $figure->id != $this->id) {
-                        $fail(__('validation.custom.unique'));
-                    }
-                },
+            ],
+            'slug' => [
+                'required',
+                'min:2',
+                'max:100',
+                'unique:figures,slug,' . $this->id . ',id,deleted_at,NULL'
             ],
         ];
     }
@@ -55,8 +52,11 @@ class FigureRequest extends FormRequest
             'name.min' => __('validation.custom.min', ['count' => 2]),
             'name.max' => __('validation.custom.max', ['count' => 100]),
             'name.required' => __('validation.custom.required'),
-            'comic_id.required' => __('validation.custom.required'),
-            'comic_id.numeric' => __('validation.custom.numeric'),
+            'comics.required' => __('validation.custom.required'),
+            'slug.min' => __('validation.custom.min', ['count' => 2]),
+            'slug.max' => __('validation.custom.max', ['count' => 100]),
+            'slug.required' => __('validation.custom.required'),
+            'slug.unique' => __('validation.custom.unique'),
         ];
     }
 }

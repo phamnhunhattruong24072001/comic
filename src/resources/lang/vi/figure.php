@@ -5,7 +5,7 @@ return [
     'list_title' => 'Quản lý nhân vật',
     'create_title' => 'Thêm mới nhân vật',
     'update_title' => 'Cập nhật nhân vật',
-    'name' => 'Tên nhân vật',
+    'slug' => 'Slug',
     'short_desc' => 'Mô tả ngắn',
     'comic' => 'Truyện',
     'select_comic' => 'Chọn truyện',

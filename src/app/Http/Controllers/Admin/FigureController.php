@@ -29,28 +29,15 @@ class FigureController extends Controller
         $param = [
             'limit' => 10
         ];
-        if($any != "") {
-            $this->data['comic'] = $this->comicService->findModelByField('slug', $any);
-            $this->data['figures'] = $this->figureService->getListFigureByIdComic($param, $this->data['comic']->id);
-
-        }else{
-            $this->data['comic'] = new Comic();
-            $this->data['figures'] = $this->figureService->getListModelPaginate($param);
-        }
+        $this->data['figures'] = $this->figureService->getListModelPaginate($param);
         return view('admin.figures.list')->with($this->data);
     }
 
     public function create($any = "")
     {
         $this->data['figure'] = new Figure();
-        $this->data['is_list'] = true;
-        if($any != "") {
-            $this->data['comic'] = $this->comicService->findModelByField('slug' ,$any, ['id', 'name', 'slug', 'category_id']);
-            $this->data['chapters'] = $this->chapterService->getListByField('comic_id', $this->data['comic']->id, ['id', 'name'], 'number_chapter', 'ASC');
-            $this->data['is_list'] = false;
-        }else{
-            $this->data['comic'] = $this->comicService->getAll();
-        }
+        $this->data['comics'] = $this->comicService->getAll(['name', 'id']);
+        $this->data['comicSelected'] = [];
         return view('admin.figures.create')->with($this->data);
     }
 
@@ -62,7 +49,7 @@ class FigureController extends Controller
             $newFile = uploadFile($path, $data['avatar']);
             $data['avatar'] = $newFile;
         }
-        $this->figureService->storeModel($data);
+        $this->figureService->storeFigure($data);
         if (isset($data['is_comic'])) {
             return redirect()->route('admin.figure.list', $data['is_comic']);
         }
@@ -72,10 +59,8 @@ class FigureController extends Controller
     public function edit($id)
     {
         $this->data['figure'] = $this->figureService->findModelById($id);
-        $this->data['comic'] = $this->comicService->getAll(['id', 'name']);
-        $comic = $this->data['figure']->comic;
-        $this->data['chapters'] = $comic->chapters;
-        $this->data['is_list'] = true;
+        $this->data['comics'] = $this->comicService->getAll(['id', 'name']);
+        $this->data['comicSelected'] = $this->data['figure']->comics()->pluck('comic_id')->toArray();
         return view('admin.figures.edit')->with($this->data);
     }
 
@@ -88,7 +73,7 @@ class FigureController extends Controller
             $newFile = uploadFile($path, $data['avatar']);
             $data['avatar'] = $newFile;
         }
-        $this->figureService->updateModel($data, $id);
+        $this->figureService->updateFigure($data, $id);
         return back();
     }
 

@@ -45,7 +45,7 @@ class ComicService extends BaseService
             }, 'chapters' => function ($query) {
                 $query->select('comic_id', 'name', 'number_chapter', 'slug');
                 $query->orderBy('number_chapter', 'DESC');
-            }, 'country', 'category'])
+            }, 'country', 'category', 'figures'])
             ->scopeQuery(function ($query) use ($slug) {
                 $query->where('slug', $slug);
                 return $query;

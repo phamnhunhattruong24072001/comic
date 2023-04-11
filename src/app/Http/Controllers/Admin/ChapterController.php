@@ -80,7 +80,7 @@ class ChapterController extends Controller
     {
         $data = $request->all();
         $arrExist = [];
-        if ($request->has('image_exist')) {
+        if ($request->has('image_exist') && $data['image_exist'] != "") {
             $arrExist = explode(',', $data['image_exist']);
         }
         if ($request->hasFile('images')) {
@@ -92,7 +92,7 @@ class ChapterController extends Controller
             $data['content_image'] = json_encode($arrExist);
         }
         $this->chapterService->updateModel($data, $id);
-        return back();
+        return redirect()->route('admin.figure.list');
     }
 
     public function status(Request $request)

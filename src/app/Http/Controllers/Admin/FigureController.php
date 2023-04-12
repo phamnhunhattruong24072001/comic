@@ -74,7 +74,7 @@ class FigureController extends Controller
             $data['avatar'] = $newFile;
         }
         $this->figureService->updateFigure($data, $id);
-        return back();
+        return redirect()->route('admin.figure.list');
     }
 
     public function status(Request $request)

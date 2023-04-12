@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\Api\ComicService;
 use App\Services\Api\ChapterService;
+use App\Services\Admin\GenreService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -12,10 +13,12 @@ class PageController extends Controller
 {
     protected $comicService;
     protected $chapterService;
-    public function __construct(ComicService $comicService, ChapterService $chapterService)
+    protected $genreService;
+    public function __construct(ComicService $comicService, ChapterService $chapterService, GenreService $genreService)
     {
         $this->comicService = $comicService;
         $this->chapterService = $chapterService;
+        $this->genreService = $genreService;
     }
 
     public function HomePageApi()
@@ -51,5 +54,26 @@ class PageController extends Controller
         }
         $this->data['chapter'] = $this->chapterService->findBySlugChapterAndComic($slugComic, $slugChapter);
         return $this->sendResult(Response::HTTP_OK, trans('chapter.list_title'), $this->data);
+    }
+
+    public function GenrePageApi($slug = null, Request $request){
+        $data = $request->all();
+        $param = [
+            'limit' => 15,
+        ];
+        $this->data['comics'] = $this->comicService->getListComicBySlugGenrePaginateApi($slug, $param);
+        $this->data['genres'] = $this->genreService->getAll(['id', 'name', 'slug']);
+        return $this->sendResult(Response::HTTP_OK, 'Genre Page', $this->data);
+    }
+
+    public function FilterComicApi(Request $request)
+    {
+        $data = $request->all();
+        $param = [
+            'limit' => 15,
+        ];
+        $this->data['comics'] = $this->comicService->getListComicBySlugGenrePaginateApi( '', $param, $data['slugs']);
+        $this->data['genres'] = $this->genreService->getAll(['id', 'name', 'slug']);
+        return $this->sendResult(Response::HTTP_OK, 'Genre Filter Page', $this->data);
     }
 }

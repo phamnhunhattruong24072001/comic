@@ -101,7 +101,7 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label for="long_desc">{{ __('figure.long_desc') }}</label>
-                    <textarea name="short_desc" class="form-control ckeditor" id="" cols="20" rows="4">{{ $figure->long_desc || old('long_desc') }}</textarea>
+                    <textarea name="long_desc" class="form-control ckeditor" id="" cols="20" rows="4">{{ $figure->long_desc || old('long_desc') }}</textarea>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Services\Api;
 
+use App\Models\Comic;
 use App\Services\BaseService;
 use App\Repositories\Contracts\ComicRepository;
 use Illuminate\Support\Facades\DB;
@@ -103,7 +104,7 @@ class ComicService extends BaseService
         $result = $this->comicRepository
             ->with(['chapterLatest' => function ($query) {
                 $query->select('comic_id', 'name', 'created_at', 'slug');
-            },'country' => function ($query) {
+            }, 'country' => function ($query) {
                 $query->select('id', 'name', 'avatar');
             }])
             ->has('chapterLatest')
@@ -116,5 +117,34 @@ class ComicService extends BaseService
             return $result->limit($limit, $columns);
         }
         return $result->paginate($limit, $columns);
+    }
+
+    public function getListComicBySlugGenrePaginateApi($slug, $params, $slugArr = [])
+    {
+        $result = $this->comicRepository
+            ->with(['genres' => function ($query) {
+                $query->select('name');
+            }, 'chapterLatest' => function ($query) {
+                $query->select('comic_id', 'name', 'created_at', 'slug');
+            }, 'category' => function($query){
+                $query->select('id' ,'name');
+            }, 'country' => function ($query) {
+                $query->select('id', 'name', 'avatar');
+            }])
+            ->has('chapterLatest')
+            ->when($slug, function ($query, $slug) {
+                return $query->whereHas('genres', function ($query) use ($slug) {
+                    $query->where('slug', $slug);
+                });
+            })
+            ->when($slugArr, function ($query, $slugArr) {
+                return $query->whereHas('genres', function ($query) use ($slugArr) {
+                    $query->whereIn('slug', $slugArr);
+                });
+            })
+            ->where('status', config('const.comic.status.release'))
+            ->where('is_visible', config('const.activate.on'));
+        return $result->paginate($params['limit']);
+
     }
 }

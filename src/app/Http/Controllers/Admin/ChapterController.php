@@ -24,7 +24,7 @@ class ChapterController extends Controller
     public function index(Request $request, $any = "")
     {
         $param = [
-            'limit' => 10
+            'limit' => 20
         ];
         if ($any != "") {
             $this->data['comic'] = $this->comicService->findComicBySlug($any);
@@ -92,7 +92,7 @@ class ChapterController extends Controller
             $data['content_image'] = json_encode($arrExist);
         }
         $this->chapterService->updateModel($data, $id);
-        return redirect()->route('admin.figure.list');
+        return redirect()->back();
     }
 
     public function status(Request $request)

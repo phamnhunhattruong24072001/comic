@@ -9,7 +9,7 @@ if (!function_exists('uploadFile')) {
         if (!$file) {
             return '';
         }
-        $newFileName = time() . rand(1, 99) . '.' . $file->extension();
+        $newFileName = time() . rand(1, 99) . uniqid() . '.' . $file->extension();
         Storage::disk('local')->putFileAs(
             'files/' . $newFileName,
             $file,
@@ -28,7 +28,7 @@ if (!function_exists('showFile')) {
         } else {
             $exists = Storage::disk('public')->exists($fileName);
             if ($exists) {
-                $newFileName = 'storage/'.$fileName;
+                $newFileName = 'storage/' . $fileName;
             } else {
                 $newFileName = config('const.image.imageNull');
             }
@@ -42,7 +42,7 @@ if (!function_exists('uploadFileMultiple')) {
     {
         $file_images = array();
         foreach ($files as $key => $file) {
-            $fileName = time() . rand(1, 99) . '.' . $file->extension();
+            $fileName = time() . rand(1, 99) . uniqid() . '.' . $file->extension();
             Storage::disk('local')->putFileAs(
                 'files/' . $fileName,
                 $file,

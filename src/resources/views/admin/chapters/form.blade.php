@@ -100,7 +100,7 @@
                 <input type="hidden" name="is_comic" value="{{ $comic->slug }}">
             @endif
             @error('comic_id')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>~
             @enderror
         </div>
         <div class="form-group">

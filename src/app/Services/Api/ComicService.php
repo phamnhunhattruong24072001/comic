@@ -126,8 +126,8 @@ class ComicService extends BaseService
                 $query->select('name');
             }, 'chapterLatest' => function ($query) {
                 $query->select('comic_id', 'name', 'created_at', 'slug');
-            }, 'category' => function($query){
-                $query->select('id' ,'name');
+            }, 'category' => function ($query) {
+                $query->select('id', 'name');
             }, 'country' => function ($query) {
                 $query->select('id', 'name', 'avatar');
             }])
@@ -144,7 +144,6 @@ class ComicService extends BaseService
             })
             ->where('status', config('const.comic.status.release'))
             ->where('is_visible', config('const.activate.on'));
-        return $result->paginate($params['limit']);
-
+        return $result->paginate($params['limit'], ['*'], 'page', $params['page']);
     }
 }

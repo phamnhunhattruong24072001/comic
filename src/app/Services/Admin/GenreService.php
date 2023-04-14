@@ -33,4 +33,13 @@ class GenreService extends BaseService
         return $result;
     }
 
+    public function getGenreHasComic($columns = ['*'])
+    {
+        $result = $this->genreRepository->with(['comics' => function ($query) {
+            $query->select('id');
+        }])
+            ->has('comics')
+            ->where('is_visible', config('const.activate.on'));
+        return $result->get($columns);
+    }
 }

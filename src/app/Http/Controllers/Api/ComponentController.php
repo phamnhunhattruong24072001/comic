@@ -16,7 +16,7 @@ class ComponentController extends Controller
     }
     public function GetHeaderApi()
     {
-        $this->data['genres'] = $this->genreService->getAll(['id', 'name', 'slug']);
+        $this->data['genres'] = $this->genreService->getGenreHasComic(['id', 'name', 'slug']);
         return $this->sendResult(Response::HTTP_OK, 'Get Header', $this->data);
     }
 }

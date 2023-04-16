@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\Api\CategoryService;
+use App\Services\Api\CountryService;
 use App\Services\Api\ComicService;
 use App\Services\Api\ChapterService;
-use App\Services\Admin\GenreService;
+use App\Services\Api\GenreService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -14,12 +16,22 @@ class PageController extends Controller
     protected $comicService;
     protected $chapterService;
     protected $genreService;
+    protected $countryService;
+    protected $categoryService;
 
-    public function __construct(ComicService $comicService, ChapterService $chapterService, GenreService $genreService)
+    public function __construct(
+        ComicService    $comicService,
+        ChapterService  $chapterService,
+        GenreService    $genreService,
+        CategoryService $categoryService,
+        CountryService  $countryService
+    )
     {
         $this->comicService = $comicService;
         $this->chapterService = $chapterService;
         $this->genreService = $genreService;
+        $this->categoryService = $categoryService;
+        $this->countryService = $countryService;
     }
 
     public function HomePageApi()
@@ -28,14 +40,14 @@ class PageController extends Controller
         $this->data['comic_coming_soon'] = $this->comicService->getAllComicComingSoonApi(['*'], 9, true);
         $this->data['comic_highlight'] = $this->comicService->getAllComicHighlightApi(['*'], 5, true);
         $this->data['comic_top_view'] = $this->comicService->getAllComicTopViewApi(['*'], 3, true);
-        return $this->sendResult(Response::HTTP_OK, trans('comic.list_title'), $this->data);
+        return $this->sendResult(Response::HTTP_OK, 'Home', $this->data);
     }
 
     public function RightContentApi()
     {
         $this->data['comic_highlight'] = $this->comicService->getAllComicHighlightApi(['*'], 5, true);
         $this->data['comic_top_view'] = $this->comicService->getAllComicTopViewApi(['*'], 3, true);
-        return $this->sendResult(Response::HTTP_OK, trans('comic.list_title'), $this->data);
+        return $this->sendResult(Response::HTTP_OK, 'Right Content', $this->data);
     }
 
     public function DetailPageApi($slug)
@@ -61,30 +73,36 @@ class PageController extends Controller
             }
         }
         $this->data['chapter'] = $this->chapterService->findBySlugChapterAndComic($slugComic, $slugChapter);
-        return $this->sendResult(Response::HTTP_OK, trans('chapter.list_title'), $this->data);
+        return $this->sendResult(Response::HTTP_OK, 'Show Chapter', $this->data);
     }
 
-    public function GenrePageApi($slug = null, Request $request)
+    public function GenrePageApi($slug = null)
     {
-        $data = $request->all();
-        $param = [
+        $params = [
             'limit' => 15,
             'page' => 1,
+            'slugArr' => [],
+            'countries' => [],
+            'categories' => [],
         ];
-        $this->data['comics'] = $this->comicService->getListComicBySlugGenrePaginateApi($slug, $param);
-        $this->data['genres'] = $this->genreService->getGenreHasComic(['id', 'name', 'slug']);
+        $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);
+        $this->data['genres'] = $this->genreService->getGenreHasComicApi(['id', 'name', 'slug']);
+        $this->data['countries'] = $this->countryService->getCountryHasComic(['id', 'name', 'slug']);
+        $this->data['categories'] = $this->categoryService->getCategoryHasComicApi(['id', 'name', 'slug']);
         return $this->sendResult(Response::HTTP_OK, 'Genre Page', $this->data);
     }
 
     public function FilterComicApi(Request $request)
     {
         $data = $request->all();
-        $param = [
+        $params = [
             'limit' => 15,
             'page' => $data['pageNum'],
+            'slugArr' => $data['slugArr'],
+            'countries' => $data['countries'],
+            'categories' => $data['categories'],
         ];
-        $this->data['comics'] = $this->comicService->getListComicBySlugGenrePaginateApi('', $param, $data['slugs']);
-        $this->data['genres'] = $this->genreService->getGenreHasComic(['id', 'name', 'slug']);
+        $this->data['comics'] = $this->comicService->getFilterComicPaginateApi('', $params);
         return $this->sendResult(Response::HTTP_OK, 'Genre Filter Page', $this->data);
     }
 }

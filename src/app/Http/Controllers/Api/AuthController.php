@@ -25,8 +25,7 @@ class AuthController extends Controller
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
         $this->clientService->storeModel($data);
-        $this->data['success'] = 200;
-        return $this->sendResult(Response::HTTP_OK, 'Register', $this->data);
+        return $this->sendResult(Response::HTTP_OK, 'Register', '');
     }
 
     public function login(Request $request)
@@ -38,18 +37,9 @@ class AuthController extends Controller
             }
             $user = $request->user();
             $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->token;
-            if ($request->remember_me) {
-                $token->expires_at = Carbon::now('Asia/Ho_Chi_Minh')->addWeeks(1);
-            }
-            $token->expires_at = Carbon::now('Asia/Ho_Chi_Minh')->addDays(2);
-            $token->save();
             return $this->sendResult(Response::HTTP_OK, 'Login Success', [
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
-                'expires_at' => Carbon::parse(
-                    $tokenResult->token->expires_at
-                )->toDateTimeString(),
                 'user' => [
                     'id' => $user->id,
                     'avatar' => $user->avatar,

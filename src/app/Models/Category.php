@@ -47,6 +47,11 @@ class Category extends Model implements Transformable
         return $this->belongsToMany(Genre::class, 'category_genres', 'category_id', 'genre_id');
     }
 
+    public function comics()
+    {
+        return $this->hasMany(Comic::class, 'category_id', 'id');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_visible', config('const.activate.on'));

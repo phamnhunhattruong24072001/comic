@@ -29,6 +29,7 @@ class BaseService
     {
         return $this->repository->update($data, $id);
     }
+
     public function forceDeleteMultiple(array $ids)
     {
         return $this->repository->forceDeleteMultiple($ids);
@@ -69,7 +70,7 @@ class BaseService
         return $this->repository->findByField($field, $value, $columns)->first();
     }
 
-    public function getListByField($field, $value ,$columns = ['*'], $col = "created_at", $order = "DESC")
+    public function getListByField($field, $value, $columns = ['*'], $col = "created_at", $order = "DESC")
     {
         $result = $this->repository->scopeQuery(function ($query) use ($field, $value) {
             $query->where($field, $value);

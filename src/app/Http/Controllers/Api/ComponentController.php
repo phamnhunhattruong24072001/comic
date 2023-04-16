@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Admin\GenreService;
+use App\Services\Api\GenreService;
 use Illuminate\Http\Response;
 
 class ComponentController extends Controller
@@ -16,7 +16,7 @@ class ComponentController extends Controller
     }
     public function GetHeaderApi()
     {
-        $this->data['genres'] = $this->genreService->getGenreHasComic(['id', 'name', 'slug']);
+        $this->data['genres'] = $this->genreService->getGenreHasComicApi(['id', 'name', 'slug']);
         return $this->sendResult(Response::HTTP_OK, 'Get Header', $this->data);
     }
 }

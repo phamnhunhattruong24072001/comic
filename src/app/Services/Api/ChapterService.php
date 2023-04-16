@@ -18,13 +18,12 @@ class ChapterService extends BaseService
 
     public function findBySlugChapterAndComic($slugComic, $slugChapter, $columns = ['*'])
     {
-        $columns = ['chapters.*'];
-        $result = DB::table('chapters')
-            ->select($columns)
-            ->join('comics', 'chapters.comic_id', '=', 'comics.id')
-            ->where('comics.slug', $slugComic)
-            ->where('comics.status', config('const.comic.status.release'))
-            ->where('chapters.slug', $slugChapter);
-        return $result->first();
+        $result = $this->chapterRepository->with('comic')
+            ->whereHas('comic', function ($query) use ($slugComic){
+                $query->where('slug', $slugComic);
+                $query->where('status', config('const.comic.status.release'));
+            })
+            ->where('slug', $slugChapter);
+        return $result->first($columns);
     }
 }

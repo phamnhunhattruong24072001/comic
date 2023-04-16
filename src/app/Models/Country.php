@@ -46,6 +46,10 @@ class Country extends Model implements Transformable
     {
         return $this->belongsToMany(Category::class, 'country_categories', 'country_id', 'category_id');
     }
+    public function comics()
+    {
+        return $this->hasMany(Comic::class, 'country_id', 'id');
+    }
     function scopeActive($query)
     {
         return $query->where('is_visible', config('const.activate.on'));

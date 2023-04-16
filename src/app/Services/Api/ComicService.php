@@ -29,6 +29,7 @@ class ComicService extends BaseService
             ->has('chapterLatest')
             ->scopeQuery(function ($query) use ($columns) {
                 $query->where('status', config('const.comic.status.release'));
+                $query->where('is_visible', config('const.activate.on'));
                 return $query;
             })
             ->orderBy('created_at', 'DESC');
@@ -49,6 +50,7 @@ class ComicService extends BaseService
             }, 'country', 'category', 'figures'])
             ->scopeQuery(function ($query) use ($slug) {
                 $query->where('slug', $slug);
+                $query->where('is_visible', config('const.activate.on'));
                 return $query;
             });
         return $result->first($columns);
@@ -67,6 +69,7 @@ class ComicService extends BaseService
             ->has('chapterLatest')
             ->scopeQuery(function ($query) use ($columns) {
                 $query->where('status', config('const.comic.status.waiting_for_release'));
+                $query->where('is_visible', config('const.activate.on'));
                 return $query;
             })
             ->orderBy('created_at', 'DESC');
@@ -90,6 +93,7 @@ class ComicService extends BaseService
             ->scopeQuery(function ($query) use ($columns) {
                 $query->where('status', config('const.comic.status.release'));
                 $query->where('highlight', config('const.comic.highlight'));
+                $query->where('is_visible', config('const.activate.on'));
                 return $query;
             })
             ->orderBy('created_at', 'DESC');
@@ -110,6 +114,7 @@ class ComicService extends BaseService
             ->has('chapterLatest')
             ->scopeQuery(function ($query) use ($columns) {
                 $query->where('status', config('const.comic.status.release'));
+                $query->where('is_visible', config('const.activate.on'));
                 return $query;
             })
             ->orderBy('view', 'DESC');
@@ -119,8 +124,12 @@ class ComicService extends BaseService
         return $result->paginate($limit, $columns);
     }
 
-    public function getListComicBySlugGenrePaginateApi($slug, $params, $slugArr = [])
+    public function getFilterComicPaginateApi($slug, $params)
     {
+        $slugArr = $params['slugArr'];
+        $categories = $params['categories'];
+        $countries = $params['countries'];
+
         $result = $this->comicRepository
             ->with(['genres' => function ($query) {
                 $query->select('name');
@@ -140,6 +149,16 @@ class ComicService extends BaseService
             ->when($slugArr, function ($query, $slugArr) {
                 return $query->whereHas('genres', function ($query) use ($slugArr) {
                     $query->whereIn('slug', $slugArr);
+                });
+            })
+            ->when($countries, function ($query, $countries) {
+                return $query->whereHas('country', function ($query) use ($countries) {
+                    $query->whereIn('id', $countries);
+                });
+            })
+            ->when($categories, function ($query, $categories) {
+                return $query->whereHas('category', function ($query) use ($categories) {
+                    $query->whereIn('id', $categories);
                 });
             })
             ->where('status', config('const.comic.status.release'))

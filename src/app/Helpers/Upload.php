@@ -58,6 +58,10 @@ if (!function_exists('uploadFileMultiple')) {
 if (!function_exists('deleteFile')) {
     function deleteFile($fileName)
     {
+        if (!empty($fileName)) {
+            return false;
+        }
         Storage::disk('public')->delete($fileName);
+        return true;
     }
 }

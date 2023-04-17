@@ -30,11 +30,6 @@ class BaseService
         return $this->repository->update($data, $id);
     }
 
-    public function forceDeleteMultiple(array $ids)
-    {
-        return $this->repository->forceDeleteMultiple($ids);
-    }
-
     public function restoreMultiple(array $ids)
     {
         return $this->repository->restoreMultiple($ids);

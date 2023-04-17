@@ -84,8 +84,13 @@ class PageController extends Controller
             'slugArr' => [],
             'countries' => [],
             'categories' => [],
+            'softField' => 'created_at',
+            'softType' => 'DESC',
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);
+        if ($slug) {
+            $this->data['genre'] = $this->genreService->findModelByField('slug', $slug, ['name']);
+        }
         $this->data['genres'] = $this->genreService->getGenreHasComicApi(['id', 'name', 'slug']);
         $this->data['countries'] = $this->countryService->getCountryHasComic(['id', 'name', 'slug']);
         $this->data['categories'] = $this->categoryService->getCategoryHasComicApi(['id', 'name', 'slug']);
@@ -101,6 +106,8 @@ class PageController extends Controller
             'slugArr' => $data['slugArr'],
             'countries' => $data['countries'],
             'categories' => $data['categories'],
+            'softField' => $data['softField'],
+            'softType' => $data['softType'],
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi('', $params);
         return $this->sendResult(Response::HTTP_OK, 'Genre Filter Page', $this->data);

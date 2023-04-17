@@ -9,6 +9,10 @@ return [
         'active' => 'Active',
         'deactivate' => 'Deactivate',
     ],
+    'pagination' => [
+        'next' => 'Next page',
+        'pre' => 'Previous page',
+    ],
     'button' => [
         'create' => 'Create',
         'update' => 'Update',

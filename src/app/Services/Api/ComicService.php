@@ -131,6 +131,7 @@ class ComicService extends BaseService
         $countries = $params['countries'];
 
         $result = $this->comicRepository
+            ->select('comics.*', DB::raw('(SELECT created_at FROM chapters WHERE comic_id = comics.id ORDER BY number_chapter DESC LIMIT 1) as latest_chapter_time'))
             ->with(['genres' => function ($query) {
                 $query->select('name');
             }, 'chapterLatest' => function ($query) {
@@ -162,7 +163,8 @@ class ComicService extends BaseService
                 });
             })
             ->where('status', config('const.comic.status.release'))
-            ->where('is_visible', config('const.activate.on'));
+            ->where('is_visible', config('const.activate.on'))
+            ->orderBy($params['softField'], $params['softType']);
         return $result->paginate($params['limit'], ['*'], 'page', $params['page']);
     }
 }

@@ -229,6 +229,7 @@
                     $(elementChange).select2({
                         data: data
                     })
+                    $(elementChange).trigger('change')
                 });
             }
         });

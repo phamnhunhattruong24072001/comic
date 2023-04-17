@@ -48,11 +48,11 @@ class ComicController extends Controller
     public function store(ComicRequest $request)
     {
         $data = $request->all();
-        $path = config('const.path.comic');
-        $data['thumbnail'] = uploadFile($path ,$request->file('thumbnail'));
-        $data['cover_image'] = uploadFile($path ,$request->file('cover_image'));
-        $this->comicService->storeComic($data);
-        return redirect()->route('admin.comic.list');
+        $result = $this->comicService->storeComic($data);
+        if ($result) {
+            return redirect()->route('admin.comic.list');
+        }
+        return redirect()->route('admin.comic.create');
     }
 
     public function edit($id)
@@ -71,16 +71,7 @@ class ComicController extends Controller
     public function update(ComicRequest $request, $id)
     {
         $data = $request->all();
-        $path = config('const.path.comic');
-        if($request->hasFile('thumbnail')){
-            deleteFile($data['thumbnail_exist']);
-            $data['thumbnail'] = uploadFile($path ,$request->file('thumbnail'));
-        }
-        if ($request->hasFile('cover_image')) {
-            deleteFile($data['cover_image_exist']);
-            $data['cover_image'] = uploadFile($path ,$request->file('cover_image'));
-        }
-        $this->comicService->updateComicById($data, $id);
+        $this->comicService->updateComic($data, $id);
         return redirect()->route('admin.comic.list');
     }
 
@@ -118,9 +109,9 @@ class ComicController extends Controller
     {
         $id = $request->get('id');
         $is_visible = $request->get('is_visible') == config('const.activate.on') ? config('const.activate.off') : config('const.activate.on');
-        $param = [
+        $params = [
             'is_visible' => $is_visible
         ];
-        $this->comicService->updateComicById($param, $id);
+        $this->comicService->updateComic($params, $id);
     }
 }

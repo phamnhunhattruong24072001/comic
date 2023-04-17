@@ -13,7 +13,8 @@
         "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
-        "prettus/l5-repository": "^2.9"
+        "prettus/l5-repository": "^2.9",
+      "ext-mysql_xdevapi": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

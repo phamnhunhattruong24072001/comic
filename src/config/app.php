@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -177,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
-
+        App\Providers\BroadcastServiceProvider::class,
     ],
 
     /*

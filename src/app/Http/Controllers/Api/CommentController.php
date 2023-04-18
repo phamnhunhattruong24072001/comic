@@ -21,6 +21,7 @@ class CommentController extends Controller
     {
         $data = $request->all();
         $this->data['comment'] =  $this->commentService->storeModel($data);
+        event(new CommentEvent($this->data['comment']));
         return $this->sendResult(Response::HTTP_OK, 'Add Comment', $this->data);
     }
 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ComponentController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,6 @@ Route::group(array('prefix' => '/auth'), function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 });
+
+Route::post('/comment', [CommentController::class, 'StoreCommentApi']);
+Route::get('/comment/get-list', [CommentController::class, 'GetCommentByComicApi']);

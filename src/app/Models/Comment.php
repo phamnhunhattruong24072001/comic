@@ -16,13 +16,19 @@ class Comment extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $dispatchesEvents = [
-        'created' => CommentEvent::class,
-    ];
-
     protected $fillable = [
         'comic_id',
         'client_id',
         'message',
     ];
+
+    public function client()
+    {
+        return $this->hasOne(Client::class, 'id', 'client_id');
+    }
+
+    public function comic()
+    {
+        return $this->hasOne(Comic::class, 'id', 'comic_id');
+    }
 }

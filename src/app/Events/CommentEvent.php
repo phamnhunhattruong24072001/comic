@@ -14,24 +14,25 @@ class CommentEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $comment = [];
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public $comments;
-    public function __construct($comments)
+    public function __construct($comment = [])
     {
-        $this->comments = $comments;
+        $this->comment = $comment;
     }
 
-    public function broadcastOn(): Channel
+    public function broadcastOn()
     {
-        return new Channel('chat');
+        return ['chat'];
     }
 
     public function broadcastAs()
     {
-        return 'comment';
+        return 'message';
     }
 }

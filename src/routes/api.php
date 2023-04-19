@@ -38,4 +38,4 @@ Route::group(array('prefix' => '/auth'), function () {
 });
 
 Route::post('/comment', [CommentController::class, 'StoreCommentApi']);
-Route::get('/comment/get-list', [CommentController::class, 'GetCommentByComicApi']);
+Route::get('/comment/get-list/{id}', [CommentController::class, 'GetCommentByComicApi']);

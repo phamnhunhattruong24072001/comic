@@ -38,7 +38,7 @@ class AuthController extends Controller
             $user = $request->user();
             $tokenResult = $user->createToken('Personal Access Token');
             return $this->sendResult(Response::HTTP_OK, 'Login Success', [
-                'access_token' => $tokenResult->accessToken,
+                'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
                 'user' => [
                     'id' => $user->id,

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Api\CommentService;
 use Illuminate\Http\Response;
+use Pusher\Pusher;
 
 class CommentController extends Controller
 {
@@ -20,14 +21,19 @@ class CommentController extends Controller
     public function StoreCommentApi(Request $request)
     {
         $data = $request->all();
-        $this->data['comment'] =  $this->commentService->storeModel($data);
-        event(new CommentEvent($this->data['comment']));
+        $this->data['comment'] = $this->commentService->storeModel($data);
+        $comment = $this->commentService->findCommentById($this->data['comment']->id);
+        event(new CommentEvent($comment));
         return $this->sendResult(Response::HTTP_OK, 'Add Comment', $this->data);
     }
 
-    public function GetCommentByComicApi()
+    public function GetCommentByComicApi($id)
     {
-        $this->data['comments'] = $this->commentService->getListByField('comic_id', 1);
+        $params = [
+            'limit' => 10,
+            'page' => 1,
+        ];
+        $this->data['comments'] = $this->commentService->getCommentByComic($id, $params);
         return $this->sendResult(Response::HTTP_OK, 'Get Comment', $this->data);
     }
 

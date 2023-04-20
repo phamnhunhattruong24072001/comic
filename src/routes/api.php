@@ -30,6 +30,7 @@ Route::group(array('prefix' => '/page'), function () {
 
 Route::group(array('prefix' => '/component'), function () {
     Route::get('/header', [ComponentController::class, 'GetHeaderApi']);
+    Route::post('/search', [ComponentController::class, 'SearchComic']);
 });
 
 Route::group(array('prefix' => '/auth'), function () {

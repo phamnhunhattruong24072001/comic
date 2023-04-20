@@ -167,4 +167,25 @@ class ComicService extends BaseService
             ->orderBy($params['softField'], $params['softType']);
         return $result->paginate($params['limit'], ['*'], 'page', $params['page']);
     }
+
+    public function searchComic($search, $columns = ['*'])
+    {
+        $result = $this->comicRepository
+            ->with(['genres' => function ($query) {
+                $query->select('name');
+            }, 'chapterLatest' => function ($query) {
+                $query->select('comic_id', 'name', 'created_at', 'slug');
+            }, 'category' => function ($query) {
+                $query->select('id', 'name');
+            }, 'country' => function ($query) {
+                $query->select('id', 'name', 'avatar');
+            }])
+            ->has('chapterLatest')
+            ->where('name', 'like', "%" . $search . "%")
+            ->orWhere('name_another', 'like', "%" . $search . "%")
+            ->where('status', config('const.comic.status.release'))
+            ->where('is_visible', config('const.activate.on'))
+            ->orderBy('created_at', 'DESC');
+        return $result->get($columns);
+    }
 }

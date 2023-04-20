@@ -27,11 +27,12 @@ class CommentController extends Controller
         return $this->sendResult(Response::HTTP_OK, 'Add Comment', $this->data);
     }
 
-    public function GetCommentByComicApi($id)
+    public function GetCommentByComicApi(Request $request ,$id)
     {
+        $page = $request->get('page') ?? 1;
         $params = [
             'limit' => 10,
-            'page' => 1,
+            'page' => $page,
         ];
         $this->data['comments'] = $this->commentService->getCommentByComic($id, $params);
         return $this->sendResult(Response::HTTP_OK, 'Get Comment', $this->data);

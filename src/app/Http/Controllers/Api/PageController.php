@@ -53,6 +53,7 @@ class PageController extends Controller
     public function DetailPageApi($slug)
     {
         $this->data['comic'] = $this->comicService->findComicBySlugApi($slug);
+        $this->data['comic']->increment('view');
         return $this->sendResult(Response::HTTP_OK, trans('comic.detail_title'), $this->data);
     }
 

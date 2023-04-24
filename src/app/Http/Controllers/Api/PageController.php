@@ -85,7 +85,7 @@ class PageController extends Controller
             'slugArr' => [],
             'countries' => [],
             'categories' => [],
-            'softField' => 'created_at',
+            'softField' => 'latest_chapter_time',
             'softType' => 'DESC',
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);

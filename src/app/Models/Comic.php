@@ -76,6 +76,11 @@ class Comic extends Model implements Transformable
         return $this->belongsToMany(Figure::class, 'comic_figures', 'comic_id', 'figure_id');
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Client::class, 'comic_favorites', 'comic_id', 'client_id');
+    }
+
     public function scopeActive($query)
     {
         $query->where('is_visible', config('const.activate.on'));

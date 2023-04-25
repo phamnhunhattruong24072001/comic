@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ComponentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,15 @@ Route::group(array('prefix' => '/component'), function () {
 Route::group(array('prefix' => '/auth'), function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth.api');
 });
 
-Route::post('/comment', [CommentController::class, 'StoreCommentApi']);
+Route::group(array('prefix' => '/client'), function () {
+    Route::post('/add-favorite', [ClientController::class, 'addFavoriteApi'])->middleware('auth.api');
+    Route::post('/remove-favorite', [ClientController::class, 'removeFavoriteApi'])->middleware('auth.api');
+    Route::post('/get-list-favorite', [ClientController::class, 'getListComicFavoriteApi'])->middleware('auth.api');
+    Route::get('/check-favorite/{clientId}/{comicId}', [ClientController::class, 'checkFavorite'])->middleware('auth.api');
+});
+
+Route::post('/comment', [CommentController::class, 'StoreCommentApi'])->middleware('auth.api');
 Route::get('/comment/get-list/{id}', [CommentController::class, 'GetCommentByComicApi']);

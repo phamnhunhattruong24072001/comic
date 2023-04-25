@@ -39,4 +39,9 @@ class Client extends Authenticatable
         'remember_token',
     ];
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Client::class, 'comic_favorites', 'client_id', 'comic_id');
+    }
+
 }

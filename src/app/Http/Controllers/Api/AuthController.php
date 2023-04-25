@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
+use App\Models\PersonalAccessToken;
 use App\Services\Admin\ClientService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -37,8 +38,9 @@ class AuthController extends Controller
             }
             $user = $request->user();
             $tokenResult = $user->createToken('Personal Access Token');
+            $token = explode('|', $tokenResult->plainTextToken);
             return $this->sendResult(Response::HTTP_OK, 'Login Success', [
-                'access_token' => $tokenResult,
+                'access_token' => $token[1],
                 'token_type' => 'Bearer',
                 'user' => [
                     'id' => $user->id,
@@ -58,5 +60,17 @@ class AuthController extends Controller
                 ]);
             }
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $token = $request->header('Authorization');
+        $tokenColumn = PersonalAccessToken::findToken($token);
+        $tokenColumn->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout Success'
+        ]);
     }
 }

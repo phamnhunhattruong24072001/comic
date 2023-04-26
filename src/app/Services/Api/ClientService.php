@@ -4,6 +4,7 @@ namespace App\Services\Api;
 
 use App\Services\BaseService;
 use App\Repositories\Contracts\ClientRepository;
+use Illuminate\Support\Facades\DB;
 
 class ClientService extends BaseService
 {
@@ -17,7 +18,7 @@ class ClientService extends BaseService
 
     public function addFavorite($data)
     {
-        return $this->clientRepository->create(
+        return DB::table('comic_favorites')->insert(
             [
                 'client_id' => $data['client_id'],
                 'comic_id' => $data['comic_id'],
@@ -27,26 +28,21 @@ class ClientService extends BaseService
 
     public function removeFavorite($params)
     {
-        $favorite = $this->clientRepository
-            ->whereHas('favorites', function ($query) use ($params) {
-                $query->where('comic_id', $params['comic_id']);
-                $query->where('client_id', $params['client_id']);
-            })
-            ->first();
-        $favorite->delete();
+        $client = $this->clientRepository->with('favorites')->find($params['client_id']);
+        return $client->favorites()->wherePivot('comic_id', $params['comic_id'])->detach();
     }
 
     public function getListComicFavorite($clientId)
     {
-        return $this->clientRepository->with('favorites')->select('id')->find($clientId);
+        return $this->clientRepository->with('favorites')->find($clientId);
     }
 
     public function checkFavorite($clientId, $comicId)
     {
         return $this->clientRepository
-            ->whereHas('favorites', function ($query) use ($params) {
-                $query->where('comic_id', $params['comic_id']);
-                $query->where('client_id', $params['client_id']);
+            ->whereHas('favorites', function ($query) use ($clientId, $comicId) {
+                $query->where('comic_id', $comicId);
+                $query->where('client_id', $clientId);
             })
             ->first();
     }

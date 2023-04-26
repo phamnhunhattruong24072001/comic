@@ -22,8 +22,8 @@ class ClientController extends Controller
             'client_id' => $request->get('client_id'),
             'comic_id' => $request->get('comic_id'),
         ];
-        $this->clientService->addFavorite($data);
-        return $this->sendResult(Response::HTTP_OK, 'Get Header', '');
+        $this->data['result'] =  $this->clientService->addFavorite($data);
+        return $this->sendResult(Response::HTTP_OK, 'Add Favorite Success', $this->data);
     }
 
     public function removeFavoriteApi(Request $request)
@@ -32,19 +32,22 @@ class ClientController extends Controller
             'client_id' => $request->get('client_id'),
             'comic_id' => $request->get('comic_id'),
         ];
-        $this->clientService->removeFavorite($params);
-        return $this->sendResult(Response::HTTP_OK, 'Get Header', '');
+        $this->data['detele'] = $this->clientService->removeFavorite($params);
+        return $this->sendResult(Response::HTTP_OK, 'Remove Favorite Success', $this->data['detele']);
     }
 
     public function getListComicFavoriteApi($clientId)
     {
-        $this->data['comics'] = $this->clientService->getListComicFavorite($clientId);
-        return $this->sendResult(Response::HTTP_OK, 'Get Header', $this->data);
+        $this->data['clients'] = $this->clientService->getListComicFavorite($clientId);
+        return $this->sendResult(Response::HTTP_OK, 'Get List Favorite', $this->data);
     }
 
-    public function checkFavorite($clientId, $comicId)
+    public function checkFavoriteApi($clientId, $comicId)
     {
         $this->data['favorite'] = $this->clientService->checkFavorite($clientId, $comicId);
-        return $this->sendResult(Response::HTTP_OK, 'Get Header', $this->data);
+        if(empty($this->data['favorite'])){
+            return $this->sendError(Response::HTTP_BAD_REQUEST, 'Not Favorite');
+        }
+        return $this->sendResult(Response::HTTP_OK, 'Is Favorite', '');
     }
 }

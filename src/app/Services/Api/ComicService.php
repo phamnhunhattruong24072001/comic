@@ -47,7 +47,7 @@ class ComicService extends BaseService
             }, 'chapters' => function ($query) {
                 $query->select('comic_id', 'name', 'number_chapter', 'slug');
                 $query->orderBy('number_chapter', 'DESC');
-            }, 'country', 'category', 'figures'])
+            }, 'country', 'category', 'figures', 'comments'])
             ->scopeQuery(function ($query) use ($slug) {
                 $query->where('slug', $slug);
                 $query->where('is_visible', config('const.activate.on'));
@@ -181,8 +181,10 @@ class ComicService extends BaseService
                 $query->select('id', 'name', 'avatar');
             }])
             ->has('chapterLatest')
-            ->where('name', 'like', "%" . $search . "%")
-            ->orWhere('name_another', 'like', "%" . $search . "%")
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%" . $search . "%")
+                    ->orWhere('name_another', 'like', "%" . $search . "%");
+            })
             ->where('status', config('const.comic.status.release'))
             ->where('is_visible', config('const.activate.on'))
             ->orderBy('created_at', 'DESC');

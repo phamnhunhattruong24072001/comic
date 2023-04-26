@@ -43,8 +43,8 @@ Route::group(array('prefix' => '/auth'), function () {
 Route::group(array('prefix' => '/client'), function () {
     Route::post('/add-favorite', [ClientController::class, 'addFavoriteApi'])->middleware('auth.api');
     Route::post('/remove-favorite', [ClientController::class, 'removeFavoriteApi'])->middleware('auth.api');
-    Route::post('/get-list-favorite', [ClientController::class, 'getListComicFavoriteApi'])->middleware('auth.api');
-    Route::get('/check-favorite/{clientId}/{comicId}', [ClientController::class, 'checkFavorite'])->middleware('auth.api');
+    Route::get('/get-list-favorite/{id}', [ClientController::class, 'getListComicFavoriteApi'])->middleware('auth.api');
+    Route::get('/check-favorite/{clientId}/{comicId}', [ClientController::class, 'checkFavoriteApi'])->middleware('auth.api');
 });
 
 Route::post('/comment', [CommentController::class, 'StoreCommentApi'])->middleware('auth.api');

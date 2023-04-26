@@ -8,6 +8,7 @@ use App\Services\Api\CountryService;
 use App\Services\Api\ComicService;
 use App\Services\Api\ChapterService;
 use App\Services\Api\GenreService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -52,29 +53,47 @@ class PageController extends Controller
 
     public function DetailPageApi($slug)
     {
-        $this->data['comic'] = $this->comicService->findComicBySlugApi($slug);
-        $this->data['comic']->increment('view');
-        return $this->sendResult(Response::HTTP_OK, trans('comic.detail_title'), $this->data);
+        try {
+            $comic = $this->comicService->findComicBySlugApi($slug);
+            if (!$comic) {
+                return $this->sendError(Response::HTTP_NOT_FOUND, 'Not Found');
+            }
+            $commentTotal = $comic->comments->count();
+            $comic->increment('view');
+            $data = [
+                'comic' => $comic,
+                'commentTotal' => $commentTotal
+            ];
+            return $this->sendResult(Response::HTTP_OK, trans('comic.detail_title'), $data);
+        } catch (Exception $e) {
+            logger($e->getMessage());
+            return $this->sendError(Response::HTTP_INTERNAL_SERVER_ERROR, 'error');
+        }
     }
+
 
     public function ViewChapterPageApi($slugComic, $slugChapter)
     {
         $this->data['comic'] = $this->comicService->findComicBySlugApi($slugComic);
-        $chapters = $this->data['comic']->chapters;
-        foreach ($chapters as $key => $value) {
-            if ($value->slug == $slugChapter) {
-                $this->data['preChapter'] = $chapters[$key];
-                $this->data['nextChapter'] = $chapters[$key];
-                if (isset($chapters[$key + 1])) {
-                    $this->data['preChapter'] = $chapters[$key + 1];
-                }
-                if (isset($chapters[$key - 1])) {
-                    $this->data['nextChapter'] = $chapters[$key - 1];
+        if ($this->data['comic'] && $this->data['comic']->status == 2) {
+            $chapters = $this->data['comic']->chapters;
+            foreach ($chapters as $key => $value) {
+                if ($value->slug == $slugChapter) {
+                    $this->data['preChapter'] = $chapters[$key];
+                    $this->data['nextChapter'] = $chapters[$key];
+                    if (isset($chapters[$key + 1])) {
+                        $this->data['preChapter'] = $chapters[$key + 1];
+                    }
+                    if (isset($chapters[$key - 1])) {
+                        $this->data['nextChapter'] = $chapters[$key - 1];
+                    }
                 }
             }
+            $this->data['chapter'] = $this->chapterService->findBySlugChapterAndComic($slugComic, $slugChapter);
+            return $this->sendResult(Response::HTTP_OK, 'Show Chapter', $this->data);
+        } else {
+            return $this->sendError(Response::HTTP_BAD_REQUEST, 'Not Request');
         }
-        $this->data['chapter'] = $this->chapterService->findBySlugChapterAndComic($slugComic, $slugChapter);
-        return $this->sendResult(Response::HTTP_OK, 'Show Chapter', $this->data);
     }
 
     public function GenrePageApi($slug = null)

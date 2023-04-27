@@ -11,6 +11,7 @@ use App\Services\Api\GenreService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 
 class PageController extends Controller
 {
@@ -101,7 +102,7 @@ class PageController extends Controller
         $params = [
             'limit' => 15,
             'page' => 1,
-            'slugArr' => [],
+            'genres' => [],
             'countries' => [],
             'categories' => [],
             'softField' => 'latest_chapter_time',
@@ -112,9 +113,63 @@ class PageController extends Controller
             $this->data['genre'] = $this->genreService->findModelByField('slug', $slug, ['name']);
         }
         $this->data['genres'] = $this->genreService->getGenreHasComicApi(['id', 'name', 'slug']);
-        $this->data['countries'] = $this->countryService->getCountryHasComic(['id', 'name', 'slug']);
-        $this->data['categories'] = $this->categoryService->getCategoryHasComicApi(['id', 'name', 'slug']);
         return $this->sendResult(Response::HTTP_OK, 'Genre Page', $this->data);
+    }
+
+    public function CountryPageApi($slug = null)
+    {
+        $params = [
+            'limit' => 15,
+            'page' => 1,
+            'genres' => [],
+            'countries' => [],
+            'categories' => [],
+            'softField' => 'latest_chapter_time',
+            'softType' => 'DESC',
+        ];
+        $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);
+        if ($slug) {
+            $this->data['country'] = $this->countryService->findModelByField('slug', $slug, ['name']);
+        }
+        $this->data['countries'] = $this->countryService->getCountryHasComic(['id', 'name', 'slug', 'avatar']);
+        return $this->sendResult(Response::HTTP_OK, 'Country Page', $this->data);
+    }
+
+    public function GetAllComicApi()
+    {
+        $params = [
+            'limit' => 15,
+            'page' => 1,
+            'genres' => [],
+            'countries' => [],
+            'categories' => [],
+            'softField' => 'latest_chapter_time',
+            'softType' => 'DESC',
+        ];
+        $this->data['comics'] = $this->comicService->getFilterComicPaginateApi('', $params);
+        $this->data['countries'] = $this->countryService->getCountryHasComic(['id', 'name', 'slug', 'avatar']);
+        $this->data['categories'] = $this->categoryService->getCategoryHasComicApi(['id', 'name', 'slug']);
+        $this->data['genres'] = $this->genreService->getGenreHasComicApi(['id', 'name', 'slug']);
+        return $this->sendResult(Response::HTTP_OK, 'All Comic Page', $this->data);
+    }
+
+    public function CategoryPageApi($slug = null)
+    {
+        $params = [
+            'limit' => 15,
+            'page' => 1,
+            'genres' => [],
+            'countries' => [],
+            'categories' => [],
+            'softField' => 'latest_chapter_time',
+            'softType' => 'DESC',
+        ];
+        $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);
+        if ($slug) {
+            $this->data['category'] = $this->categoryService->findModelByField('slug', $slug, ['name']);
+        }
+        $this->data['categories'] = $this->categoryService->getCategoryHasComicApi(['id', 'name', 'slug']);
+        return $this->sendResult(Response::HTTP_OK, 'Category Page', $this->data);
     }
 
     public function FilterComicApi(Request $request)
@@ -123,7 +178,7 @@ class PageController extends Controller
         $params = [
             'limit' => 15,
             'page' => $data['pageNum'],
-            'slugArr' => $data['slugArr'],
+            'genres' => $data['genres'],
             'countries' => $data['countries'],
             'categories' => $data['categories'],
             'softField' => $data['softField'],

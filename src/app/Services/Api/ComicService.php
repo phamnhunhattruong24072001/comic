@@ -126,7 +126,7 @@ class ComicService extends BaseService
 
     public function getFilterComicPaginateApi($slug, $params)
     {
-        $slugArr = $params['slugArr'];
+        $genres = $params['genres'];
         $categories = $params['categories'];
         $countries = $params['countries'];
 
@@ -143,13 +143,21 @@ class ComicService extends BaseService
             }])
             ->has('chapterLatest')
             ->when($slug, function ($query, $slug) {
-                return $query->whereHas('genres', function ($query) use ($slug) {
-                    $query->where('slug', $slug);
+                $query->where(function ($query) use ($slug) {
+                    $query->whereHas('genres', function ($query) use ($slug) {
+                        $query->where('slug', $slug);
+                    });
+                    $query->orWhereHas('country', function ($query) use ($slug) {
+                        $query->where('slug', $slug);
+                    });
+                    $query->orWhereHas('category', function ($query) use ($slug) {
+                        $query->where('slug', $slug);
+                    });
                 });
             })
-            ->when($slugArr, function ($query, $slugArr) {
-                return $query->whereHas('genres', function ($query) use ($slugArr) {
-                    $query->whereIn('slug', $slugArr);
+            ->when($genres, function ($query, $genres) {
+                return $query->whereHas('genres', function ($query) use ($genres) {
+                    $query->whereIn('id', $genres);
                 });
             })
             ->when($countries, function ($query, $countries) {

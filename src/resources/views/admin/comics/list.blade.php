@@ -43,7 +43,7 @@
                                         <td>
                                             <label><input type="checkbox" class="check-item" value="{{ $comic->id }}"></label>
                                         </td>
-                                        <td><img src="{{ asset(showFile($comic->thumbnail)) }}" width="50"></td>
+                                        <td><img src="{{ $comic->thumbnail }}" width="50"></td>
                                         <td>{{ $comic->name }}</td>
                                         <td>{{ $comic->name_another }}</td>
                                         <td>{{ $comic->slug }}</td>

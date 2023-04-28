@@ -168,11 +168,11 @@
         <label>{{ __('comic.thumbnail') }}</label>
         <div class="form-input">
             <div class="preview">
-                <img id="file-ip-1-preview" src="{{ asset(showFile($comic->thumbnail)) }}">
+                <img id="file-ip-1-preview" src="{{ $comic->thumbnail }}">
             </div>
             <label for="file-ip-1">{{ __('common.upload_file') }}</label>
             <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event, 'file-ip-1-preview');" name="thumbnail">
-            <input type="hidden" name="thumbnail_exist" value="{{$comic->thumbnail}}">
+            <input type="hidden" name="thumbnail_exist" value="{{ $comic->thumbnail }}">
             @error('thumbnail')
             <span class="text-danger">{{ $message }}</span>
             @enderror
@@ -181,11 +181,11 @@
         <label>{{ __('comic.cover_image') }}</label>
         <div class="form-input">
             <div class="preview">
-                <img id="file-ip-2-preview" src="{{ asset(showFile($comic->cover_image)) }}">
+                <img id="file-ip-2-preview" src="{{ $comic->cover_image }}">
             </div>
             <label for="file-ip-2">{{ __('common.upload_file') }}</label>
             <input type="file" id="file-ip-2" accept="image/*" onchange="showPreview(event, 'file-ip-2-preview');" name="cover_image">
-            <input type="hidden" name="cover_image_exist" value="{{$comic->cover_image}}">
+            <input type="hidden" name="cover_image_exist" value="{{ $comic->cover_image }}">
             @error('cover_image')
             <span class="text-danger">{{ $message }}</span>
             @enderror

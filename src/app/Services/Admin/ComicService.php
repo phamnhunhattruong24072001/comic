@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Repositories\Contracts\ComicRepository;
 use App\Services\BaseService;
+use App\Services\ImgurService;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
@@ -18,11 +19,10 @@ class ComicService extends BaseService
     {
         DB::beginTransaction();
         try {
-            $path = config('const.path.comic');
             if (!empty($data['thumbnail'])) {
-                $data['thumbnail'] = uploadFile($path, $data['thumbnail']);
+                $data['thumbnail'] = ImgurService::uploadImage($data['thumbnail']);
                 if (!empty($data['cover_image'])) {
-                    $data['cover_image'] = uploadFile($path, $data['cover_image']);
+                    $data['cover_image'] = ImgurService::uploadImage($data['cover_image']);
                 }
             }
             $result = $this->repository->create($data);
@@ -32,12 +32,6 @@ class ComicService extends BaseService
             DB::commit();
             return $result;
         } catch (Exception $e) {
-            if (!empty($data['thumbnail'])) {
-                deleteFile($data['thumbnail']);
-                if (!empty($data['cover_image'])) {
-                    deleteFile($data['cover_image']);
-                }
-            }
             DB::rollBack();
             logger($e->getMessage());
             return false;
@@ -48,11 +42,16 @@ class ComicService extends BaseService
     {
         DB::beginTransaction();
         try {
-            $path = config('const.path.comic');
             if (!empty($data['thumbnail'])) {
-                $data['thumbnail'] = uploadFile($path, $data['thumbnail']);
+                $data['thumbnail'] = ImgurService::uploadImage($data['thumbnail']);
+                if(!empty($data['thumbnail_exist'])) {
+                    ImgurService::deleteImage($data['thumbnail_exist']);
+                }
                 if (!empty($data['cover_image'])) {
-                    $data['cover_image'] = uploadFile($path, $data['cover_image']);
+                    $data['cover_image'] = ImgurService::uploadImage($data['cover_image']);
+                    if (!empty($data['cover_image_exist'])) {
+                        ImgurService::deleteImage($data['cover_image_exist']);
+                    }
                 }
             }
             $result = $this->repository->update($data, $id);
@@ -62,12 +61,6 @@ class ComicService extends BaseService
             DB::commit();
             return $result;
         } catch (Exception $e) {
-            if (!empty($data['thumbnail'])) {
-                deleteFile($data['thumbnail']);
-                if (!empty($data['cover_image'])) {
-                    deleteFile($data['cover_image']);
-                }
-            }
             DB::rollBack();
             logger($e->getMessage());
             return false;

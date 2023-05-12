@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action"
+                            <table class="table table-striped table-bordered bulk_action"
                                    style="width:100%">
                                 <thead>
                                 <tr>
@@ -70,6 +70,16 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="pull-right">
+                                        {{ $countries->links('vendor/pagination/page') }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

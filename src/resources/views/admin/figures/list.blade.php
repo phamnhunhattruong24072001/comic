@@ -72,6 +72,16 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="pull-right">
+                                        {{ $figures->links('vendor/pagination/page') }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

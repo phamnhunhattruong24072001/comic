@@ -81,6 +81,11 @@ class Comic extends Model implements Transformable
         return $this->belongsToMany(Client::class, 'comic_favorites', 'comic_id', 'client_id');
     }
 
+    public function follows()
+    {
+        return $this->belongsToMany(Client::class, 'comic_follows', 'comic_id', 'client_id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'comic_id', 'id');

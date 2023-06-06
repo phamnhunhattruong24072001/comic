@@ -44,4 +44,9 @@ class Client extends Authenticatable
         return $this->belongsToMany(Comic::class, 'comic_favorites', 'client_id', 'comic_id');
     }
 
+    public function follows()
+    {
+        return $this->belongsToMany(Comic::class, 'comic_follows', 'client_id', 'comic_id');
+    }
+
 }

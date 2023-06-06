@@ -49,7 +49,7 @@ class ClientService extends BaseService
 
     public function addFollow($data)
     {
-        return DB::table('comic_favorites')->insert(
+        return DB::table('comic_follows')->insert(
             [
                 'client_id' => $data['client_id'],
                 'comic_id' => $data['comic_id'],
@@ -59,13 +59,13 @@ class ClientService extends BaseService
 
     public function removeFollow($params)
     {
-        $client = $this->clientRepository->with('favorites')->find($params['client_id']);
+        $client = $this->clientRepository->with('follows')->find($params['client_id']);
         return $client->favorites()->wherePivot('comic_id', $params['comic_id'])->detach();
     }
 
     public function getListComicFollow($clientId)
     {
-        return $this->clientRepository->with('favorites')->find($clientId);
+        return $this->clientRepository->with('follows')->find($clientId);
     }
 
     public function checkFollow($clientId, $comicId)

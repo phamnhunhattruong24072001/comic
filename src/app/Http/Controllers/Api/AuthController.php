@@ -34,7 +34,10 @@ class AuthController extends Controller
         try {
             $credentials = $request->only(['username', 'password']);
             if (!Auth::attempt($credentials)) {
-                return $this->sendError(Response::HTTP_UNAUTHORIZED, 'Error');
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Đăng nhập thất bại'
+                ]);
             }
             $user = $request->user();
             $tokenResult = $user->createToken('Personal Access Token');

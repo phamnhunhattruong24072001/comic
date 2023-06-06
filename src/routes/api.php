@@ -47,11 +47,11 @@ Route::group(array('prefix' => '/client'), function () {
     Route::post('/add-favorite', [ClientController::class, 'addFavoriteApi'])->middleware('auth.api');
     Route::post('/remove-favorite', [ClientController::class, 'removeFavoriteApi'])->middleware('auth.api');
     Route::get('/get-list-favorite/{id}', [ClientController::class, 'getListComicFavoriteApi'])->middleware('auth.api');
-    Route::get('/check-favorite/{clientId}/{comicId}', [ClientController::class, 'checkFavoriteApi'])->middleware('auth.api');
+    Route::get('/check-favorite/{clientId}/{slug}', [ClientController::class, 'checkFavoriteApi'])->middleware('auth.api');
     Route::post('/add-follow', [ClientController::class, 'addFollowApi'])->middleware('auth.api');
     Route::post('/remove-follow', [ClientController::class, 'removeFollowApi'])->middleware('auth.api');
     Route::get('/get-list-follow/{id}', [ClientController::class, 'getListComicFollowApi'])->middleware('auth.api');
-    Route::get('/check-follow/{clientId}/{comicId}', [ClientController::class, 'checkFollowApi'])->middleware('auth.api');
+    Route::get('/check-follow/{clientId}/{slug}', [ClientController::class, 'checkFollowApi'])->middleware('auth.api');
 });
 
 Route::post('/comment', [CommentController::class, 'StoreCommentApi'])->middleware('auth.api');

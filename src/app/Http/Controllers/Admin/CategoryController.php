@@ -79,7 +79,6 @@ class CategoryController extends Controller
         $this->categoryService->forceDeleteMultiple($ids);
         return redirect()->back();
     }
-//ok
     public function trash()
     {
         $param = [

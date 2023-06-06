@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\Api\ClientService;
+use App\Services\Admin\ComicService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ClientController extends Controller
 {
     protected $clientService;
+    protected $comicService;
 
-    public function __construct(ClientService $clientService)
+    public function __construct(ClientService $clientService, ComicService $comicService)
     {
         $this->clientService = $clientService;
+        $this->comicService = $comicService;
     }
 
     public function addFavoriteApi(Request $request)
@@ -42,9 +45,10 @@ class ClientController extends Controller
         return $this->sendResult(Response::HTTP_OK, 'Get List Favorite', $this->data);
     }
 
-    public function checkFavoriteApi($clientId, $comicId)
+    public function checkFavoriteApi($clientId, $slug)
     {
-        $this->data['favorite'] = $this->clientService->checkFavorite($clientId, $comicId);
+        $comicId = $this->comicService->findComicBySlug($slug, ['id']);
+        $this->data['favorite'] = $this->clientService->checkFavorite($clientId, $comicId->id);
         if(empty($this->data['favorite'])){
             return $this->sendError(Response::HTTP_BAD_REQUEST, 'Not Favorite');
         }
@@ -78,9 +82,10 @@ class ClientController extends Controller
         return $this->sendResult(Response::HTTP_OK, 'Get List Follow', $this->data);
     }
 
-    public function checkFollowApi($clientId, $comicId)
+    public function checkFollowApi($clientId, $slug)
     {
-        $this->data['follow'] = $this->clientService->checkFollow($clientId, $comicId);
+        $comicId = $this->comicService->findComicBySlug($slug, ['id']);
+        $this->data['follow'] = $this->clientService->checkFollow($clientId, $comicId->id);
         if(empty($this->data['follow'])){
             return $this->sendError(Response::HTTP_BAD_REQUEST, 'Not Follow');
         }

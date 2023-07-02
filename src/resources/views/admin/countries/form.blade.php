@@ -57,7 +57,7 @@
             </div>
             <label for="file-ip-1">{{ __('common.upload_file') }}</label>
             <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event, 'file-ip-1-preview');" name="avatar">
-            <input type="hidden" name="image_exist" value="{{$country->avatar}}">
+            <input type="hidden" name="image_exist" value="{{ $country->avatar }}">
             @error('avatar')
             <span class="text-danger">{{ $message }}</span>
             @enderror

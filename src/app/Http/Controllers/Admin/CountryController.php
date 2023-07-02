@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\Admin\CountryService;
 use App\Http\Requests\CountryRequest;
 use App\Services\ImgurService;
+use Illuminate\Support\Facades\Storage;
 
 class CountryController extends Controller
 {
@@ -38,7 +39,7 @@ class CountryController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('avatar')) {
-            $data['avatar'] = ImgurService::uploadImage($request->file('avatar'));
+            $data['avatar'] = uploadFile('comic/counties/', $request->file('avatar'));
         }
         $this->countryService->storeModel($data);
         return redirect()->route('admin.country.list');
@@ -54,7 +55,7 @@ class CountryController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('avatar')) {
-            $data['avatar'] = ImgurService::uploadImage($request->file('avatar'));
+            $data['avatar'] = uploadFile('countries', $data['avatar'], $data['image_exist']);
         }
         $this->countryService->updateModel($data, $id);
         return redirect()->route('admin.country.list');

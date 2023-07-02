@@ -4,34 +4,28 @@
 use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('uploadFile')) {
-    function uploadFile($path, $file, $key = 0)
+    function uploadFile($path, $file, $fileOld = null)
     {
-        if (!$file) {
+        if(!empty($fileOld)) {
+            $pathFile = substr($fileOld, strlen(env('AWS_URL').'/'));
+            Storage::disk(env('FILESYSTEM_DRIVER'))->delete($pathFile);
+        }
+        $newFileName = $path.'/'.time() . rand(1, 99) . uniqid() . '.' . $file->extension();
+        if(!Storage::disk(env('FILESYSTEM_DRIVER'))->put($newFileName, fopen($file, 'r+'), 'public')) {
             return '';
         }
-        $newFileName = time() . rand(1, 99) . uniqid() . '.' . $file->extension();
-        Storage::disk('local')->putFileAs(
-            'files/' . $newFileName,
-            $file,
-            $newFileName
-        );
-        $path = $file->storeAs($path, $newFileName, 'local');
-        return substr($path, strlen('public/'));
+        return Storage::disk('s3')->url($newFileName);
     }
 }
 
 if (!function_exists('showFile')) {
     function showFile($fileName)
     {
-        if ($fileName == null) {
+        if (empty($fileName)) {
             $newFileName = config('const.image.imageNull');
         } else {
-            $exists = Storage::disk('public')->exists($fileName);
-            if ($exists) {
-                $newFileName = 'storage/' . $fileName;
-            } else {
-                $newFileName = config('const.image.imageNull');
-            }
+            $path = substr($fileName, strlen(env('AWS_URL').'/'));
+            $newFileName = Storage::disk(env('FILESYSTEM_DRIVER'))->exists($path) ? $fileName :config('const.image.imageNull');
         }
         return $newFileName;
     }
@@ -42,27 +36,35 @@ if (!function_exists('uploadFileMultiple')) {
     {
         $file_images = array();
         foreach ($files as $key => $file) {
-            $fileName = time() . rand(1, 99) . uniqid() . '.' . $file->extension();
-            Storage::disk('local')->putFileAs(
-                'files/' . $fileName,
-                $file,
-                $fileName
-            );
-            $pathName = $file->storeAs($path, $fileName, 'local');
-            $file_images[$key] = substr($pathName, strlen('public/'));
+            $fileName = $path.'/'.time() . rand(1, 99) . uniqid() . '.' . $file->extension();
+            if(!Storage::disk(env('FILESYSTEM_DRIVER'))->put($fileName, fopen($file, 'r+'), 'public')) {
+                $file_images[$key] = '';
+            }else {
+                $file_images[$key] = Storage::disk('s3')->url($fileName);
+            }
         }
         return $file_images;
     }
 }
 
-if (!function_exists('deleteFile')) {
-    function deleteFile($fileName)
+if (!function_exists('deleteSingleFile')) {
+    function deleteSingleFile($fileName)
     {
-        if (!empty($fileName)) {
+        if (empty($fileName)) {
             return false;
         }
-        Storage::disk('public')->delete($fileName);
-        return true;
+        $path = substr($fileName, strlen(env('AWS_URL').'/'));
+        return Storage::disk(env('FILESYSTEM_DRIVER'))->delete($path);
+    }
+}
+
+if (!function_exists('deleteMultipleFile')) {
+    function deleteMultipleFile($fileNames)
+    {
+        if (empty($fileName)) {
+            return false;
+        }
+        return Storage::disk(env('FILESYSTEM_DRIVER'))->delete($fileName);
     }
 }
 

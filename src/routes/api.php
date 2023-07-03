@@ -28,7 +28,7 @@ Route::group(array('prefix' => '/page'), function () {
     Route::get('/genre-comic/{any?}', [PageController::class, 'GenrePageApi']);
     Route::get('/country-comic/{any?}', [PageController::class, 'CountryPageApi']);
     Route::get('/category-comic/{any?}', [PageController::class, 'CategoryPageApi']);
-    Route::get('/all-comic', [PageController::class, 'GetAllComicApi']);
+    Route::post('/all-comic', [PageController::class, 'GetAllComicApi']);
     Route::post('/filter-genre-comic', [PageController::class, 'FilterComicApi']);
 });
 

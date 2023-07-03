@@ -129,6 +129,7 @@ class ComicService extends BaseService
         $genres = $params['genres'];
         $categories = $params['categories'];
         $countries = $params['countries'];
+        $highlight = $params['highlight'];
 
         $result = $this->comicRepository
             ->select('comics.*', DB::raw('(SELECT created_at FROM chapters WHERE comic_id = comics.id ORDER BY number_chapter DESC LIMIT 1) as latest_chapter_time'))
@@ -169,6 +170,9 @@ class ComicService extends BaseService
                 return $query->whereHas('category', function ($query) use ($categories) {
                     $query->whereIn('id', $categories);
                 });
+            })
+            ->when($highlight, function ($query) {
+                return $query->where('highlight', 1);
             })
             ->where('status', config('const.comic.status.release'))
             ->where('is_visible', config('const.activate.on'))

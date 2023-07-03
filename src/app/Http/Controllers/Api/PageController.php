@@ -107,6 +107,7 @@ class PageController extends Controller
             'categories' => [],
             'softField' => 'latest_chapter_time',
             'softType' => 'DESC',
+            'highlight' => false,
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);
         if ($slug) {
@@ -126,6 +127,7 @@ class PageController extends Controller
             'categories' => [],
             'softField' => 'latest_chapter_time',
             'softType' => 'DESC',
+            'highlight' => false,
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);
         if ($slug) {
@@ -135,8 +137,9 @@ class PageController extends Controller
         return $this->sendResult(Response::HTTP_OK, 'Country Page', $this->data);
     }
 
-    public function GetAllComicApi()
+    public function GetAllComicApi(Request $request)
     {
+        $highlight = isset($request['type']) && $request['type'] == 'highlight' ? true : false;
         $params = [
             'limit' => 15,
             'page' => 1,
@@ -145,6 +148,7 @@ class PageController extends Controller
             'categories' => [],
             'softField' => 'latest_chapter_time',
             'softType' => 'DESC',
+            'highlight' => $highlight,
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi('', $params);
         $this->data['countries'] = $this->countryService->getCountryHasComic(['id', 'name', 'slug', 'avatar']);
@@ -163,6 +167,7 @@ class PageController extends Controller
             'categories' => [],
             'softField' => 'latest_chapter_time',
             'softType' => 'DESC',
+            'highlight' => false,
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi($slug, $params);
         if ($slug) {
@@ -183,6 +188,7 @@ class PageController extends Controller
             'categories' => $data['categories'],
             'softField' => $data['softField'],
             'softType' => $data['softType'],
+            'highlight' => $data['highlight'],
         ];
         $this->data['comics'] = $this->comicService->getFilterComicPaginateApi('', $params);
         return $this->sendResult(Response::HTTP_OK, 'Genre Filter Page', $this->data);

@@ -16,3 +16,11 @@ PUSHER_APP_CLUSTER=ap1
 # Imgur
 IMGUR_CLIENT_ID=d32559c541e9111
 IMGUR_CLIENT_SECRET=1220b07e3dfecd41b6486fc070baf2bbc3e3265c
+
+# Setup Vuejs
+Đối với trường hợp docker file có nodejs là v10 thì xoá docker chạy lại
+- composer require laravel/ui
+- php artisan ui vue
+- php artisan ui vue --auth
+- npm install && npm run dev
+- npm run watch => để lắng nghe sự thay đổi của file

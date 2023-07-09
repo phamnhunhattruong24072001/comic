@@ -14,7 +14,7 @@ if (!function_exists('uploadFile')) {
         if(!Storage::disk(env('FILESYSTEM_DRIVER'))->put($newFileName, fopen($file, 'r+'), 'public')) {
             return '';
         }
-        return Storage::disk('s3')->url($newFileName);
+        return Storage::disk(env('FILESYSTEM_DRIVER'))->url($newFileName);
     }
 }
 

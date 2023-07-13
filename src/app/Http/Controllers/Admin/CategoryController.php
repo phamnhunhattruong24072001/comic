@@ -26,7 +26,7 @@ class CategoryController extends Controller
             'limit' => 10,
         ];
         $data = [
-            'categories' => $this->categoryService->getListModelPaginate($param)
+            'categories' => $this->categoryService->getListModelPaginate($param),
         ];
         return view('admin.categories.list')->with($data);
     }
@@ -50,6 +50,9 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
+        $this->data['category'] = $this->categoryService->findModelById($id);
+        $this->data['countries'] = $this->countryService->getAll(['id', 'name']);
+        $this->data['countrySelected'] = $this->data['category']->countries()->pluck('country_id')->toArray();
         $data = [
             'category' => $this->categoryService->findModelById($id),
             'countries' => $this->countryService->getAll(['id', 'name']),

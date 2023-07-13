@@ -33,17 +33,16 @@ class CountryController extends Controller
     public function create()
     {
         $data = [
-            'country' => new Country()
+            'country' => new Country(),
         ];
         return view('admin.countries.create')->with($data);
-
     }
 
     public function store(CountryRequest $request)
     {
         $data = $request->all();
         if ($request->hasFile('avatar')) {
-            $data['avatar'] = uploadFile('countries', $request->file('avatar'));
+            $data['avatar'] = uploadFile('comic/counties/', $request->file('avatar'));
         }
         $this->countryService->storeModel($data);
         return redirect()->route('admin.country.list');
@@ -52,7 +51,7 @@ class CountryController extends Controller
     public function edit($id)
     {
         $data = [
-            'country' => $this->countryService->findModelById($id)
+            'country' => $this->countryService->findModelById($id),
         ];
         return view('admin.countries.edit')->with($data);
     }
@@ -94,7 +93,7 @@ class CountryController extends Controller
             'limit' => 10,
         ];
         $data = [
-            'countries' => $this->countryService->getListTrashModelPaginate($param)
+            'countries' => $this->countryService->getListTrashModelPaginate($param),
         ];
         return view('admin.countries.trash')->with($data);
     }

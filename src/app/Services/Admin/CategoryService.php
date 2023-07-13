@@ -33,4 +33,8 @@ class CategoryService extends BaseService
         }
         return $result;
     }
+
+    public function forceDeleteMultiple($ids) {
+        return $this->categoryRepository->forceDeleteMultiple($ids);
+    }
 }

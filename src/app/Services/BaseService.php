@@ -40,6 +40,11 @@ class BaseService
         return $this->repository->deleteMultiple($ids);
     }
 
+    public function forceDeleteMultiple(array $ids)
+    {
+        return $this->repository->forceDeleteMultiple($ids);
+    }
+
     public function getAll($columns = ['*'])
     {
         return $this->repository->active()->select($columns)->get();

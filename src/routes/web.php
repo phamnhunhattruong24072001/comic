@@ -11,3 +11,7 @@ Route::get('/change-language/{lang}', [SystemController::class, 'changeLanguage'
 //Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

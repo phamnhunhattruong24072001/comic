@@ -7,14 +7,13 @@ if (!function_exists('uploadFile')) {
     function uploadFile($path, $file, $fileOld = null)
     {
         if(!empty($fileOld)) {
-            $pathFile = substr($fileOld, strlen(env('AWS_URL').'/'));
-            Storage::disk(env('FILESYSTEM_DRIVER'))->delete($pathFile);
+            deleteSingleFile($fileOld);
         }
         $newFileName = $path.'/'.time() . rand(1, 99) . uniqid() . '.' . $file->extension();
         if(!Storage::disk(env('FILESYSTEM_DRIVER'))->put($newFileName, fopen($file, 'r+'), 'public')) {
             return '';
         }
-        return Storage::disk('s3')->url($newFileName);
+        return Storage::disk(env('FILESYSTEM_DRIVER'))->url($newFileName);
     }
 }
 
@@ -25,7 +24,7 @@ if (!function_exists('showFile')) {
             $newFileName = config('const.image.imageNull');
         } else {
             $path = substr($fileName, strlen(env('AWS_URL').'/'));
-            $newFileName = Storage::disk(env('FILESYSTEM_DRIVER'))->exists($path) ? $fileName :config('const.image.imageNull');
+            $newFileName = Storage::disk(env('FILESYSTEM_DRIVER'))->exists($path) ? $fileName : config('const.image.imageNull');
         }
         return $newFileName;
     }
@@ -40,7 +39,7 @@ if (!function_exists('uploadFileMultiple')) {
             if(!Storage::disk(env('FILESYSTEM_DRIVER'))->put($fileName, fopen($file, 'r+'), 'public')) {
                 $file_images[$key] = '';
             }else {
-                $file_images[$key] = Storage::disk('s3')->url($fileName);
+                $file_images[$key] = Storage::disk(env('FILESYSTEM_DRIVER'))->url($fileName);
             }
         }
         return $file_images;
@@ -61,10 +60,15 @@ if (!function_exists('deleteSingleFile')) {
 if (!function_exists('deleteMultipleFile')) {
     function deleteMultipleFile($fileNames)
     {
-        if (empty($fileName)) {
+        if (empty($fileNames)) {
             return false;
         }
-        return Storage::disk(env('FILESYSTEM_DRIVER'))->delete($fileName);
+
+        foreach ($fileNames as $key => $file) {
+            $path = substr($file, strlen(env('AWS_URL').'/'));
+            $fileNames[$key] = $path;
+        }
+        return Storage::disk(env('FILESYSTEM_DRIVER'))->delete($fileNames);
     }
 }
 

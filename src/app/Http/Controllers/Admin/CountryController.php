@@ -24,14 +24,18 @@ class CountryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['countries'] = $this->countryService->getListModelPaginate($param);
-        return view('admin.countries.list')->with($this->data);
+        $data = [
+            'countries' => $this->countryService->getListModelPaginate($param)
+        ];
+        return view('admin.countries.list')->with($data);
     }
 
     public function create()
     {
-        $this->data['country'] = new Country();
-        return view('admin.countries.create')->with($this->data);
+        $data = [
+            'country' => new Country()
+        ];
+        return view('admin.countries.create')->with($data);
 
     }
 
@@ -39,7 +43,7 @@ class CountryController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('avatar')) {
-            $data['avatar'] = uploadFile('comic/counties/', $request->file('avatar'));
+            $data['avatar'] = uploadFile('countries', $request->file('avatar'));
         }
         $this->countryService->storeModel($data);
         return redirect()->route('admin.country.list');
@@ -47,8 +51,10 @@ class CountryController extends Controller
 
     public function edit($id)
     {
-        $this->data['country'] = $this->countryService->findModelById($id);
-        return view('admin.countries.edit')->with($this->data);
+        $data = [
+            'country' => $this->countryService->findModelById($id)
+        ];
+        return view('admin.countries.edit')->with($data);
     }
 
     public function update(CountryRequest $request, $id)
@@ -87,8 +93,10 @@ class CountryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['countries'] = $this->countryService->getListTrashModelPaginate($param);
-        return view('admin.countries.trash')->with($this->data);
+        $data = [
+            'countries' => $this->countryService->getListTrashModelPaginate($param)
+        ];
+        return view('admin.countries.trash')->with($data);
     }
 
     public function status(Request $request)

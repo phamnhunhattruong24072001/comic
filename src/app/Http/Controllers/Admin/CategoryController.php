@@ -25,16 +25,20 @@ class CategoryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['categories'] = $this->categoryService->getListModelPaginate($param);
-        return view('admin.categories.list')->with($this->data);
+        $data = [
+            'categories' => $this->categoryService->getListModelPaginate($param)
+        ];
+        return view('admin.categories.list')->with($data);
     }
 
     public function create()
     {
-        $this->data['category'] = new Category();
-        $this->data['countries'] = $this->countryService->getAll(['id', 'name']);
-        $this->data['countrySelected'] = [];
-        return view('admin.categories.create')->with($this->data);
+        $data = [
+            'category' => new Category(),
+            'countries' => $this->countryService->getAll(['id', 'name']),
+            'countrySelected' => [],
+        ];
+        return view('admin.categories.create')->with($data);
     }
 
     public function store(CategoryRequest $request)
@@ -46,10 +50,12 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $this->data['category'] = $this->categoryService->findModelById($id);
-        $this->data['countries'] = $this->countryService->getAll(['id', 'name']);
-        $this->data['countrySelected'] = $this->data['category']->countries()->pluck('country_id')->toArray();
-        return view('admin.categories.edit')->with($this->data);
+        $data = [
+            'category' => $this->categoryService->findModelById($id),
+            'countries' => $this->countryService->getAll(['id', 'name']),
+            'countrySelected' => $this->categoryService->findModelById($id)->countries()->pluck('country_id')->toArray(),
+        ];
+        return view('admin.categories.edit')->with($data);
     }
 
     public function update(CategoryRequest $request, $id)
@@ -84,8 +90,10 @@ class CategoryController extends Controller
         $param = [
             'limit' => 10,
         ];
-        $this->data['categories'] = $this->categoryService->getListTrashModelPaginate($param);
-        return view('admin.categories.trash')->with($this->data);
+        $data = [
+            'categories' => $this->categoryService->getListTrashModelPaginate($param),
+        ];
+        return view('admin.categories.trash')->with($data);
     }
 
     public function status(Request $request)
